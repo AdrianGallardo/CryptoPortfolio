@@ -46,6 +46,7 @@ class AssetsViewController: UIViewController {
 		if segue.identifier == "addToken" {
 			let addVC = segue.destination as! AddAssetsViewController
 			addVC.listings = self.listings
+			addVC.dataController = self.dataController
 		}
 	}
 

@@ -14,10 +14,11 @@ class AddAssetsViewController: UIViewController {
 
 	var listings: [CoinData] = []
 	var searchToken: [CoinData] = []
+	var dataController: DataController!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		tableView.rowHeight = 107
+		tableView.rowHeight = 54
 	}
 }
 
@@ -35,7 +36,7 @@ extension AddAssetsViewController: UITableViewDataSource, UITableViewDelegate {
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if !searchToken.isEmpty {
-			print("number of rows: \(searchToken.count)")
+			print("search number of rows: \(searchToken.count)")
 			return searchToken.count
 		} else {
 			print("number of rows: \(listings.count)")
@@ -48,8 +49,10 @@ extension AddAssetsViewController: UITableViewDataSource, UITableViewDelegate {
 		var token: CoinData
 
 		if !searchToken.isEmpty {
+			print("search token \(indexPath.row)")
 			token = searchToken[indexPath.row]
 		} else {
+			print("token \(indexPath.row)")
 			token = listings[indexPath.row]
 		}
 
@@ -57,37 +60,43 @@ extension AddAssetsViewController: UITableViewDataSource, UITableViewDelegate {
 		return cell
 	}
 
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		performSegue(withIdentifier: "showNewAsset", sender: nil)
-		tableView.deselectRow(at: indexPath, animated: true)
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		// If this is a NoteDetailsViewController, we'll configure its `Note`
+		// and its delete action
+		if let newAssetVC = segue.destination as? NewAssetViewController {
+			if let indexPath = tableView.indexPathForSelectedRow {
+				newAssetVC.token = listings[indexPath.row]
+				newAssetVC.dataController = dataController
+			}
+		}
 	}
+
 }
 
 class TokenViewCell: UITableViewCell {
-	@IBOutlet weak var logoImageView: UIImageView!
 	@IBOutlet weak var titleLabel: UILabel!
 
 	func setToken(token: CoinData) {
 		print("setToken")
-		Client.getMetadata(id: token.id) { metadata, error in
-			guard let metadata = metadata else {
-				print("setToken error")
-				return
-			}
-			guard let urlLogo = URL(string: metadata.logo) else {
-				print("urlLogo error")
-				return
-			}
+//		Client.getMetadata(id: token.id) { metadata, error in
+//			guard let metadata = metadata else {
+//				print("setToken error")
+//				return
+//			}
+//			guard let urlLogo = URL(string: metadata.logo) else {
+//				print("urlLogo error")
+//				return
+//			}
 
-			Client.downloadLogo(url: urlLogo) { data, error in
-				guard let data = data else {
-					print("dataLogo error")
-					return
-				}
-				self.logoImageView.image = UIImage(data: data)
-			}
-		}
+//			Client.downloadLogo(url: urlLogo) { data, error in
+//				guard let data = data else {
+//					print("dataLogo error")
+//					return
+//				}
+//				self.logoImageView.image = UIImage(data: data)
+//			}
+//		}
 
-		titleLabel.text = "\(token.name) (\(token.symbol)"
+		titleLabel.text = "[\(token.symbol)] - \(token.name)"
 	}
 }
