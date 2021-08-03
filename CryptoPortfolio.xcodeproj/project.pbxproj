@@ -148,11 +148,11 @@
 		75E5B60126321F110024EEB8 /* CryptoPortfolio */ = {
 			isa = PBXGroup;
 			children = (
+				75E5B60626321F110024EEB8 /* AssetsViewController.swift */,
 				759E135A2655AE2300A206C7 /* Model */,
 				75DEF1DE264428730065B9CE /* Networking */,
 				75E5B60226321F110024EEB8 /* AppDelegate.swift */,
 				75E5B60426321F110024EEB8 /* SceneDelegate.swift */,
-				75E5B60626321F110024EEB8 /* AssetsViewController.swift */,
 				75E5B60826321F110024EEB8 /* Main.storyboard */,
 				75E5B60B26321F170024EEB8 /* Assets.xcassets */,
 				75E5B60D26321F170024EEB8 /* LaunchScreen.storyboard */,

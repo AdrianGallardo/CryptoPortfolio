@@ -61,16 +61,21 @@ extension AddAssetsViewController: UITableViewDataSource, UITableViewDelegate {
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		// If this is a NoteDetailsViewController, we'll configure its `Note`
-		// and its delete action
 		if let newAssetVC = segue.destination as? NewAssetViewController {
 			if let indexPath = tableView.indexPathForSelectedRow {
-				newAssetVC.token = listings[indexPath.row]
 				newAssetVC.dataController = dataController
+
+				var token: CoinData!
+				if !searchToken.isEmpty {
+					token = searchToken[indexPath.row]
+				} else {
+					token = listings[indexPath.row]
+				}
+
+				newAssetVC.token = token
 			}
 		}
 	}
-
 }
 
 class TokenViewCell: UITableViewCell {
@@ -78,6 +83,8 @@ class TokenViewCell: UITableViewCell {
 
 	func setToken(token: CoinData) {
 		print("setToken")
+
+// Enables Logo display in the table rows. Consumes API credits.
 //		Client.getMetadata(id: token.id) { metadata, error in
 //			guard let metadata = metadata else {
 //				print("setToken error")

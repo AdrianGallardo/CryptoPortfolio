@@ -24,6 +24,11 @@ class NewAssetViewController: UIViewController {
 		super.viewDidLoad()
 		print("NewAssetVC getLogo")
 
+		cryptoTextBox.text = "\(1)"
+		fiatTextBox.text = String(format: "%.4f", token.quote["USD"]!.price)
+		totalCryptoLabel.text = "1 \(token.symbol)"
+		totalFiatLabel.text = "$ " + String(format: "%.4f", token.quote["USD"]!.price)
+
 		Client.getMetadata(id: token.id) { metadata, error in
 			guard let metadata = metadata else {
 				print("setToken error")
@@ -42,6 +47,5 @@ class NewAssetViewController: UIViewController {
 				self.cryptoLogoImageView.image = UIImage(data: data)
 			}
 		}
-
 	}
 }

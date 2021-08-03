@@ -57,7 +57,6 @@ class AssetsViewController: UIViewController {
 				return
 			}
 			self.listings = listings
-
 			//			print(listings.count)
 			//			if listings.count > 0 {
 			//				print(listings[0].id)
