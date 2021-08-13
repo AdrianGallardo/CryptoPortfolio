@@ -114,7 +114,7 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+ BTC - 999,999,999.99" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kDN-p9-VjK">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999,999,999.99 BTC" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kDN-p9-VjK">
                                         <rect key="frame" x="47" y="95.5" width="320" height="45.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="320" id="AUj-BH-0rG"/>
@@ -124,7 +124,7 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+ $ 9999.99 " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKr-Rh-TgU">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$ 9999.99 " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JKr-Rh-TgU">
                                         <rect key="frame" x="48" y="149" width="320" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -154,7 +154,7 @@
                                                     <constraint firstAttribute="height" constant="48" id="i4U-HF-6GH" userLabel="height = 48"/>
                                                 </constraints>
                                             </imageView>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="999,999,999.99" borderStyle="roundedRect" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="80I-n0-ydT">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="999,999,999.99" borderStyle="roundedRect" placeholder="Total crypto" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="80I-n0-ydT">
                                                 <rect key="frame" x="56" y="0.0" width="294" height="48"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="1pe-rU-tLl"/>
@@ -177,7 +177,7 @@
                                                 <color key="textColor" red="0.78039215689999997" green="0.7725490196" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="999,999,999.99" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s8f-Ff-wev">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="999,999,999.99" borderStyle="roundedRect" placeholder="Total fiat" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s8f-Ff-wev">
                                                 <rect key="frame" x="56" y="0.0" width="294" height="48"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="48" id="R77-oj-dYO"/>
@@ -198,6 +198,9 @@
                                 </constraints>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <state key="normal" title="Add"/>
+                                <connections>
+                                    <action selector="add:" destination="C8B-3Q-9qo" eventType="touchUpInside" id="Yod-Jg-OAq"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="y3P-In-ZTU"/>
@@ -307,7 +310,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" cyan="0.71439195409113043" magenta="0.5763590956220821" yellow="0.24926656484603882" black="0.0" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                <color key="backgroundColor" cyan="0.7143919541" magenta="0.57635909559999998" yellow="0.24926656480000001" black="0.0" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="pef-2d-4dE" firstAttribute="top" secondItem="jUl-sT-6Td" secondAttribute="top" constant="23" id="23s-py-ANk"/>
                                     <constraint firstItem="JAR-ef-zCL" firstAttribute="centerX" secondItem="jUl-sT-6Td" secondAttribute="centerX" id="28R-p9-wJy"/>

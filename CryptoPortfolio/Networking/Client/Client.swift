@@ -39,7 +39,7 @@ class Client {
 
 	class func getMetadata(id: Int, completion: @escaping (Metadata?, Error?) -> Void) {
 		guard let url = Endpoints.metadata(id).url else {
-			print("getMeta")
+			print("getMeta URL error")
 			return
 		}
 
@@ -47,6 +47,22 @@ class Client {
 		taskForGETRequest(url: url, response: MetadataResponse.self) { response, error in
 			if let response = response {
 				completion(response.data[id], nil)
+			} else {
+				completion(nil, error)
+			}
+		}
+	}
+
+	class func getQuotes(id: Int, completion: @escaping (QuotesData?, Error?) -> Void) {
+		guard let url = Endpoints.quotes(id).url else {
+			print("getQuotes URL error")
+			return
+		}
+
+		print("getQuotes")
+		taskForGETRequest(url: url, response: QuotesResponse.self) { response, error in
+			if let response = response {
+				completion(response.data[String(id)], nil)
 			} else {
 				completion(nil, error)
 			}
@@ -71,7 +87,7 @@ class Client {
 
 		let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
 
-			print("taskForGETRequest: data")
+			print("client taskForGETRequest: data -> " + String(data: data!, encoding: .utf8)!)
 
 			guard let data = data else {
 				DispatchQueue.main.async {
@@ -82,13 +98,13 @@ class Client {
 
 			let decoder = JSONDecoder()
 			do {
-				print("decode")
+				print("decode -> " + String(reflecting: data))
 				let responseObject = try decoder.decode(ResponseType.self, from: data)
 				DispatchQueue.main.async {
 					completion(responseObject, nil)
 				}
 			} catch {
-				print("client taskForGETRequest: " +  error.localizedDescription)
+				print("client taskForGETRequest error: " +  error.localizedDescription)
 				DispatchQueue.main.async {
 					completion(nil, error)
 				}
@@ -106,17 +122,18 @@ extension Client{
 
 		static let base = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/"
 		static let apiKey = "cce5ce72-fbb1-4dc6-899b-c8a0df1ae085"
-		static let limit = 5000
 
 		case getIdMap
 		case listingsLatest(String)
 		case metadata(Int)
+		case quotes(Int)
 
 		var stringValue: String {
 			switch self {
 			case .getIdMap: return Endpoints.base + "map"
-			case .listingsLatest(let convert): return Endpoints.base + "listings/latest?start=1&limit=\(Endpoints.limit)&convert=\(convert)"
+			case .listingsLatest(let convert): return Endpoints.base + "listings/latest?convert=\(convert)"
 			case .metadata(let id): return Endpoints.base + "info?id=\(id)"
+			case .quotes(let id): return Endpoints.base + "quotes/latest?id=\(id)"
 			}
 		}
 
