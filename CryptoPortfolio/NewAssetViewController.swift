@@ -11,8 +11,8 @@ import UIKit
 class NewAssetViewController: UIViewController {
 	@IBOutlet weak var totalCryptoLabel: UILabel!
 	@IBOutlet weak var totalFiatLabel: UILabel!
-	@IBOutlet weak var cryptoTextBox: UITextField!
-	@IBOutlet weak var fiatTextBox: UITextField!
+	@IBOutlet weak var cryptoTextField: UITextField!
+	@IBOutlet weak var fiatTextField: UITextField!
 	@IBOutlet weak var cryptoLogoImageView: UIImageView!
 	@IBOutlet weak var fiatSymbolLabel: UILabel!
 	@IBOutlet weak var addButton: UIButton!
@@ -31,8 +31,8 @@ class NewAssetViewController: UIViewController {
 				return
 			}
 			self.price = quotesData.quote["USD"]!.price
-			self.cryptoTextBox.text = "\(1)"
-			self.fiatTextBox.text = String(format: "%.4f", self.price)
+			self.cryptoTextField.text = "\(1)"
+			self.fiatTextField.text = String(format: "%.4f", self.price)
 			self.totalCryptoLabel.text = "1 \(self.token.symbol)"
 			self.totalFiatLabel.text = "$ " + String(format: "%.4f", self.price)
 
@@ -57,8 +57,8 @@ class NewAssetViewController: UIViewController {
 			}
 		}
 
-		cryptoTextBox.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-		fiatTextBox.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+		cryptoTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+		fiatTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 	}
 
 	@objc func textFieldDidChange(_ textField: UITextField) {
@@ -67,18 +67,18 @@ class NewAssetViewController: UIViewController {
 		}
 
 		switch textField {
-		case cryptoTextBox:
-			fiatTextBox.text = String(format: "%.4f", Double(val)! * self.price)
+		case cryptoTextField:
+			fiatTextField.text = String(format: "%.4f", Double(val)! * self.price)
 			break
-		case fiatTextBox:
-			cryptoTextBox.text = String(format: "%.4f", Double(val)! / self.price)
+		case fiatTextField:
+			cryptoTextField.text = String(format: "%.4f", Double(val)! / self.price)
 			break
 		default:
 		break
 		}
 
-		totalCryptoLabel.text = cryptoTextBox.text! + " " + token.symbol
-		totalFiatLabel.text = "$" + " " + fiatTextBox.text!
+		totalCryptoLabel.text = cryptoTextField.text! + " " + token.symbol
+		totalFiatLabel.text = "$" + " " + fiatTextField.text!
 	}
 
 	@IBAction func add(_ sender: Any) {
@@ -86,7 +86,7 @@ class NewAssetViewController: UIViewController {
 		asset.id = Int32(token.id)
 		asset.logo = logoData
 		asset.symbol = token.symbol
-		asset.total = Double(cryptoTextBox.text!)!
+		asset.total = Double(cryptoTextField.text!)!
 
 		if self.dataController.viewContext.hasChanges {
 			print("saving asset")

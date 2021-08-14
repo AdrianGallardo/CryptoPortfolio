@@ -83,11 +83,11 @@ class Client {
 		var request = URLRequest(url: url)
 		request.setValue(Endpoints.apiKey, forHTTPHeaderField: "X-CMC_PRO_API_KEY")
 
-		print("taskForGETRequest: url -> " + String(reflecting: url))
+//		print("taskForGETRequest: url -> " + String(reflecting: url))
 
 		let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
 
-			print("client taskForGETRequest: data -> " + String(data: data!, encoding: .utf8)!)
+//			print("client taskForGETRequest: data -> " + String(data: data!, encoding: .utf8)!)
 
 			guard let data = data else {
 				DispatchQueue.main.async {
@@ -98,7 +98,7 @@ class Client {
 
 			let decoder = JSONDecoder()
 			do {
-				print("decode -> " + String(reflecting: data))
+//				print("decode -> " + String(reflecting: data))
 				let responseObject = try decoder.decode(ResponseType.self, from: data)
 				DispatchQueue.main.async {
 					completion(responseObject, nil)

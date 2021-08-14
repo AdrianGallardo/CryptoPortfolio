@@ -24,24 +24,32 @@ class AssetsViewController: UIViewController {
 	var fetchedResultsController: NSFetchedResultsController<Asset>!
 	var saveObserverToken: Any?
 
-	var fakeAssets: [FakeAsset] = [FakeAsset(logo: "btc", symbol: "BTC", id: 1, total: 99999999.9999, price: 9999999.99, priceChange: 1000),
-																 FakeAsset(logo: "eth", symbol: "ETH", id: 1027, total: 99999999.9999, price: 9999999.99, priceChange: -1000),
-																 FakeAsset(logo: "tether", symbol: "USDT", id: 825, total: 99999999.9999, price: 9999999.99, priceChange: 1000),
-																 FakeAsset(logo: "bnb", symbol: "BNB", id: 1839, total: 99999999.9999, price: 9999999.99, priceChange: -1000),
-																 FakeAsset(logo: "ada", symbol: "ADA", id: 2010, total: 99999999.9999, price: 9999999.99, priceChange: 1000)]
-
-	@IBOutlet weak var totalLabel: UILabel!
-	@IBOutlet weak var profitsLabel: UILabel!
+	@IBOutlet weak var totalFiatLabel: UILabel!
+	@IBOutlet weak var totalCryptoLabel: UILabel!
 	@IBOutlet weak var assetsOverviewView: UIView!
 	@IBOutlet weak var assetsTableView: UITableView!
 
 //	MARK: - Lifecycle
+	lazy var gradient: CAGradientLayer = {
+		let gradient = CAGradientLayer()
+		gradient.type = .axial
+		gradient.colors = [
+			UIColor(red: 0.33, green: 0.41, blue: 0.46, alpha: 1.00).cgColor,
+			UIColor(red: 0.16, green: 0.18, blue: 0.29, alpha: 1.00).cgColor
+		]
+		gradient.locations = [0, 0.25, 1]
+		return gradient
+	}()
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
 		//Do any additional setup after loading the view
 		assetsTableView.rowHeight = 107;
-		addSaveNotificationObserver()
+		gradient.frame = assetsOverviewView.bounds
+		assetsOverviewView.layer.insertSublayer(gradient, at: 0)
 
+		addSaveNotificationObserver()
 		setupListings()
 	}
 
@@ -74,10 +82,13 @@ class AssetsViewController: UIViewController {
 		}
 	}
 
-	fileprivate func formattedValue(_ value :Double, decimals: Int) -> String{
+	fileprivate func formattedValue(_ value :Double, decimals: Int, pSign: Bool = false) -> String{
 		let formatter = NumberFormatter()
 		formatter.numberStyle = .decimal
 		formatter.maximumFractionDigits = 2
+		if pSign {
+			formatter.positivePrefix = "+"
+		}
 		return formatter.string(from: NSNumber(value: value))!
 	}
 
@@ -116,7 +127,7 @@ class AssetsViewController: UIViewController {
 				total = total + asset.total
 			}
 
-			self.totalLabel.text = "$ " + formattedValue(total, decimals: 2)
+			self.totalFiatLabel.text = "$ " + formattedValue(total, decimals: 2)
 		}
 	}
 }
@@ -234,23 +245,23 @@ class AssetViewCell: UITableViewCell {
 			self.symbolLabel.text = asset.symbol
 			self.totalLabel.text = self.formattedValue(asset.total, decimals: 2) + " " + asset.symbol!
 			self.priceLabel.text = "$ " + self.formattedValue(quotesData.quote["USD"]!.price, decimals: 2)
-			self.percentchangeLabel.text = self.formattedValue(quotesData.quote["USD"]!.percent_change_24h, decimals: 2) + " %"
+			self.percentchangeLabel.text = self.formattedValue(quotesData.quote["USD"]!.percent_change_24h, decimals: 2, pSign: true) + "%"
+
+			if self.percentchangeLabel.text!.starts(with: "+") {
+				self.percentchangeLabel.textColor = UIColor.green
+			} else if self.percentchangeLabel.text!.starts(with: "-"){
+				self.percentchangeLabel.textColor = UIColor.red
+			}
 		}
 	}
 
-	func setFakeAsset(fakeAsset: FakeAsset) {
-		print(String(reflecting: fakeAsset))
-		//		self.logoImageView.image = nil
-		self.symbolLabel.text = fakeAsset.symbol
-		self.priceLabel.text = "$ " + String(fakeAsset.price)
-		self.totalLabel.text = String(fakeAsset.total) + " BTC"
-		self.percentchangeLabel.text = fakeAsset.priceChange > 0 ? "+ " + String(fakeAsset.priceChange) + " %" : String(fakeAsset.priceChange) + " %"
-	}
-
-	fileprivate func formattedValue(_ value :Double, decimals: Int) -> String{
+	fileprivate func formattedValue(_ value :Double, decimals: Int, pSign: Bool = false) -> String{
 		let formatter = NumberFormatter()
 		formatter.numberStyle = .decimal
 		formatter.maximumFractionDigits = 2
+		if pSign {
+			formatter.positivePrefix = "+"
+		}
 		return formatter.string(from: NSNumber(value: value))!
 	}
 }

@@ -220,9 +220,9 @@
                     <connections>
                         <outlet property="addButton" destination="ugv-8b-lt4" id="g0a-3j-xsb"/>
                         <outlet property="cryptoLogoImageView" destination="Vnn-93-qyH" id="GoB-dp-8V5"/>
-                        <outlet property="cryptoTextBox" destination="80I-n0-ydT" id="oQ0-jA-JDX"/>
+                        <outlet property="cryptoTextField" destination="80I-n0-ydT" id="acS-IK-fcX"/>
                         <outlet property="fiatSymbolLabel" destination="Zig-YF-t6R" id="dK5-AB-duS"/>
-                        <outlet property="fiatTextBox" destination="s8f-Ff-wev" id="P7l-ol-kHe"/>
+                        <outlet property="fiatTextField" destination="s8f-Ff-wev" id="f6l-12-QQl"/>
                         <outlet property="totalCryptoLabel" destination="kDN-p9-VjK" id="bIF-Y4-BvQ"/>
                         <outlet property="totalFiatLabel" destination="JKr-Rh-TgU" id="c6T-Q4-9O6"/>
                     </connections>
@@ -288,7 +288,7 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="+ 9999.99 (999.99%)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZH-bn-JNv">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="≈ 9999999999 BTC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZH-bn-JNv">
                                         <rect key="frame" x="48" y="149" width="320" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -393,7 +393,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.2485779524" green="0.27948105340000001" blue="0.40001404289999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="backgroundColor" red="0.24705882352941178" green="0.27843137254901962" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="hs1-SD-mns" firstAttribute="leading" secondItem="7jH-8A-Mkd" secondAttribute="trailing" constant="8" id="3NZ-dZ-KqB"/>
@@ -438,8 +438,8 @@
                     <connections>
                         <outlet property="assetsOverviewView" destination="jUl-sT-6Td" id="RXI-GN-SNH"/>
                         <outlet property="assetsTableView" destination="RSs-ui-fKH" id="53a-q7-LuP"/>
-                        <outlet property="profitsLabel" destination="7ZH-bn-JNv" id="ZA8-2V-37o"/>
-                        <outlet property="totalLabel" destination="JAR-ef-zCL" id="XwW-1c-6G3"/>
+                        <outlet property="totalCryptoLabel" destination="7ZH-bn-JNv" id="oAb-qR-a3u"/>
+                        <outlet property="totalFiatLabel" destination="JAR-ef-zCL" id="itI-Ax-G94"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eRD-tH-8mB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
