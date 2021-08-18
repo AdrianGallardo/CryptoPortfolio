@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class NewAssetViewController: UIViewController {
 	@IBOutlet weak var totalCryptoLabel: UILabel!
@@ -24,7 +25,7 @@ class NewAssetViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
 		Client.getQuotes(id: token.id) { quotesData, error in
 			guard let quotesData = quotesData else {
 				print("NewAssetVC getQuotes error")
@@ -61,6 +62,10 @@ class NewAssetViewController: UIViewController {
 		fiatTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		self.navigationController?.isNavigationBarHidden = false
+	}
+
 	@objc func textFieldDidChange(_ textField: UITextField) {
 		guard let val = textField.text, !val.isEmpty else {
 			return
@@ -82,11 +87,29 @@ class NewAssetViewController: UIViewController {
 	}
 
 	@IBAction func add(_ sender: Any) {
-		let asset = Asset(context: self.dataController.viewContext)
-		asset.id = Int32(token.id)
-		asset.logo = logoData
-		asset.symbol = token.symbol
-		asset.total = Double(cryptoTextField.text!)!
+		let alert = UIAlertController(title: "New Asset", message: "\nAdd \(cryptoTextField.text ?? "0") \(self.token.symbol) Tokens to your assets?\n", preferredStyle: .alert)
+
+		alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+			self.save()
+		}))
+		alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+
+		self.present(alert, animated: true)
+	}
+
+	func save() {
+		let fetchRequest: NSFetchRequest<Asset> = Asset.fetchRequest()
+		fetchRequest.predicate = NSPredicate(format: "id == %@", String(token.id))
+
+		if let result = try? dataController.viewContext.fetch(fetchRequest), result.count > 0 {
+			result[0].setValue(result[0].total + Double(cryptoTextField.text!)!, forKey: "total")
+		} else {
+			let asset = Asset(context: self.dataController.viewContext)
+			asset.id = Int32(token.id)
+			asset.logo = logoData
+			asset.symbol = token.symbol
+			asset.total = Double(cryptoTextField.text!)!
+		}
 
 		if self.dataController.viewContext.hasChanges {
 			print("saving asset")
@@ -97,5 +120,7 @@ class NewAssetViewController: UIViewController {
 				print(error.localizedDescription)
 			}
 		}
+
+		navigationController?.popToRootViewController(animated: true)
 	}
 }

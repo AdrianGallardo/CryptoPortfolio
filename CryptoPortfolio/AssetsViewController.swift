@@ -8,15 +8,6 @@
 import UIKit
 import CoreData
 
-struct FakeAsset {
-	var logo: String
-	var symbol: String
-	var id: Int
-	var total: Double
-	var price: Double
-	var priceChange: Double
-}
-
 class AssetsViewController: UIViewController {
 
 	var listings: [CoinData] = []
@@ -24,30 +15,21 @@ class AssetsViewController: UIViewController {
 	var fetchedResultsController: NSFetchedResultsController<Asset>!
 	var saveObserverToken: Any?
 
+	let colorsMidnight = [UIColor(red: 0.25, green: 0.26, blue: 0.27, alpha: 1.00).cgColor,
+												UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00).cgColor]
+
 	@IBOutlet weak var totalFiatLabel: UILabel!
 	@IBOutlet weak var totalCryptoLabel: UILabel!
 	@IBOutlet weak var assetsOverviewView: UIView!
 	@IBOutlet weak var assetsTableView: UITableView!
 
 //	MARK: - Lifecycle
-	lazy var gradient: CAGradientLayer = {
-		let gradient = CAGradientLayer()
-		gradient.type = .axial
-		gradient.colors = [
-			UIColor(red: 0.33, green: 0.41, blue: 0.46, alpha: 1.00).cgColor,
-			UIColor(red: 0.16, green: 0.18, blue: 0.29, alpha: 1.00).cgColor
-		]
-		gradient.locations = [0, 0.25, 1]
-		return gradient
-	}()
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
 		//Do any additional setup after loading the view
 		assetsTableView.rowHeight = 107;
-		gradient.frame = assetsOverviewView.bounds
-		assetsOverviewView.layer.insertSublayer(gradient, at: 0)
+		assetsOverviewView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.axial)
 
 		addSaveNotificationObserver()
 		setupListings()
@@ -56,6 +38,8 @@ class AssetsViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		setupFetchedResultsController()
 		updateTotalProfits()
+
+		self.navigationController?.isNavigationBarHidden = true
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
@@ -144,7 +128,6 @@ extension AssetsViewController: UITableViewDataSource, UITableViewDelegate {
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let asset = fetchedResultsController.object(at: indexPath)
-		//	let cell = tableView.dequeueReusableCell(withIdentifier: AssetViewCell.defaultReuseIdentifier, for: indexPath) as! AssetViewCell
 
 		// Configure cell
 		let cell = tableView.dequeueReusableCell(withIdentifier: "assetViewCell") as! AssetViewCell
@@ -230,6 +213,14 @@ class AssetViewCell: UITableViewCell {
 	@IBOutlet weak var totalLabel: UILabel!
 	@IBOutlet weak var percentchangeLabel: UILabel!
 
+	let colorsMidnight = [UIColor(red: 0.25, green: 0.26, blue: 0.27, alpha: 1.00).cgColor,
+												UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00).cgColor]
+
+	override func awakeFromNib() {
+		super.awakeFromNib()
+		self.contentView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.radial)
+	}
+
 	func setAsset(asset: Asset) {
 		guard let logoData = asset.logo else {
 			return
@@ -248,9 +239,9 @@ class AssetViewCell: UITableViewCell {
 			self.percentchangeLabel.text = self.formattedValue(quotesData.quote["USD"]!.percent_change_24h, decimals: 2, pSign: true) + "%"
 
 			if self.percentchangeLabel.text!.starts(with: "+") {
-				self.percentchangeLabel.textColor = UIColor.green
+				self.percentchangeLabel.textColor = UIColor(red: 0.22, green: 0.94, blue: 0.49, alpha: 1.00)
 			} else if self.percentchangeLabel.text!.starts(with: "-"){
-				self.percentchangeLabel.textColor = UIColor.red
+				self.percentchangeLabel.textColor = UIColor(red: 1.00, green: 0.25, blue: 0.42, alpha: 1.00)
 			}
 		}
 	}

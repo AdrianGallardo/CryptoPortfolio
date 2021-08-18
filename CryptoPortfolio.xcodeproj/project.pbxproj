@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7530890426CAEFB5001C3784 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7530890326CAEFB5001C3784 /* Extensions.swift */; };
 		753A257B26C32C980012E1E7 /* QuotesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A257A26C32C980012E1E7 /* QuotesResponse.swift */; };
 		755C8CAB265339C70038E2F5 /* ListingsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C8CAA265339C70038E2F5 /* ListingsResponse.swift */; };
 		758C3DA7268A974100617761 /* AddAssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3DA6268A974100617761 /* AddAssetsViewController.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7530890326CAEFB5001C3784 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		753A257A26C32C980012E1E7 /* QuotesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesResponse.swift; sourceTree = "<group>"; };
 		755C8CAA265339C70038E2F5 /* ListingsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsResponse.swift; sourceTree = "<group>"; };
 		758C3DA6268A974100617761 /* AddAssetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssetsViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				75E5B60226321F110024EEB8 /* AppDelegate.swift */,
 				75E5B60426321F110024EEB8 /* SceneDelegate.swift */,
 				75E5B60826321F110024EEB8 /* Main.storyboard */,
+				7530890326CAEFB5001C3784 /* Extensions.swift */,
 				75E5B60B26321F170024EEB8 /* Assets.xcassets */,
 				75E5B60D26321F170024EEB8 /* LaunchScreen.storyboard */,
 				75E5B61026321F170024EEB8 /* Info.plist */,
@@ -321,6 +324,7 @@
 				759E13602655AF2A00A206C7 /* CryptoPortfolio.xcdatamodeld in Sources */,
 				75E991B2269CFFED009F0289 /* MetadataResponse.swift in Sources */,
 				75E991B4269E4D0A009F0289 /* NewAssetViewController.swift in Sources */,
+				7530890426CAEFB5001C3784 /* Extensions.swift in Sources */,
 				758C3DA9268C23E500617761 /* DataController.swift in Sources */,
 				755C8CAB265339C70038E2F5 /* ListingsResponse.swift in Sources */,
 				75E5B60526321F110024EEB8 /* SceneDelegate.swift in Sources */,
