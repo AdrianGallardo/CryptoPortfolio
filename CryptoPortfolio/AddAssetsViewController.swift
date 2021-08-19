@@ -16,9 +16,12 @@ class AddAssetsViewController: UIViewController {
 	var searchToken: [CoinData] = []
 	var dataController: DataController!
 
+// MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
 		tableView.rowHeight = 81
+		searchBar.searchTextField.leftView?.tintColor = UIColor(red: 199, green: 197, blue: 197, alpha: 1.0)
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -26,13 +29,15 @@ class AddAssetsViewController: UIViewController {
 	}
 }
 
+// MARK: - UISearchBar Delegate
 extension AddAssetsViewController: UISearchBarDelegate {
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-		searchToken = listings.filter({$0.name.prefix(searchText.count) == searchText})
+		searchToken = listings.filter({$0.name.prefix(searchText.count).lowercased() == searchText.lowercased() || $0.symbol.prefix(searchText.count).lowercased() == searchText.lowercased()})
 		tableView.reloadData()
 	}
 }
 
+// MARK: - UITableView Delegate
 extension AddAssetsViewController: UITableViewDataSource, UITableViewDelegate {
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
@@ -82,9 +87,10 @@ extension AddAssetsViewController: UITableViewDataSource, UITableViewDelegate {
 	}
 }
 
+// MARK: - TokenViewCell
 class TokenViewCell: UITableViewCell {
 	@IBOutlet weak var titleLabel: UILabel!
-	@IBOutlet weak var logoImageView: UIImageView!
+//	@IBOutlet weak var logoImageView: UIImageView!
 
 	override func awakeFromNib() {
 		super.awakeFromNib()

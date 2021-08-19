@@ -13,6 +13,7 @@
 		758C3DA7268A974100617761 /* AddAssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3DA6268A974100617761 /* AddAssetsViewController.swift */; };
 		758C3DA9268C23E500617761 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C3DA8268C23E400617761 /* DataController.swift */; };
 		759E13602655AF2A00A206C7 /* CryptoPortfolio.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 759E135E2655AF2A00A206C7 /* CryptoPortfolio.xcdatamodeld */; };
+		75CEE17D26CE2A3300B05F56 /* EditAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CEE17C26CE2A3300B05F56 /* EditAssetViewController.swift */; };
 		75DEF1E0264428940065B9CE /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DEF1DF264428940065B9CE /* Client.swift */; };
 		75E5B60326321F110024EEB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E5B60226321F110024EEB8 /* AppDelegate.swift */; };
 		75E5B60526321F110024EEB8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E5B60426321F110024EEB8 /* SceneDelegate.swift */; };
@@ -50,6 +51,7 @@
 		758C3DA6268A974100617761 /* AddAssetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssetsViewController.swift; sourceTree = "<group>"; };
 		758C3DA8268C23E400617761 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		759E135F2655AF2A00A206C7 /* CryptoPortfolio.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CryptoPortfolio.xcdatamodel; sourceTree = "<group>"; };
+		75CEE17C26CE2A3300B05F56 /* EditAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAssetViewController.swift; sourceTree = "<group>"; };
 		75DEF1DF264428940065B9CE /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		75E5B5FF26321F110024EEB8 /* CryptoPortfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoPortfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75E5B60226321F110024EEB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				75E5B61026321F170024EEB8 /* Info.plist */,
 				758C3DA6268A974100617761 /* AddAssetsViewController.swift */,
 				75E991B3269E4D09009F0289 /* NewAssetViewController.swift */,
+				75CEE17C26CE2A3300B05F56 /* EditAssetViewController.swift */,
 			);
 			path = CryptoPortfolio;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				75E991B4269E4D0A009F0289 /* NewAssetViewController.swift in Sources */,
 				7530890426CAEFB5001C3784 /* Extensions.swift in Sources */,
 				758C3DA9268C23E500617761 /* DataController.swift in Sources */,
+				75CEE17D26CE2A3300B05F56 /* EditAssetViewController.swift in Sources */,
 				755C8CAB265339C70038E2F5 /* ListingsResponse.swift in Sources */,
 				75E5B60526321F110024EEB8 /* SceneDelegate.swift in Sources */,
 				753A257B26C32C980012E1E7 /* QuotesResponse.swift in Sources */,

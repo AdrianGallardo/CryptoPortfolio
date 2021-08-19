@@ -14,8 +14,6 @@ struct Quote: Codable {
 	let percent_change_24h: Double
 	let percent_change_7d: Double
 	let percent_change_30d: Double
-	let percent_change_60d: Double
-	let percent_change_90d: Double
 	let market_cap: Double
 }
 

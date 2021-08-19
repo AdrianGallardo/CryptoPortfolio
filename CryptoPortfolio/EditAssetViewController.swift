@@ -1,15 +1,15 @@
 //
-//  NewAssetViewController.swift
+//  EditAssetViewController.swift
 //  CryptoPortfolio
 //
-//  Created by Adrian Gallardo on 13/07/21.
+//  Created by Adrian Gallardo on 19/08/21.
 //
 
 import Foundation
 import UIKit
 import CoreData
 
-class NewAssetViewController: UIViewController {
+class EditAssetViewController: UIViewController {
 	@IBOutlet weak var totalCryptoLabel: UILabel!
 	@IBOutlet weak var totalFiatLabel: UILabel!
 	@IBOutlet weak var cryptoTextField: UITextField!
@@ -32,11 +32,11 @@ class NewAssetViewController: UIViewController {
 	let colorsMidnight = [UIColor(red: 0.25, green: 0.26, blue: 0.27, alpha: 1.00).cgColor,
 												UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00).cgColor]
 
-// MARK: - Lifecycle
+	// MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		totalOverViewView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.axial)
-		
+
 		Client.getQuotes(id: token.id) { quotesData, error in
 			guard let quotesData = quotesData else {
 				print("NewAssetVC getQuotes error")
@@ -86,7 +86,7 @@ class NewAssetViewController: UIViewController {
 		self.navigationController?.isNavigationBarHidden = false
 	}
 
-// MARK: - Auxiliar Functions
+	// MARK: - Auxiliar Functions
 	@objc func textFieldDidChange(_ textField: UITextField) {
 		guard let val = textField.text, !val.isEmpty else {
 			return
@@ -100,7 +100,7 @@ class NewAssetViewController: UIViewController {
 			cryptoTextField.text = String(format: "%.4f", Double(val)! / self.price!)
 			break
 		default:
-		break
+			break
 		}
 
 		totalCryptoLabel.text = cryptoTextField.text! + " " + token.symbol

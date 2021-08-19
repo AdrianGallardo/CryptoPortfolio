@@ -37,7 +37,7 @@ class AssetsViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		setupFetchedResultsController()
-		updateTotalProfits()
+		updateQuotes()
 
 		self.navigationController?.isNavigationBarHidden = true
 	}
@@ -69,7 +69,7 @@ class AssetsViewController: UIViewController {
 	fileprivate func formattedValue(_ value :Double, decimals: Int, pSign: Bool = false) -> String{
 		let formatter = NumberFormatter()
 		formatter.numberStyle = .decimal
-		formatter.maximumFractionDigits = 2
+		formatter.maximumFractionDigits = decimals
 		if pSign {
 			formatter.positivePrefix = "+"
 		}
@@ -100,23 +100,52 @@ class AssetsViewController: UIViewController {
 		let assetToDelete = fetchedResultsController.object(at: indexPath)
 		dataController.viewContext.delete(assetToDelete)
 		try? dataController.viewContext.save()
+		updateQuotes()
 	}
 
-	func updateTotalProfits() {
-		let feechRequest: NSFetchRequest<Asset> = Asset.fetchRequest()
-		if let result = try? dataController.viewContext.fetch(feechRequest) {
-			let assets = result
-			var total: Double = 0
-			for asset in assets {
-				total = total + asset.total
-			}
+	func updateQuotes() {
+		var newTotal: Double = 0
+		self.totalFiatLabel.text = "$ 0"
 
-			self.totalFiatLabel.text = "$ " + formattedValue(total, decimals: 2)
+		let fetchRequest: NSFetchRequest<Asset> = Asset.fetchRequest()
+
+		if let result = try? dataController.viewContext.fetch(fetchRequest), result.count > 0 {
+			for asset in result {
+				Client.getQuotes(id: Int(asset.id)) { quotesData, error in
+					guard let quotesData = quotesData else {
+						print("NewAssetVC getQuotes error")
+						return
+					}
+					let quotes = quotesData.quote["USD"]!
+
+					asset.setValue(quotes.percent_change_1h, forKey: "pchange1h")
+					asset.setValue(quotes.percent_change_7d, forKey: "pchange7d")
+					asset.setValue(quotes.percent_change_24h, forKey: "pchange24h")
+					asset.setValue(quotes.percent_change_30d, forKey: "pchange30d")
+					asset.setValue(quotes.price, forKey: "price")
+					asset.setValue(asset.total * quotes.price, forKey: "val")
+
+					if self.dataController.viewContext.hasChanges {
+						print("saving asset")
+						do {
+							try self.dataController.viewContext.save()
+							print("asset saved")
+
+							newTotal = newTotal + (quotes.price * asset.total)
+							self.totalFiatLabel.text = self.formattedValue(newTotal, decimals: 2)
+
+						} catch {
+							print(error.localizedDescription)
+						}
+					}
+				}
+			}
 		}
 	}
+
 }
 
-// MARK: - TableView DataSource
+// MARK: - UITableView Delegate
 extension AssetsViewController: UITableViewDataSource, UITableViewDelegate {
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return fetchedResultsController.sections?.count ?? 1
@@ -134,6 +163,20 @@ extension AssetsViewController: UITableViewDataSource, UITableViewDelegate {
 		cell.setAsset(asset: asset)
 
 		return cell
+	}
+
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let asset = fetchedResultsController.object(at: indexPath)
+
+		let alert = UIAlertController(title: (asset.name ?? ""), message: asset.symbol, preferredStyle: .actionSheet)
+		alert.addAction(UIAlertAction(title: "Edit Asset", style: .default, handler: nil))
+		alert.addAction(UIAlertAction(title: "Delete Asset", style: .destructive, handler: { action in
+			self.deleteAsset(at: indexPath)
+		}))
+		alert.addAction(UIAlertAction(title: "Info", style: .default, handler: nil))
+		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+		self.present(alert, animated: true)
 	}
 
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -226,30 +269,23 @@ class AssetViewCell: UITableViewCell {
 			return
 		}
 
-		Client.getQuotes(id: Int(asset.id)) { quotesData, error in
-			guard let quotesData = quotesData else {
-				print("setAsset quotesData error")
-				return
-			}
+		self.logoImageView.image = UIImage(data: logoData)
+		self.symbolLabel.text = asset.symbol
+		self.totalLabel.text = self.formattedValue(asset.total, decimals: 4) + " " + asset.symbol!
+		self.priceLabel.text = "$ " + self.formattedValue(asset.val, decimals: 2)
+		self.percentchangeLabel.text = self.formattedValue(asset.pchange24h, decimals: 2, pSign: true) + "%"
 
-			self.logoImageView.image = UIImage(data: logoData)
-			self.symbolLabel.text = asset.symbol
-			self.totalLabel.text = self.formattedValue(asset.total, decimals: 2) + " " + asset.symbol!
-			self.priceLabel.text = "$ " + self.formattedValue(quotesData.quote["USD"]!.price, decimals: 2)
-			self.percentchangeLabel.text = self.formattedValue(quotesData.quote["USD"]!.percent_change_24h, decimals: 2, pSign: true) + "%"
-
-			if self.percentchangeLabel.text!.starts(with: "+") {
-				self.percentchangeLabel.textColor = UIColor(red: 0.22, green: 0.94, blue: 0.49, alpha: 1.00)
-			} else if self.percentchangeLabel.text!.starts(with: "-"){
-				self.percentchangeLabel.textColor = UIColor(red: 1.00, green: 0.25, blue: 0.42, alpha: 1.00)
-			}
+		if self.percentchangeLabel.text!.starts(with: "+") {
+			self.percentchangeLabel.textColor = UIColor(red: 0.22, green: 0.94, blue: 0.49, alpha: 1.00)
+		} else if self.percentchangeLabel.text!.starts(with: "-"){
+			self.percentchangeLabel.textColor = UIColor(red: 1.00, green: 0.25, blue: 0.42, alpha: 1.00)
 		}
 	}
 
 	fileprivate func formattedValue(_ value :Double, decimals: Int, pSign: Bool = false) -> String{
 		let formatter = NumberFormatter()
 		formatter.numberStyle = .decimal
-		formatter.maximumFractionDigits = 2
+		formatter.maximumFractionDigits = decimals
 		if pSign {
 			formatter.positivePrefix = "+"
 		}
