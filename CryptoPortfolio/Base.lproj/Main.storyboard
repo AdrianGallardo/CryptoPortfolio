@@ -531,7 +531,7 @@
         <!--Edit Asset View Controller-->
         <scene sceneID="49R-gM-fI4">
             <objects>
-                <viewController id="U6r-Ct-Cjj" customClass="EditAssetViewController" customModule="CryptoPortfolio" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="editAssetViewController" id="U6r-Ct-Cjj" customClass="EditAssetViewController" customModule="CryptoPortfolio" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kio-9F-qNL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

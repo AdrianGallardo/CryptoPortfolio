@@ -169,11 +169,22 @@ extension AssetsViewController: UITableViewDataSource, UITableViewDelegate {
 		let asset = fetchedResultsController.object(at: indexPath)
 
 		let alert = UIAlertController(title: (asset.name ?? ""), message: asset.symbol, preferredStyle: .actionSheet)
-		alert.addAction(UIAlertAction(title: "Edit Asset", style: .default, handler: nil))
+
+		alert.addAction(UIAlertAction(title: "Edit Asset", style: .default, handler: { action in
+			if let editAssetVC = self.storyboard!.instantiateViewController(withIdentifier: "editAssetViewController") as? EditAssetViewController {
+				editAssetVC.asset = asset
+				editAssetVC.dataController = self.dataController
+
+				self.navigationController!.pushViewController(editAssetVC, animated: true)
+			}
+		}))
+
 		alert.addAction(UIAlertAction(title: "Delete Asset", style: .destructive, handler: { action in
 			self.deleteAsset(at: indexPath)
 		}))
+
 		alert.addAction(UIAlertAction(title: "Info", style: .default, handler: nil))
+
 		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
 		self.present(alert, animated: true)

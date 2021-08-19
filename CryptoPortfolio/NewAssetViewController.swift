@@ -21,6 +21,7 @@ class NewAssetViewController: UIViewController {
 
 	var token: CoinData!
 	var dataController: DataController!
+	
 	var logoData: Data?
 	var name: String?
 	var price: Double?
