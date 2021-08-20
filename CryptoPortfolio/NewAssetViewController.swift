@@ -21,7 +21,7 @@ class NewAssetViewController: UIViewController {
 
 	var token: CoinData!
 	var dataController: DataController!
-	
+
 	var logoData: Data?
 	var name: String?
 	var price: Double?
@@ -33,7 +33,7 @@ class NewAssetViewController: UIViewController {
 	let colorsMidnight = [UIColor(red: 0.25, green: 0.26, blue: 0.27, alpha: 1.00).cgColor,
 												UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00).cgColor]
 
-// MARK: - Lifecycle
+	// MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -44,7 +44,7 @@ class NewAssetViewController: UIViewController {
 		fiatTextField.clipsToBounds = true
 
 		totalOverViewView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.axial)
-		
+
 		Client.getQuotes(id: token.id) { quotesData, error in
 			guard let quotesData = quotesData else {
 				print("NewAssetVC getQuotes error")
@@ -58,10 +58,10 @@ class NewAssetViewController: UIViewController {
 			self.pChange7d = quotes.percent_change_7d
 			self.pChange30d = quotes.percent_change_30d
 
-			self.cryptoTextField.text = "\(1)"
-			self.fiatTextField.text = String(format: "%.4f", self.price!)
+			self.cryptoTextField.text = "1"
+			self.fiatTextField.text = String(format: "%.2f", self.price!)
 			self.totalCryptoLabel.text = "1 \(self.token.symbol)"
-			self.totalFiatLabel.text = "$ " + String(format: "%.4f", self.price!)
+			self.totalFiatLabel.text = "$ " + self.formattedValue(self.price!, decimals: 2)
 
 			Client.getMetadata(id: self.token.id) { metadata, error in
 				guard let metadata = metadata else {
@@ -90,29 +90,10 @@ class NewAssetViewController: UIViewController {
 		fiatTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 	}
 
+	// MARK: - Actions
+
 	override func viewWillAppear(_ animated: Bool) {
 		self.navigationController?.isNavigationBarHidden = false
-	}
-
-// MARK: - Auxiliar Functions
-	@objc func textFieldDidChange(_ textField: UITextField) {
-		guard let val = textField.text, !val.isEmpty else {
-			return
-		}
-
-		switch textField {
-		case cryptoTextField:
-			fiatTextField.text = String(format: "%.4f", Double(val)! * self.price!)
-			break
-		case fiatTextField:
-			cryptoTextField.text = String(format: "%.4f", Double(val)! / self.price!)
-			break
-		default:
-		break
-		}
-
-		totalCryptoLabel.text = cryptoTextField.text! + " " + token.symbol
-		totalFiatLabel.text = "$" + " " + fiatTextField.text!
 	}
 
 	@IBAction func add(_ sender: Any) {
@@ -124,6 +105,27 @@ class NewAssetViewController: UIViewController {
 		alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
 
 		self.present(alert, animated: true)
+	}
+
+	// MARK: - Auxiliar Functions
+	@objc func textFieldDidChange(_ textField: UITextField) {
+		guard let val = textField.text, !val.isEmpty else {
+			return
+		}
+
+		switch textField {
+		case cryptoTextField:
+			fiatTextField.text = String(format: "%.2f", Double(val)! * self.price!)
+			break
+		case fiatTextField:
+			cryptoTextField.text = String(format: "%.4f", Double(val)! / self.price!)
+			break
+		default:
+			break
+		}
+
+		totalCryptoLabel.text = cryptoTextField.text! + " " + token.symbol
+		totalFiatLabel.text = "$" + " " + fiatTextField.text!
 	}
 
 	func save() {
@@ -166,5 +168,15 @@ class NewAssetViewController: UIViewController {
 		}
 
 		navigationController?.popToRootViewController(animated: true)
+	}
+
+	fileprivate func formattedValue(_ value :Double, decimals: Int, pSign: Bool = false) -> String{
+		let formatter = NumberFormatter()
+		formatter.numberStyle = .decimal
+		formatter.maximumFractionDigits = decimals
+		if pSign {
+			formatter.positivePrefix = "+"
+		}
+		return formatter.string(from: NSNumber(value: value))!
 	}
 }

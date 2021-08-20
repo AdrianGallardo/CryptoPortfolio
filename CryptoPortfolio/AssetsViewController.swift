@@ -170,7 +170,7 @@ extension AssetsViewController: UITableViewDataSource, UITableViewDelegate {
 
 		let alert = UIAlertController(title: (asset.name ?? "Asset"), message: self.formattedValue(asset.total, decimals: 4) + " " + asset.symbol!, preferredStyle: .actionSheet)
 
-		alert.addAction(UIAlertAction(title: "Edit Asset", style: .default, handler: { action in
+		alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { action in
 			if let editAssetVC = self.storyboard!.instantiateViewController(withIdentifier: "editAssetViewController") as? EditAssetViewController {
 				editAssetVC.asset = asset
 				editAssetVC.dataController = self.dataController
@@ -179,7 +179,7 @@ extension AssetsViewController: UITableViewDataSource, UITableViewDelegate {
 			}
 		}))
 
-		alert.addAction(UIAlertAction(title: "Delete Asset", style: .destructive, handler: { action in
+		alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { action in
 			self.deleteAsset(at: indexPath)
 		}))
 

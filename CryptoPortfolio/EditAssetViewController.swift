@@ -34,13 +34,13 @@ class EditAssetViewController: UIViewController {
 
 		fiatTextField.layer.cornerRadius = 10.0
 		fiatTextField.clipsToBounds = true
-		
+
 		totalOverViewView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.axial)
 
-		self.cryptoTextField.text = "\(asset.total)"
-		self.fiatTextField.text = String(format: "%.4f", asset.val)
-		self.totalCryptoLabel.text = String(format: "%.4f", asset.total) + " " + asset.symbol!
-		self.totalFiatLabel.text = "$ " + String(format: "%.4f", asset.val)
+		self.cryptoTextField.text = String(format: "%.4f", asset.total)
+		self.fiatTextField.text = String(format: "%.2f", asset.val)
+		self.totalCryptoLabel.text = formattedValue(asset.total, decimals: 4) + " " + asset.symbol!
+		self.totalFiatLabel.text = "$ " + formattedValue(asset.val, decimals: 2)
 		self.cryptoLogoImageView.image = UIImage(data: asset.logo!)
 
 		cryptoTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -51,6 +51,18 @@ class EditAssetViewController: UIViewController {
 		self.navigationController?.isNavigationBarHidden = false
 	}
 
+	// MARK: - Actions
+	@IBAction func add(_ sender: Any) {
+		let alert = UIAlertController(title: "Edit Asset", message: "\nAdd \(cryptoTextField.text ?? "0") " + self.asset.symbol! + " Tokens to your assets?\n", preferredStyle: .alert)
+
+		alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+			self.save()
+		}))
+		alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+
+		self.present(alert, animated: true)
+	}
+
 	// MARK: - Auxiliar Functions
 	@objc func textFieldDidChange(_ textField: UITextField) {
 		guard let val = textField.text, !val.isEmpty else {
@@ -59,7 +71,7 @@ class EditAssetViewController: UIViewController {
 
 		switch textField {
 		case cryptoTextField:
-			fiatTextField.text = String(format: "%.4f", Double(val)! * asset.price)
+			fiatTextField.text = String(format: "%.2f", Double(val)! * asset.price)
 			break
 		case fiatTextField:
 			cryptoTextField.text = String(format: "%.4f", Double(val)! / asset.price)
@@ -70,17 +82,6 @@ class EditAssetViewController: UIViewController {
 
 		totalCryptoLabel.text = cryptoTextField.text! + " " + asset.symbol!
 		totalFiatLabel.text = "$" + " " + fiatTextField.text!
-	}
-
-	@IBAction func add(_ sender: Any) {
-		let alert = UIAlertController(title: "Edit Asset", message: "\nAdd \(cryptoTextField.text ?? "0") " + self.asset.symbol! + " Tokens to your assets?\n", preferredStyle: .alert)
-
-		alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-			self.save()
-		}))
-		alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-
-		self.present(alert, animated: true)
 	}
 
 	func save() {
@@ -103,5 +104,15 @@ class EditAssetViewController: UIViewController {
 		}
 
 		navigationController?.popToRootViewController(animated: true)
+	}
+
+	fileprivate func formattedValue(_ value :Double, decimals: Int, pSign: Bool = false) -> String{
+		let formatter = NumberFormatter()
+		formatter.numberStyle = .decimal
+		formatter.maximumFractionDigits = decimals
+		if pSign {
+			formatter.positivePrefix = "+"
+		}
+		return formatter.string(from: NSNumber(value: value))!
 	}
 }
