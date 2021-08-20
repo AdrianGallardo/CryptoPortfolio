@@ -168,7 +168,7 @@ extension AssetsViewController: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let asset = fetchedResultsController.object(at: indexPath)
 
-		let alert = UIAlertController(title: (asset.name ?? ""), message: asset.symbol, preferredStyle: .actionSheet)
+		let alert = UIAlertController(title: (asset.name ?? "Asset"), message: self.formattedValue(asset.total, decimals: 4) + " " + asset.symbol!, preferredStyle: .actionSheet)
 
 		alert.addAction(UIAlertAction(title: "Edit Asset", style: .default, handler: { action in
 			if let editAssetVC = self.storyboard!.instantiateViewController(withIdentifier: "editAssetViewController") as? EditAssetViewController {

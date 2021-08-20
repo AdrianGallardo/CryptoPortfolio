@@ -28,6 +28,13 @@ class EditAssetViewController: UIViewController {
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		cryptoTextField.layer.cornerRadius = 10.0
+		cryptoTextField.clipsToBounds = true
+
+		fiatTextField.layer.cornerRadius = 10.0
+		fiatTextField.clipsToBounds = true
+		
 		totalOverViewView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.axial)
 
 		self.cryptoTextField.text = "\(asset.total)"
