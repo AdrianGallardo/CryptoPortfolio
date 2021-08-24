@@ -115,7 +115,7 @@ class NewAssetViewController: UIViewController {
 
 		switch textField {
 		case cryptoTextField:
-			fiatTextField.text = String(format: "%.2f", Double(val)! * self.price!)
+			fiatTextField.text = String(format: "%.4f", Double(val)! * self.price!)
 			break
 		case fiatTextField:
 			cryptoTextField.text = String(format: "%.4f", Double(val)! / self.price!)

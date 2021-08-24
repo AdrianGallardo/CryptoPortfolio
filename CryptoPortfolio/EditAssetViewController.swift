@@ -38,7 +38,7 @@ class EditAssetViewController: UIViewController {
 		totalOverViewView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.axial)
 
 		self.cryptoTextField.text = String(format: "%.4f", asset.total)
-		self.fiatTextField.text = String(format: "%.2f", asset.val)
+		self.fiatTextField.text = String(format: "%.4f", asset.val)
 		self.totalCryptoLabel.text = formattedValue(asset.total, decimals: 4) + " " + asset.symbol!
 		self.totalFiatLabel.text = "$ " + formattedValue(asset.val, decimals: 2)
 		self.cryptoLogoImageView.image = UIImage(data: asset.logo!)

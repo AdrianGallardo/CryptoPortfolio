@@ -132,7 +132,7 @@ class AssetsViewController: UIViewController {
 							print("asset saved")
 
 							newTotal = newTotal + (quotes.price * asset.total)
-							self.totalFiatLabel.text = self.formattedValue(newTotal, decimals: 2)
+							self.totalFiatLabel.text = "$ " + self.formattedValue(newTotal, decimals: 2)
 
 						} catch {
 							print(error.localizedDescription)
@@ -179,11 +179,26 @@ extension AssetsViewController: UITableViewDataSource, UITableViewDelegate {
 			}
 		}))
 
-		alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { action in
-			self.deleteAsset(at: indexPath)
+		alert.addAction(UIAlertAction(title: "Info", style: .default, handler: { action in
+			if let detailVC = self.storyboard!.instantiateViewController(withIdentifier: "detailViewController") as? DetailViewController {
+//				editAssetVC.asset = asset
+//				editAssetVC.dataController = self.dataController
+
+				self.navigationController!.pushViewController(detailVC, animated: true)
+			}
 		}))
 
-		alert.addAction(UIAlertAction(title: "Info", style: .default, handler: nil))
+		alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { action in
+			let deleteAlert = UIAlertController(title: "Are You sure?", message: "\nDelete " + self.formattedValue(asset.total, decimals: 4) + " " + asset.symbol! + " tokens\n", preferredStyle: .alert)
+
+			deleteAlert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { action in
+				self.deleteAsset(at: indexPath)
+			}))
+
+			deleteAlert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+
+			self.present(deleteAlert, animated: true)
+		}))
 
 		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 

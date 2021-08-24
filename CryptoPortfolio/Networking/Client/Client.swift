@@ -122,6 +122,8 @@ extension Client{
 
 		static let base = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/"
 		static let apiKey = "cce5ce72-fbb1-4dc6-899b-c8a0df1ae085"
+//		static let limit = 5000
+		static let limit = 100
 
 		case getIdMap
 		case listingsLatest(String)
@@ -131,7 +133,7 @@ extension Client{
 		var stringValue: String {
 			switch self {
 			case .getIdMap: return Endpoints.base + "map"
-			case .listingsLatest(let convert): return Endpoints.base + "listings/latest?convert=\(convert)"
+			case .listingsLatest(let convert): return Endpoints.base + "listings/latest?limit=\(Endpoints.limit)&convert=\(convert)"
 			case .metadata(let id): return Endpoints.base + "info?id=\(id)"
 			case .quotes(let id): return Endpoints.base + "quotes/latest?id=\(id)"
 			}

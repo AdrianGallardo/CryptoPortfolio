@@ -258,26 +258,13 @@
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="VrA-3S-EHT" kind="relationship" relationship="rootViewController" id="iKX-SN-lEI"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LZx-jT-7fa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2707" y="-1619"/>
-        </scene>
-        <!--Item-->
-        <scene sceneID="WVy-vV-BJY">
-            <objects>
-                <viewController id="G02-zD-Giz" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="U8G-hQ-BF3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="Htm-xW-aSG"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="NQ1-BN-8bn"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="y9O-Bm-dVH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1859" y="-1619"/>
         </scene>
         <!--My Wallet-->
         <scene sceneID="8MO-rG-kMB">
@@ -686,6 +673,142 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bU6-rt-Ifh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="665" y="-901"/>
+        </scene>
+        <!--Add Token-->
+        <scene sceneID="v0g-Qg-AUd">
+            <objects>
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="VrA-3S-EHT" customClass="InfoViewController" customModule="CryptoPortfolio" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BOb-ay-Guv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="8dj-jD-tWL">
+                                <rect key="frame" x="0.0" y="88" width="414" height="44"/>
+                                <color key="backgroundColor" red="0.78039215689999997" green="0.7725490196" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="JRH-LS-7NC"/>
+                                </constraints>
+                                <color key="tintColor" red="0.78039215689999997" green="0.7725490196" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="barTintColor" red="0.13725490200000001" green="0.1450980392" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="searchField.textColor">
+                                        <color key="value" red="0.78039215689999997" green="0.7725490196" blue="0.7725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="VrA-3S-EHT" id="Pac-vM-vKz"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ah7-DP-oeW">
+                                <rect key="frame" x="0.0" y="132" width="414" height="730"/>
+                                <color key="backgroundColor" red="0.13725490200000001" green="0.1450980392" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tokenViewCell" rowHeight="107" id="gQZ-dO-6ID" customClass="TokenViewCell" customModule="CryptoPortfolio" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="107"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gQZ-dO-6ID" id="N07-vl-nk1">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="107"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[BTC] - Bitcoin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTc-P3-N3U">
+                                                    <rect key="frame" x="32" y="43" width="350" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="350" id="s2r-pg-w1W"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.78039215689999997" green="0.7725490196" blue="0.7725490196" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.36862745099999999" green="0.37647058820000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <constraints>
+                                                <constraint firstItem="tTc-P3-N3U" firstAttribute="centerX" secondItem="N07-vl-nk1" secondAttribute="centerX" id="HVM-Jr-KKv"/>
+                                                <constraint firstItem="tTc-P3-N3U" firstAttribute="centerY" secondItem="N07-vl-nk1" secondAttribute="centerY" id="LxO-XS-nYM"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.25490196079999999" green="0.26274509800000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="tTc-P3-N3U" id="fd1-5E-8et"/>
+                                            <segue destination="lR9-xD-UZk" kind="show" id="vZt-mf-6JH"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="VrA-3S-EHT" id="alb-Pp-cDK"/>
+                                    <outlet property="delegate" destination="VrA-3S-EHT" id="a0Z-4Z-uaq"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hAa-Wv-y7v"/>
+                        <color key="backgroundColor" red="0.13725490200000001" green="0.1450980392" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="tintColor" red="0.2470588235" green="0.2784313725" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="hAa-Wv-y7v" firstAttribute="trailing" secondItem="ah7-DP-oeW" secondAttribute="trailing" id="4xi-4y-FIm"/>
+                            <constraint firstItem="8dj-jD-tWL" firstAttribute="trailing" secondItem="hAa-Wv-y7v" secondAttribute="trailing" id="BLB-6x-Pzg"/>
+                            <constraint firstItem="ah7-DP-oeW" firstAttribute="leading" secondItem="hAa-Wv-y7v" secondAttribute="leading" id="NlX-7e-Y1t"/>
+                            <constraint firstItem="8dj-jD-tWL" firstAttribute="top" secondItem="hAa-Wv-y7v" secondAttribute="top" id="VQn-sV-M6G"/>
+                            <constraint firstItem="hAa-Wv-y7v" firstAttribute="bottom" secondItem="ah7-DP-oeW" secondAttribute="bottom" id="VTy-GX-INl"/>
+                            <constraint firstItem="8dj-jD-tWL" firstAttribute="leading" secondItem="hAa-Wv-y7v" secondAttribute="leading" id="WYE-S1-YZd"/>
+                            <constraint firstItem="ah7-DP-oeW" firstAttribute="top" secondItem="8dj-jD-tWL" secondAttribute="bottom" id="WwQ-hK-MZQ"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Add Token" image="plus.circle" catalog="system" id="B49-5s-AIC"/>
+                    <navigationItem key="navigationItem" id="FkT-ix-5iq"/>
+                    <connections>
+                        <outlet property="searchBar" destination="8dj-jD-tWL" id="imJ-ce-iow"/>
+                        <outlet property="tableView" destination="ah7-DP-oeW" id="bnt-i7-dKO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Ao-1J-285" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1859" y="-1619"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="Oil-of-y71">
+            <objects>
+                <viewController storyboardIdentifier="detailViewController" hidesBottomBarWhenPushed="YES" id="lR9-xD-UZk" customClass="DetailViewController" customModule="CryptoPortfolio" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="417-xz-mF7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yN2-p1-1Yq">
+                                <rect key="frame" x="0.0" y="88" width="414" height="236"/>
+                                <color key="backgroundColor" red="0.25490196079999999" green="0.26274509800000001" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="236" id="UeJ-ef-J5V"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0Us-8V-mJY">
+                                <rect key="frame" x="0.0" y="324" width="414" height="538"/>
+                                <color key="backgroundColor" red="0.13725490196078433" green="0.14509803921568626" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="eKE-uI-zvc"/>
+                        <color key="backgroundColor" red="0.13725490196078433" green="0.14509803921568626" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="0Us-8V-mJY" firstAttribute="leading" secondItem="eKE-uI-zvc" secondAttribute="leading" id="2yF-Xd-POy"/>
+                            <constraint firstItem="yN2-p1-1Yq" firstAttribute="trailing" secondItem="eKE-uI-zvc" secondAttribute="trailing" id="9lH-JJ-Q5d"/>
+                            <constraint firstItem="yN2-p1-1Yq" firstAttribute="top" secondItem="eKE-uI-zvc" secondAttribute="top" id="AbM-GK-KIE"/>
+                            <constraint firstItem="0Us-8V-mJY" firstAttribute="bottom" secondItem="eKE-uI-zvc" secondAttribute="bottom" id="KSm-pF-vNv"/>
+                            <constraint firstItem="yN2-p1-1Yq" firstAttribute="leading" secondItem="eKE-uI-zvc" secondAttribute="leading" id="d8C-cJ-MlD"/>
+                            <constraint firstItem="0Us-8V-mJY" firstAttribute="trailing" secondItem="eKE-uI-zvc" secondAttribute="trailing" id="pLd-tP-Lsw"/>
+                            <constraint firstItem="yN2-p1-1Yq" firstAttribute="centerX" secondItem="eKE-uI-zvc" secondAttribute="centerX" id="pu1-mY-4ye"/>
+                            <constraint firstItem="0Us-8V-mJY" firstAttribute="top" secondItem="yN2-p1-1Yq" secondAttribute="bottom" id="pxn-dA-XGf"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="qaL-mb-cmp"/>
+                    <connections>
+                        <outlet property="headerView" destination="yN2-p1-1Yq" id="hAq-wa-nwU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ieU-I1-y0w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1014.4927536231885" y="-1619.1964285714284"/>
         </scene>
     </scenes>
     <resources>
