@@ -7,13 +7,17 @@
 
 import Foundation
 
+struct UrlsMetada: Codable {
+	let website: [String]
+}
+
 struct Metadata: Codable {
 	let id: Int
 	let name: String
 	let symbol: String
-	let category: String
-	let description: String
+	let description: String?
 	let logo: String
+	let urls: UrlsMetada
 }
 
 struct MetadataResponse: Codable {

@@ -21,6 +21,10 @@ struct QuotesData: Codable {
 	let id: Int
 	let name: String
 	let symbol: String
+	let max_supply: Int?
+	let circulating_supply: Int?
+	let total_supply: Int?
+	let cmc_rank: Int
 	let quote: [String: Quote]
 }
 

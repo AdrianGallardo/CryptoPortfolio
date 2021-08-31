@@ -20,7 +20,6 @@ class InfoViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		self.navigationController?.isNavigationBarHidden = true
 		tableView.rowHeight = 81
 		searchBar.searchTextField.leftView?.tintColor = UIColor(red: 199, green: 197, blue: 197, alpha: 1.0)
 
@@ -28,7 +27,7 @@ class InfoViewController: UIViewController {
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
-		self.navigationController?.isNavigationBarHidden = false
+		self.navigationController?.isNavigationBarHidden = true
 	}
 
 	fileprivate func setupListings() {
@@ -84,9 +83,8 @@ extension InfoViewController: UITableViewDataSource, UITableViewDelegate {
 	}
 
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if let newAssetVC = segue.destination as? NewAssetViewController {
+		if let detailVC = segue.destination as? DetailViewController {
 			if let indexPath = tableView.indexPathForSelectedRow {
-				newAssetVC.dataController = dataController
 
 				var token: CoinData!
 				if !searchToken.isEmpty {
@@ -95,7 +93,7 @@ extension InfoViewController: UITableViewDataSource, UITableViewDelegate {
 					token = listings[indexPath.row]
 				}
 
-				newAssetVC.token = token
+				detailVC.token = token
 			}
 		}
 	}

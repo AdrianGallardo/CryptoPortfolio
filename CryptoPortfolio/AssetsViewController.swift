@@ -181,10 +181,11 @@ extension AssetsViewController: UITableViewDataSource, UITableViewDelegate {
 
 		alert.addAction(UIAlertAction(title: "Info", style: .default, handler: { action in
 			if let detailVC = self.storyboard!.instantiateViewController(withIdentifier: "detailViewController") as? DetailViewController {
-//				editAssetVC.asset = asset
-//				editAssetVC.dataController = self.dataController
-
-				self.navigationController!.pushViewController(detailVC, animated: true)
+				let tokens = self.listings.filter({$0.id == Int(asset.id)})
+				if tokens.count > 0 {
+					detailVC.token = tokens[0]
+					self.navigationController!.pushViewController(detailVC, animated: true)
+				}
 			}
 		}))
 
