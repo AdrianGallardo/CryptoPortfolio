@@ -69,7 +69,7 @@ class DetailViewController: UIViewController {
 			}
 
 			if let maxSupply = quotesData.max_supply {
-				self.maxSupplyLabel.text = self.formattedValue(Double(maxSupply), decimals: 2) 
+				self.maxSupplyLabel.text = self.formattedValue(Double(maxSupply), decimals: 2)
 			} else {
 				self.maxSupplyLabel.text = "-"
 			}
@@ -87,7 +87,7 @@ class DetailViewController: UIViewController {
 				if metadata.urls.website.count > 0 {
 					self.linkButton.setTitle(metadata.urls.website[0], for: .normal)
 				}
-				self.infoLabel.text = "Description\n\n" + (metadata.description ?? "-")
+				self.infoLabel.text = "Description\n" + (metadata.description ?? "-")
 
 				Client.downloadLogo(url: urlLogo) { data, error in
 					guard let data = data else {
