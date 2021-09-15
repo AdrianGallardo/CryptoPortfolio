@@ -51,7 +51,6 @@ extension PercentChangeSettingsViewController: UITableViewDataSource, UITableVie
 		self.tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
 		self.lastSelection = indexPath
 		self.tableView.deselectRow(at: indexPath, animated: true)
-		print(self.tableView.cellForRow(at: indexPath)?.textLabel?.text ?? "nulo")
 		UserDefaults.standard.set(self.tableView.cellForRow(at: indexPath)?.textLabel?.text, forKey: "timeFrame")
 	}
 }

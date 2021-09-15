@@ -11,10 +11,10 @@ import CoreData
 class AssetsViewController: UIViewController {
 
 	var listings: [CoinData] = []
-	var fiatCurrencies: [FiatMapResponse] = []
 	var dataController: DataController!
 	var fetchedResultsController: NSFetchedResultsController<Asset>!
 	var saveObserverToken: Any?
+	var fiatSign: String?
 
 	let colorsMidnight = [UIColor(red: 0.25, green: 0.26, blue: 0.27, alpha: 1.00).cgColor,
 												UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00).cgColor]
@@ -34,7 +34,8 @@ class AssetsViewController: UIViewController {
 
 		addSaveNotificationObserver()
 		setupListings()
-		setupFiatCurrencies()
+
+		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -97,16 +98,6 @@ class AssetsViewController: UIViewController {
 		}
 	}
 
-	fileprivate func setupFiatCurrencies() {
-		Client.requestFiatMap() { listings, error in
-			guard let listings = listings else{
-				print("setupListings error")
-				return
-			}
-			self.listings = listings
-		}
-	}
-
 	// Deletes the `Note` at the specified index path
 	func deleteAsset(at indexPath: IndexPath) {
 		let assetToDelete = fetchedResultsController.object(at: indexPath)
@@ -144,7 +135,7 @@ class AssetsViewController: UIViewController {
 							print("asset saved")
 
 							newTotal = newTotal + (quotes.price * asset.total)
-							self.totalFiatLabel.text = "$ " + self.formattedValue(newTotal, decimals: 2)
+							self.totalFiatLabel.text = (self.fiatSign ?? "$ ") + self.formattedValue(newTotal, decimals: 2)
 
 						} catch {
 							print(error.localizedDescription)

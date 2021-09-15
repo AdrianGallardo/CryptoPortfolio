@@ -37,6 +37,22 @@ class Client {
 		}
 	}
 
+	class func requestFiatMap(completion: @escaping ([FiatData]?, Error?) -> Void) {
+		guard let url = Endpoints.fiatMap.url else{
+			print("requestFiatMap URL error")
+			return
+		}
+
+		print("requestFiatMap")
+		taskForGETRequest(url: url, response: FiatMapResponse.self) { response, error in
+			if let response = response {
+				completion(response.data, nil)
+			} else {
+				completion([], error)
+			}
+		}
+	}
+
 	class func getMetadata(id: Int, completion: @escaping (Metadata?, Error?) -> Void) {
 		guard let url = Endpoints.metadata(id).url else {
 			print("getMeta URL error")
@@ -121,12 +137,14 @@ extension Client{
 	enum Endpoints {
 
 		static let base = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/"
+		static let baseFiat = "https://pro-api.coinmarketcap.com/v1/fiat/"
 		static let apiKey = "cce5ce72-fbb1-4dc6-899b-c8a0df1ae085"
 //		static let limit = 5000
 		static let limit = 100
 
 		case getIdMap
 		case listingsLatest(String)
+		case fiatMap
 		case metadata(Int)
 		case quotes(Int)
 
@@ -134,6 +152,7 @@ extension Client{
 			switch self {
 			case .getIdMap: return Endpoints.base + "map"
 			case .listingsLatest(let convert): return Endpoints.base + "listings/latest?limit=\(Endpoints.limit)&convert=\(convert)"
+			case .fiatMap: return Endpoints.baseFiat + "map"
 			case .metadata(let id): return Endpoints.base + "info?id=\(id)"
 			case .quotes(let id): return Endpoints.base + "quotes/latest?id=\(id)"
 			}

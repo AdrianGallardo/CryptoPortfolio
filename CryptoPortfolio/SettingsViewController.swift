@@ -13,9 +13,10 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var timeFrameLabel: UILabel!
 
 	override func viewWillAppear(_ animated: Bool) {
-		print("viewDidLoad")
+		if let fiatCurrency = UserDefaults.standard.object(forKey: "symbolFiatCurrency") as? String {
+			self.fiatCurrencyLabel.text = fiatCurrency
+		}
 		if let timeFrame = UserDefaults.standard.object(forKey: "timeFrame") as? String {
-			print("timeFrame: " + timeFrame)
 			self.timeFrameLabel.text = timeFrame
 		}
 	}

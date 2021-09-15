@@ -7,9 +7,13 @@
 
 import Foundation
 
-struct FiatMapResponse: Codable {
+struct FiatData: Codable {
 	let id: Int
 	let name: String
 	let sign: String
 	let symbol: String
+}
+
+struct FiatMapResponse: Codable {
+	let data: [FiatData]
 }

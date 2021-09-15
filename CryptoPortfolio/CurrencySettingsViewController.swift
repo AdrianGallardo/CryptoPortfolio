@@ -10,26 +10,26 @@ import UIKit
 
 class CurrencySettingsViewController: UIViewController {
 	@IBOutlet weak var tableView: UITableView!
-	var lastSelection: IndexPath!
-	var fiatCurrencyUserDefault: String?
 
-	var fiatCurrencies: [FiatMapResponse] = []
-	let usd = FiatMapResponse(id: 2781, name: "United States Dollar", sign: "$", symbol: "USD")
-	let aud = FiatMapResponse(id: 2782, name: "Australian Dollar", sign: "$", symbol: "AUD")
-	let cad = FiatMapResponse(id: 2784, name: "Canadian Dollar", sign: "$", symbol: "CAD")
-	let eur = FiatMapResponse(id: 2790, name: "Euro", sign: "€", symbol: "EUR")
-	let mxn = FiatMapResponse(id: 2799, name: "Mexican Peso", sign: "$", symbol: "MXN")
+	var fiatCurrencies: [FiatData] = []
+	var lastSelection: IndexPath!
+	var idFiatCurrencyUserDefault: Int?
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		idFiatCurrencyUserDefault = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
+		setupFiatCurrencies()
+	}
 
-		fiatCurrencies.append(usd)
-		fiatCurrencies.append(aud)
-		fiatCurrencies.append(cad)
-		fiatCurrencies.append(eur)
-		fiatCurrencies.append(mxn)
-
-		tableView.reloadData()
+	fileprivate func setupFiatCurrencies() {
+		Client.requestFiatMap() { fiatCurrencies, error in
+			guard let fiatCurrencies = fiatCurrencies else{
+				print("setupFiatCurrencies error")
+				return
+			}
+			self.fiatCurrencies = fiatCurrencies
+			self.tableView.reloadData()
+		}
 	}
 }
 
@@ -47,7 +47,11 @@ extension CurrencySettingsViewController: UITableViewDataSource, UITableViewDele
 
 		// Configure cell
 		let cell = tableView.dequeueReusableCell(withIdentifier: "fiatViewCell") as! FiatViewCell
-		cell.setFiatCurrency(fiatCurrency: fiatCurrency, accesory: false)
+		cell.setFiatCurrency(fiatCurrency: fiatCurrency, accesory: (fiatCurrency.id == idFiatCurrencyUserDefault))
+
+		if fiatCurrency.id == idFiatCurrencyUserDefault {
+			lastSelection = indexPath
+		}
 
 		return cell
 	}
@@ -59,11 +63,15 @@ extension CurrencySettingsViewController: UITableViewDataSource, UITableViewDele
 		self.tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
 		self.lastSelection = indexPath
 		self.tableView.deselectRow(at: indexPath, animated: true)
+
+		UserDefaults.standard.set(self.fiatCurrencies[indexPath.row].id, forKey: "idFiatCurrency")
+		UserDefaults.standard.set(self.fiatCurrencies[indexPath.row].sign, forKey: "signFiatCurrency")
+		UserDefaults.standard.set(self.fiatCurrencies[indexPath.row].symbol, forKey: "symbolFiatCurrency")
 	}
 }
 
 class FiatViewCell: UITableViewCell {
-	func setFiatCurrency(fiatCurrency: FiatMapResponse, accesory: Bool) {
+	func setFiatCurrency(fiatCurrency: FiatData, accesory: Bool) {
 		textLabel?.text = fiatCurrency.name
 		detailTextLabel?.text = fiatCurrency.symbol
 
