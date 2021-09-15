@@ -15,6 +15,7 @@ class InfoViewController: UIViewController {
 	var listings: [CoinData] = []
 	var searchToken: [CoinData] = []
 	var dataController: DataController!
+	var fiatId: Int?
 
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
@@ -22,6 +23,7 @@ class InfoViewController: UIViewController {
 
 		tableView.rowHeight = 81
 		searchBar.searchTextField.leftView?.tintColor = UIColor(red: 199, green: 197, blue: 197, alpha: 1.0)
+		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
 
 		setupListings()
 	}
@@ -31,7 +33,7 @@ class InfoViewController: UIViewController {
 	}
 
 	fileprivate func setupListings() {
-		Client.requestListings(convert: "USD") { listings, error in
+		Client.requestListings(convert: fiatId!) { listings, error in
 			guard let listings = listings else{
 				print("setupListings error")
 				return

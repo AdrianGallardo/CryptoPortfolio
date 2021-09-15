@@ -21,7 +21,7 @@ class Client {
 		imageTask.resume()
 	}
 
-	class func requestListings(convert: String, completion: @escaping ([CoinData]?, Error?) -> Void) {
+	class func requestListings(convert: Int, completion: @escaping ([CoinData]?, Error?) -> Void) {
 		guard let url = Endpoints.listingsLatest(convert).url else{
 			print("requestListings URL error")
 			return
@@ -69,8 +69,8 @@ class Client {
 		}
 	}
 
-	class func getQuotes(id: Int, completion: @escaping (QuotesData?, Error?) -> Void) {
-		guard let url = Endpoints.quotes(id).url else {
+	class func getQuotes(id: Int, convert: Int, completion: @escaping (QuotesData?, Error?) -> Void) {
+		guard let url = Endpoints.quotes(id, convert).url else {
 			print("getQuotes URL error")
 			return
 		}
@@ -143,18 +143,18 @@ extension Client{
 		static let limit = 100
 
 		case getIdMap
-		case listingsLatest(String)
+		case listingsLatest(Int)
 		case fiatMap
 		case metadata(Int)
-		case quotes(Int)
+		case quotes(Int, Int)
 
 		var stringValue: String {
 			switch self {
 			case .getIdMap: return Endpoints.base + "map"
-			case .listingsLatest(let convert): return Endpoints.base + "listings/latest?limit=\(Endpoints.limit)&convert=\(convert)"
+			case .listingsLatest(let convertId): return Endpoints.base + "listings/latest?limit=\(Endpoints.limit)&convert_id=\(convertId)"
 			case .fiatMap: return Endpoints.baseFiat + "map"
 			case .metadata(let id): return Endpoints.base + "info?id=\(id)"
-			case .quotes(let id): return Endpoints.base + "quotes/latest?id=\(id)"
+			case .quotes(let id, let convertId): return Endpoints.base + "quotes/latest?id=\(id)&convert_id=\(convertId)"
 			}
 		}
 

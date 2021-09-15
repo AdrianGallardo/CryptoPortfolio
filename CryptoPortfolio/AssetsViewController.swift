@@ -15,9 +15,11 @@ class AssetsViewController: UIViewController {
 	var fetchedResultsController: NSFetchedResultsController<Asset>!
 	var saveObserverToken: Any?
 	var fiatSign: String?
+	var fiatId: Int?
 
 	let colorsMidnight = [UIColor(red: 0.25, green: 0.26, blue: 0.27, alpha: 1.00).cgColor,
 												UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00).cgColor]
+	let usd = FiatData(id: 2781, name: "United States Dollar", sign: "$", symbol: "USD")
 
 	@IBOutlet weak var totalFiatLabel: UILabel!
 	@IBOutlet weak var totalCryptoLabel: UILabel!
@@ -33,9 +35,16 @@ class AssetsViewController: UIViewController {
 		assetsOverviewView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.axial)
 
 		addSaveNotificationObserver()
-		setupListings()
+		if (UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int) == nil {
+			UserDefaults.standard.set(usd.id, forKey: "idFiatCurrency")
+			UserDefaults.standard.set(usd.sign, forKey: "signFiatCurrency")
+			UserDefaults.standard.set(usd.symbol, forKey: "symbolFiatCurrency")
+		}
 
+		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
 		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
+
+		setupListings()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -89,7 +98,7 @@ class AssetsViewController: UIViewController {
 	}
 
 	fileprivate func setupListings() {
-		Client.requestListings(convert: "USD") { listings, error in
+		Client.requestListings(convert: fiatId!) { listings, error in
 			guard let listings = listings else{
 				print("setupListings error")
 				return
@@ -98,7 +107,6 @@ class AssetsViewController: UIViewController {
 		}
 	}
 
-	// Deletes the `Note` at the specified index path
 	func deleteAsset(at indexPath: IndexPath) {
 		let assetToDelete = fetchedResultsController.object(at: indexPath)
 		dataController.viewContext.delete(assetToDelete)
@@ -108,18 +116,18 @@ class AssetsViewController: UIViewController {
 
 	func updateQuotes() {
 		var newTotal: Double = 0
-		self.totalFiatLabel.text = "$ 0"
+		self.totalFiatLabel.text = "\(fiatSign ?? "$") 0"
 
 		let fetchRequest: NSFetchRequest<Asset> = Asset.fetchRequest()
 
 		if let result = try? dataController.viewContext.fetch(fetchRequest), result.count > 0 {
 			for asset in result {
-				Client.getQuotes(id: Int(asset.id)) { quotesData, error in
+				Client.getQuotes(id: Int(asset.id), convert: fiatId!) { quotesData, error in
 					guard let quotesData = quotesData else {
 						print("NewAssetVC getQuotes error")
 						return
 					}
-					let quotes = quotesData.quote["USD"]!
+					let quotes = quotesData.quote[String(self.fiatId!)]!
 
 					asset.setValue(quotes.percent_change_1h, forKey: "pchange1h")
 					asset.setValue(quotes.percent_change_7d, forKey: "pchange7d")
@@ -286,12 +294,14 @@ class AssetViewCell: UITableViewCell {
 	@IBOutlet weak var totalLabel: UILabel!
 	@IBOutlet weak var percentchangeLabel: UILabel!
 
+	var fiatSign: String?
 	let colorsMidnight = [UIColor(red: 0.25, green: 0.26, blue: 0.27, alpha: 1.00).cgColor,
 												UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00).cgColor]
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		self.contentView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.radial)
+		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
 	}
 
 	func setAsset(asset: Asset) {
@@ -302,7 +312,7 @@ class AssetViewCell: UITableViewCell {
 		self.logoImageView.image = UIImage(data: logoData)
 		self.symbolLabel.text = asset.symbol
 		self.totalLabel.text = self.formattedValue(asset.total, decimals: 4) + " " + asset.symbol!
-		self.priceLabel.text = "$ " + self.formattedValue(asset.val, decimals: 2)
+		self.priceLabel.text = (fiatSign ?? "$ ") + self.formattedValue(asset.val, decimals: 2)
 		self.percentchangeLabel.text = self.formattedValue(asset.pchange24h, decimals: 2, pSign: true) + "%"
 
 		if self.percentchangeLabel.text!.starts(with: "+") {

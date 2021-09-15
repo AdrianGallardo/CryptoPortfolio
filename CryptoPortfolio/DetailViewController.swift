@@ -26,6 +26,8 @@ class DetailViewController: UIViewController {
 												UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00).cgColor]
 
 	var token: CoinData!
+	var fiatSign: String?
+	var fiatId: Int?
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -33,17 +35,20 @@ class DetailViewController: UIViewController {
 		headerView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.axial)
 		infoLabel.sizeToFit()
 
-		Client.getQuotes(id: token.id) { quotesData, error in
+		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
+		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
+
+		Client.getQuotes(id: token.id, convert: fiatId!) { quotesData, error in
 			guard let quotesData = quotesData else {
 				print("DetailVC getQuotes error")
 				return
 			}
-			let quotes = quotesData.quote["USD"]!
+			let quotes = quotesData.quote[String(self.fiatId!)]!
 
 			self.nameLabel.text = "\(quotesData.name) - (\(quotesData.symbol))"
 			self.rankLabel.text = "Rank #\(String(quotesData.cmc_rank))"
 
-			self.priceLabel.text = "$ " + self.formattedValue(quotes.price, decimals: 4)
+			self.priceLabel.text = (self.fiatSign ?? "$ ") + self.formattedValue(quotes.price, decimals: 4)
 
 			self.percentLabel.text = self.formattedValue(quotes.percent_change_24h, decimals: 2) + "%"
 			if self.percentLabel.text!.starts(with: "-") {
@@ -54,7 +59,7 @@ class DetailViewController: UIViewController {
 				self.percentLabel.textColor = UIColor(red: 0.22, green: 0.94, blue: 0.49, alpha: 1.00)
 			}
 
-			self.marketCapLabel.text = "$" + self.formattedValue(quotes.market_cap, decimals: 2)
+			self.marketCapLabel.text = (self.fiatSign ?? "$ ") + self.formattedValue(quotes.market_cap, decimals: 2)
 
 			if let circulatingSupply = quotesData.circulating_supply {
 				self.circulatingSupplyLabel.text = self.formattedValue(Double(circulatingSupply), decimals: 2)

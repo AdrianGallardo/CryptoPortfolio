@@ -21,6 +21,8 @@ class EditAssetViewController: UIViewController {
 
 	var asset: Asset!
 	var dataController: DataController!
+	var fiatSign: String?
+	var fiatId: Int?
 
 	let colorsMidnight = [UIColor(red: 0.25, green: 0.26, blue: 0.27, alpha: 1.00).cgColor,
 												UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00).cgColor]
@@ -37,10 +39,13 @@ class EditAssetViewController: UIViewController {
 
 		totalOverViewView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.axial)
 
+		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
+		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
+
 		self.cryptoTextField.text = String(format: "%.4f", asset.total)
 		self.fiatTextField.text = String(format: "%.4f", asset.val)
 		self.totalCryptoLabel.text = formattedValue(asset.total, decimals: 4) + " " + asset.symbol!
-		self.totalFiatLabel.text = "$ " + formattedValue(asset.val, decimals: 2)
+		self.totalFiatLabel.text = (self.fiatSign ?? "$ ") + formattedValue(asset.val, decimals: 2)
 		self.cryptoLogoImageView.image = UIImage(data: asset.logo!)
 
 		cryptoTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -81,7 +86,7 @@ class EditAssetViewController: UIViewController {
 		}
 
 		totalCryptoLabel.text = cryptoTextField.text! + " " + asset.symbol!
-		totalFiatLabel.text = "$" + " " + fiatTextField.text!
+		totalFiatLabel.text = (self.fiatSign ?? "$ ") + fiatTextField.text!
 	}
 
 	func save() {

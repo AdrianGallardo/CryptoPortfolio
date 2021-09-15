@@ -29,6 +29,8 @@ class NewAssetViewController: UIViewController {
 	var pChange24h: Double?
 	var pChange7d: Double?
 	var pChange30d: Double?
+	var fiatSign: String?
+	var fiatId: Int?
 
 	let colorsMidnight = [UIColor(red: 0.25, green: 0.26, blue: 0.27, alpha: 1.00).cgColor,
 												UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00).cgColor]
@@ -45,12 +47,15 @@ class NewAssetViewController: UIViewController {
 
 		totalOverViewView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.axial)
 
-		Client.getQuotes(id: token.id) { quotesData, error in
+		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
+		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
+
+		Client.getQuotes(id: token.id, convert: fiatId!) { quotesData, error in
 			guard let quotesData = quotesData else {
 				print("NewAssetVC getQuotes error")
 				return
 			}
-			let quotes = quotesData.quote["USD"]!
+			let quotes = quotesData.quote[String(self.fiatId!)]!
 
 			self.price = quotes.price
 			self.pChange1h = quotes.percent_change_1h
@@ -61,7 +66,7 @@ class NewAssetViewController: UIViewController {
 			self.cryptoTextField.text = "1"
 			self.fiatTextField.text = String(format: "%.2f", self.price!)
 			self.totalCryptoLabel.text = "1 \(self.token.symbol)"
-			self.totalFiatLabel.text = "$ " + self.formattedValue(self.price!, decimals: 2)
+			self.totalFiatLabel.text = (self.fiatSign ?? "$ ") + self.formattedValue(self.price!, decimals: 2)
 
 			Client.getMetadata(id: self.token.id) { metadata, error in
 				guard let metadata = metadata else {
@@ -125,7 +130,7 @@ class NewAssetViewController: UIViewController {
 		}
 
 		totalCryptoLabel.text = cryptoTextField.text! + " " + token.symbol
-		totalFiatLabel.text = "$" + " " + fiatTextField.text!
+		totalFiatLabel.text = (fiatSign ?? "$ ") + fiatTextField.text!
 	}
 
 	func save() {
