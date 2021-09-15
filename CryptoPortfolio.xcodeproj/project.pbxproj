@@ -29,6 +29,9 @@
 		75E991B2269CFFED009F0289 /* MetadataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E991B1269CFFED009F0289 /* MetadataResponse.swift */; };
 		75E991B4269E4D0A009F0289 /* NewAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E991B3269E4D09009F0289 /* NewAssetViewController.swift */; };
 		75FD2FB426E0966F00735023 /* FiatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FD2FB326E0966F00735023 /* FiatViewController.swift */; };
+		75FD2FB626E566DB00735023 /* CurrencySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FD2FB526E566DB00735023 /* CurrencySettingsViewController.swift */; };
+		75FD2FBA26E5677200735023 /* PercentChangeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FD2FB926E5677200735023 /* PercentChangeSettingsViewController.swift */; };
+		75FD2FBC26E5870600735023 /* FiatMapResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FD2FBB26E5870600735023 /* FiatMapResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +80,9 @@
 		75E991B1269CFFED009F0289 /* MetadataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataResponse.swift; sourceTree = "<group>"; };
 		75E991B3269E4D09009F0289 /* NewAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAssetViewController.swift; sourceTree = "<group>"; };
 		75FD2FB326E0966F00735023 /* FiatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiatViewController.swift; sourceTree = "<group>"; };
+		75FD2FB526E566DB00735023 /* CurrencySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencySettingsViewController.swift; sourceTree = "<group>"; };
+		75FD2FB926E5677200735023 /* PercentChangeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentChangeSettingsViewController.swift; sourceTree = "<group>"; };
+		75FD2FBB26E5870600735023 /* FiatMapResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiatMapResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +124,7 @@
 				755C8CAA265339C70038E2F5 /* ListingsResponse.swift */,
 				75E991B1269CFFED009F0289 /* MetadataResponse.swift */,
 				753A257A26C32C980012E1E7 /* QuotesResponse.swift */,
+				75FD2FBB26E5870600735023 /* FiatMapResponse.swift */,
 			);
 			path = Responses;
 			sourceTree = "<group>";
@@ -180,6 +187,8 @@
 				7577720C26D4AD4A00F50F36 /* DetailViewController.swift */,
 				751D004926E08EEB00073B3E /* SettingsViewController.swift */,
 				75FD2FB326E0966F00735023 /* FiatViewController.swift */,
+				75FD2FB526E566DB00735023 /* CurrencySettingsViewController.swift */,
+				75FD2FB926E5677200735023 /* PercentChangeSettingsViewController.swift */,
 			);
 			path = CryptoPortfolio;
 			sourceTree = "<group>";
@@ -340,13 +349,16 @@
 				75E991B2269CFFED009F0289 /* MetadataResponse.swift in Sources */,
 				75E991B4269E4D0A009F0289 /* NewAssetViewController.swift in Sources */,
 				75FD2FB426E0966F00735023 /* FiatViewController.swift in Sources */,
+				75FD2FBA26E5677200735023 /* PercentChangeSettingsViewController.swift in Sources */,
 				751D004A26E08EEB00073B3E /* SettingsViewController.swift in Sources */,
 				7530890426CAEFB5001C3784 /* Extensions.swift in Sources */,
 				758C3DA9268C23E500617761 /* DataController.swift in Sources */,
 				75CEE17D26CE2A3300B05F56 /* EditAssetViewController.swift in Sources */,
+				75FD2FBC26E5870600735023 /* FiatMapResponse.swift in Sources */,
 				7577720B26D49A3000F50F36 /* InfoViewController.swift in Sources */,
 				755C8CAB265339C70038E2F5 /* ListingsResponse.swift in Sources */,
 				7577720D26D4AD4A00F50F36 /* DetailViewController.swift in Sources */,
+				75FD2FB626E566DB00735023 /* CurrencySettingsViewController.swift in Sources */,
 				75E5B60526321F110024EEB8 /* SceneDelegate.swift in Sources */,
 				753A257B26C32C980012E1E7 /* QuotesResponse.swift in Sources */,
 			);

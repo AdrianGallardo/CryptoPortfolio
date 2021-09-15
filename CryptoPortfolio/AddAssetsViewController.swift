@@ -45,10 +45,10 @@ extension AddAssetsViewController: UITableViewDataSource, UITableViewDelegate {
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if !searchToken.isEmpty {
-			print("search number of rows: \(searchToken.count)")
+//			print("search number of rows: \(searchToken.count)")
 			return searchToken.count
 		} else {
-			print("number of rows: \(listings.count)")
+//			print("number of rows: \(listings.count)")
 			return listings.count
 		}
 	}
@@ -58,10 +58,10 @@ extension AddAssetsViewController: UITableViewDataSource, UITableViewDelegate {
 		var token: CoinData
 
 		if !searchToken.isEmpty {
-			print("search token \(indexPath.row)")
+//			print("search token \(indexPath.row)")
 			token = searchToken[indexPath.row]
 		} else {
-			print("token \(indexPath.row)")
+//			print("token \(indexPath.row)")
 			token = listings[indexPath.row]
 		}
 
@@ -100,7 +100,7 @@ class TokenViewCell: UITableViewCell {
 	}
 
 	func setToken(token: CoinData) {
-		print("setToken")
+//		print("setToken")
 
 // Enables Logo display in the table rows. Consumes API credits.
 //		Client.getMetadata(id: token.id) { metadata, error in

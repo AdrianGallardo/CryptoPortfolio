@@ -27,7 +27,7 @@ class Client {
 			return
 		}
 
-		print("requestListings")
+//		print("requestListings")
 		taskForGETRequest(url: url, response: ListingsResponse.self) { response, error in
 			if let response = response {
 				completion(response.data, nil)
@@ -43,7 +43,7 @@ class Client {
 			return
 		}
 
-		print("getMetadata")
+//		print("getMetadata")
 		taskForGETRequest(url: url, response: MetadataResponse.self) { response, error in
 			if let response = response {
 				completion(response.data[id], nil)
@@ -59,7 +59,7 @@ class Client {
 			return
 		}
 
-		print("getQuotes")
+//		print("getQuotes")
 		taskForGETRequest(url: url, response: QuotesResponse.self) { response, error in
 			if let response = response {
 				completion(response.data[String(id)], nil)
@@ -74,7 +74,7 @@ class Client {
 	// MARK: - GET Task
 	class func taskForGETRequest<ResponseType: Decodable>(url: URL?, response: ResponseType.Type, completion: @escaping (ResponseType?, Error?) -> Void) {
 
-		print("taskForGETRequest")
+//		print("taskForGETRequest")
 
 		guard let url = url else {
 			return
@@ -83,11 +83,11 @@ class Client {
 		var request = URLRequest(url: url)
 		request.setValue(Endpoints.apiKey, forHTTPHeaderField: "X-CMC_PRO_API_KEY")
 
-		print("taskForGETRequest: url -> " + String(reflecting: url))
+//		print("taskForGETRequest: url -> " + String(reflecting: url))
 
 		let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
 
-			print("client taskForGETRequest: data -> " + String(data: data!, encoding: .utf8)!)
+//			print("client taskForGETRequest: data -> " + String(data: data!, encoding: .utf8)!)
 
 			guard let data = data else {
 				DispatchQueue.main.async {
@@ -98,7 +98,7 @@ class Client {
 
 			let decoder = JSONDecoder()
 			do {
-				print("decode -> " + String(reflecting: data))
+//				print("decode -> " + String(reflecting: data))
 				let responseObject = try decoder.decode(ResponseType.self, from: data)
 				DispatchQueue.main.async {
 					completion(responseObject, nil)

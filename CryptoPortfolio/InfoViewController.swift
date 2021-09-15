@@ -58,10 +58,10 @@ extension InfoViewController: UITableViewDataSource, UITableViewDelegate {
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if !searchToken.isEmpty {
-			print("search number of rows: \(searchToken.count)")
+//			print("search number of rows: \(searchToken.count)")
 			return searchToken.count
 		} else {
-			print("number of rows: \(listings.count)")
+//			print("number of rows: \(listings.count)")
 			return listings.count
 		}
 	}
@@ -71,10 +71,10 @@ extension InfoViewController: UITableViewDataSource, UITableViewDelegate {
 		var token: CoinData
 
 		if !searchToken.isEmpty {
-			print("search token \(indexPath.row)")
+//			print("search token \(indexPath.row)")
 			token = searchToken[indexPath.row]
 		} else {
-			print("token \(indexPath.row)")
+//			print("token \(indexPath.row)")
 			token = listings[indexPath.row]
 		}
 

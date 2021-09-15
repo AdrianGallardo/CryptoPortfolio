@@ -11,6 +11,7 @@ import CoreData
 class AssetsViewController: UIViewController {
 
 	var listings: [CoinData] = []
+	var fiatCurrencies: [FiatMapResponse] = []
 	var dataController: DataController!
 	var fetchedResultsController: NSFetchedResultsController<Asset>!
 	var saveObserverToken: Any?
@@ -33,6 +34,7 @@ class AssetsViewController: UIViewController {
 
 		addSaveNotificationObserver()
 		setupListings()
+		setupFiatCurrencies()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -87,6 +89,16 @@ class AssetsViewController: UIViewController {
 
 	fileprivate func setupListings() {
 		Client.requestListings(convert: "USD") { listings, error in
+			guard let listings = listings else{
+				print("setupListings error")
+				return
+			}
+			self.listings = listings
+		}
+	}
+
+	fileprivate func setupFiatCurrencies() {
+		Client.requestFiatMap() { listings, error in
 			guard let listings = listings else{
 				print("setupListings error")
 				return
