@@ -127,8 +127,6 @@ class AssetsViewController: UIViewController {
 
 	func updateQuotes() {
 		var newTotal: Double = 0
-		self.totalFiatLabel.text = "\(fiatSign ?? "$")0"
-
 		let fetchRequest: NSFetchRequest<Asset> = Asset.fetchRequest()
 
 		if let result = try? dataController.viewContext.fetch(fetchRequest), result.count > 0 {

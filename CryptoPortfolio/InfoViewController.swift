@@ -32,6 +32,7 @@ class InfoViewController: UIViewController {
 		self.navigationController?.isNavigationBarHidden = true
 	}
 
+	// MARK: - Auxiliar Functions
 	fileprivate func setupListings() {
 		Client.requestListings(convert: fiatId!) { listings, error in
 			guard let listings = listings else{

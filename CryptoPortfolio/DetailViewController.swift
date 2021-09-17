@@ -29,6 +29,7 @@ class DetailViewController: UIViewController {
 	var fiatSign: String?
 	var fiatId: Int?
 
+	// MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -109,13 +110,14 @@ class DetailViewController: UIViewController {
 		self.navigationController?.isNavigationBarHidden = false
 	}
 
+	// MARK: - Actions
 	@IBAction func linkButtonPressed(_ sender: Any) {
 		if let url = URL(string: linkButton.titleLabel!.text!) {
 			UIApplication.shared.open(url)
 		}
 	}
 
-
+	// MARK: - Auxiliar Functions
 	fileprivate func formattedValue(_ value :Double, decimals: Int, pSign: Bool = false) -> String{
 		let formatter = NumberFormatter()
 		formatter.numberStyle = .decimal

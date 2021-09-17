@@ -14,6 +14,7 @@ class PercentChangeSettingsViewController: UIViewController {
 	var timeFrameUserDefault: String?
 	var timeFrames: [String] = ["1h", "24h", "7d", "30d"]
 
+	// MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		timeFrameUserDefault = UserDefaults.standard.object(forKey: "timeFrame") as? String
@@ -21,6 +22,7 @@ class PercentChangeSettingsViewController: UIViewController {
 	}
 }
 
+// MARK: - UITableViewDelegate
 extension PercentChangeSettingsViewController: UITableViewDataSource, UITableViewDelegate {
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
@@ -55,6 +57,7 @@ extension PercentChangeSettingsViewController: UITableViewDataSource, UITableVie
 	}
 }
 
+// MARK: - TimeFrameViewCell
 class TimeFrameViewCell: UITableViewCell {
 	func setTimeFrame(timeFrame: String, accesory: Bool) {
 		textLabel?.text = timeFrame

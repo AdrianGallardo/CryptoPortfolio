@@ -12,6 +12,7 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet weak var fiatCurrencyLabel: UILabel!
 	@IBOutlet weak var timeFrameLabel: UILabel!
 
+	// MARK: - Lifecycle
 	override func viewWillAppear(_ animated: Bool) {
 		if let fiatCurrency = UserDefaults.standard.object(forKey: "symbolFiatCurrency") as? String {
 			self.fiatCurrencyLabel.text = fiatCurrency

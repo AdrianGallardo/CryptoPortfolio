@@ -96,7 +96,6 @@ class NewAssetViewController: UIViewController {
 	}
 
 	// MARK: - Actions
-
 	override func viewWillAppear(_ animated: Bool) {
 		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
 		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String

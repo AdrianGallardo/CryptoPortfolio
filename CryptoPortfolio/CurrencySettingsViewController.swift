@@ -15,12 +15,14 @@ class CurrencySettingsViewController: UIViewController {
 	var lastSelection: IndexPath!
 	var idFiatCurrencyUserDefault: Int?
 
+	// MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		idFiatCurrencyUserDefault = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
 		setupFiatCurrencies()
 	}
 
+	// MARK: - Auxiliar Functions
 	fileprivate func setupFiatCurrencies() {
 		Client.requestFiatMap() { fiatCurrencies, error in
 			guard let fiatCurrencies = fiatCurrencies else{
@@ -33,6 +35,7 @@ class CurrencySettingsViewController: UIViewController {
 	}
 }
 
+// MARK: - UITableViewDelegate
 extension CurrencySettingsViewController: UITableViewDataSource, UITableViewDelegate {
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
@@ -70,6 +73,7 @@ extension CurrencySettingsViewController: UITableViewDataSource, UITableViewDele
 	}
 }
 
+// MARK: - FiatViewCell
 class FiatViewCell: UITableViewCell {
 	func setFiatCurrency(fiatCurrency: FiatData, accesory: Bool) {
 		textLabel?.text = fiatCurrency.name
