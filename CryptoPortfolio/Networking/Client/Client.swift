@@ -43,7 +43,7 @@ class Client {
 			return
 		}
 
-		print("requestFiatMap")
+//		print("requestFiatMap")
 		taskForGETRequest(url: url, response: FiatMapResponse.self) { response, error in
 			if let response = response {
 				completion(response.data, nil)

@@ -66,7 +66,7 @@ class NewAssetViewController: UIViewController {
 			self.cryptoTextField.text = "1"
 			self.fiatTextField.text = String(format: "%.2f", self.price!)
 			self.totalCryptoLabel.text = "1 \(self.token.symbol)"
-			self.totalFiatLabel.text = (self.fiatSign ?? "$ ") + self.formattedValue(self.price!, decimals: 2)
+			self.totalFiatLabel.text = (self.fiatSign ?? "$") + self.formattedValue(self.price!, decimals: 2)
 
 			Client.getMetadata(id: self.token.id) { metadata, error in
 				guard let metadata = metadata else {
@@ -98,6 +98,8 @@ class NewAssetViewController: UIViewController {
 	// MARK: - Actions
 
 	override func viewWillAppear(_ animated: Bool) {
+		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
+		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
 		self.navigationController?.isNavigationBarHidden = false
 	}
 
@@ -130,7 +132,7 @@ class NewAssetViewController: UIViewController {
 		}
 
 		totalCryptoLabel.text = cryptoTextField.text! + " " + token.symbol
-		totalFiatLabel.text = (fiatSign ?? "$ ") + fiatTextField.text!
+		totalFiatLabel.text = (fiatSign ?? "$") + fiatTextField.text!
 	}
 
 	func save() {

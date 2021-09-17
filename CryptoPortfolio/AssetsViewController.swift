@@ -16,6 +16,7 @@ class AssetsViewController: UIViewController {
 	var saveObserverToken: Any?
 	var fiatSign: String?
 	var fiatId: Int?
+	var timeFrame: String?
 
 	let colorsMidnight = [UIColor(red: 0.25, green: 0.26, blue: 0.27, alpha: 1.00).cgColor,
 												UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00).cgColor]
@@ -33,23 +34,29 @@ class AssetsViewController: UIViewController {
 		//Do any additional setup after loading the view
 		assetsTableView.rowHeight = 107;
 		assetsOverviewView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.axial)
-
 		addSaveNotificationObserver()
+
 		if (UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int) == nil {
 			UserDefaults.standard.set(usd.id, forKey: "idFiatCurrency")
 			UserDefaults.standard.set(usd.sign, forKey: "signFiatCurrency")
 			UserDefaults.standard.set(usd.symbol, forKey: "symbolFiatCurrency")
 		}
 
-		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
-		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
+		if (UserDefaults.standard.object(forKey: "timeFrame") as? String) == nil {
+			UserDefaults.standard.set("24h", forKey: "timeFrame")
+		}
 
 		setupListings()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
+		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
+		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
+		timeFrame = UserDefaults.standard.object(forKey: "timeFrame") as? String
+
 		setupFetchedResultsController()
 		updateQuotes()
+		self.totalCryptoLabel.text = UserDefaults.standard.object(forKey: "symbolFiatCurrency") as? String
 
 		self.navigationController?.isNavigationBarHidden = true
 	}
@@ -98,6 +105,10 @@ class AssetsViewController: UIViewController {
 	}
 
 	fileprivate func setupListings() {
+		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
+		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
+		timeFrame = UserDefaults.standard.object(forKey: "timeFrame") as? String
+
 		Client.requestListings(convert: fiatId!) { listings, error in
 			guard let listings = listings else{
 				print("setupListings error")
@@ -116,7 +127,7 @@ class AssetsViewController: UIViewController {
 
 	func updateQuotes() {
 		var newTotal: Double = 0
-		self.totalFiatLabel.text = "\(fiatSign ?? "$") 0"
+		self.totalFiatLabel.text = "\(fiatSign ?? "$")0"
 
 		let fetchRequest: NSFetchRequest<Asset> = Asset.fetchRequest()
 
@@ -137,13 +148,13 @@ class AssetsViewController: UIViewController {
 					asset.setValue(asset.total * quotes.price, forKey: "val")
 
 					if self.dataController.viewContext.hasChanges {
-						print("saving asset")
+//						print("saving asset")
 						do {
 							try self.dataController.viewContext.save()
-							print("asset saved")
+//							print("asset saved")
 
 							newTotal = newTotal + (quotes.price * asset.total)
-							self.totalFiatLabel.text = (self.fiatSign ?? "$ ") + self.formattedValue(newTotal, decimals: 2)
+							self.totalFiatLabel.text = (self.fiatSign ?? "$") + self.formattedValue(newTotal, decimals: 2)
 
 						} catch {
 							print(error.localizedDescription)
@@ -171,7 +182,7 @@ extension AssetsViewController: UITableViewDataSource, UITableViewDelegate {
 
 		// Configure cell
 		let cell = tableView.dequeueReusableCell(withIdentifier: "assetViewCell") as! AssetViewCell
-		cell.setAsset(asset: asset)
+		cell.setAsset(asset: asset, sign: fiatSign!, timeFrame: timeFrame!)
 
 		return cell
 	}
@@ -293,33 +304,48 @@ class AssetViewCell: UITableViewCell {
 	@IBOutlet weak var priceLabel: UILabel!
 	@IBOutlet weak var totalLabel: UILabel!
 	@IBOutlet weak var percentchangeLabel: UILabel!
+	@IBOutlet weak var timeFrameLabel: UILabel!
 
-	var fiatSign: String?
 	let colorsMidnight = [UIColor(red: 0.25, green: 0.26, blue: 0.27, alpha: 1.00).cgColor,
 												UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00).cgColor]
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
 		self.contentView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.radial)
-		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
 	}
 
-	func setAsset(asset: Asset) {
+	func setAsset(asset: Asset, sign: String, timeFrame: String) {
 		guard let logoData = asset.logo else {
 			return
+		}
+
+		var percentChange: Double?
+		switch(timeFrame) {
+		case "1h":
+			percentChange = asset.pchange1h
+		case "24h":
+			percentChange = asset.pchange24h
+		case "7d":
+			percentChange = asset.pchange7d
+		case "30d":
+			percentChange = asset.pchange30d
+		default:
+			percentChange = asset.pchange24h
 		}
 
 		self.logoImageView.image = UIImage(data: logoData)
 		self.symbolLabel.text = asset.symbol
 		self.totalLabel.text = self.formattedValue(asset.total, decimals: 4) + " " + asset.symbol!
-		self.priceLabel.text = (fiatSign ?? "$ ") + self.formattedValue(asset.val, decimals: 2)
-		self.percentchangeLabel.text = self.formattedValue(asset.pchange24h, decimals: 2, pSign: true) + "%"
+		self.priceLabel.text = sign + self.formattedValue(asset.val, decimals: 2)
+		self.percentchangeLabel.text = self.formattedValue(percentChange!, decimals: 2, pSign: true) + "%"
+		self.timeFrameLabel.text = timeFrame
 
 		if self.percentchangeLabel.text!.starts(with: "+") {
 			self.percentchangeLabel.textColor = UIColor(red: 0.22, green: 0.94, blue: 0.49, alpha: 1.00)
 		} else if self.percentchangeLabel.text!.starts(with: "-"){
 			self.percentchangeLabel.textColor = UIColor(red: 1.00, green: 0.25, blue: 0.42, alpha: 1.00)
 		}
+		self.timeFrameLabel.textColor = self.percentchangeLabel.textColor
 	}
 
 	fileprivate func formattedValue(_ value :Double, decimals: Int, pSign: Bool = false) -> String{

@@ -45,7 +45,7 @@ class EditAssetViewController: UIViewController {
 		self.cryptoTextField.text = String(format: "%.4f", asset.total)
 		self.fiatTextField.text = String(format: "%.4f", asset.val)
 		self.totalCryptoLabel.text = formattedValue(asset.total, decimals: 4) + " " + asset.symbol!
-		self.totalFiatLabel.text = (self.fiatSign ?? "$ ") + formattedValue(asset.val, decimals: 2)
+		self.totalFiatLabel.text = (self.fiatSign ?? "$") + formattedValue(asset.val, decimals: 2)
 		self.cryptoLogoImageView.image = UIImage(data: asset.logo!)
 
 		cryptoTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
@@ -53,6 +53,8 @@ class EditAssetViewController: UIViewController {
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
+		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
+		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
 		self.navigationController?.isNavigationBarHidden = false
 	}
 
@@ -86,7 +88,7 @@ class EditAssetViewController: UIViewController {
 		}
 
 		totalCryptoLabel.text = cryptoTextField.text! + " " + asset.symbol!
-		totalFiatLabel.text = (self.fiatSign ?? "$ ") + fiatTextField.text!
+		totalFiatLabel.text = (self.fiatSign ?? "$") + fiatTextField.text!
 	}
 
 	func save() {
