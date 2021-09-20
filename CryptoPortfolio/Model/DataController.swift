@@ -26,52 +26,51 @@ class DataController {
 				fatalError(error!.localizedDescription)
 			}
 			completion?()
-//			self.updateQuotes()
+			self.updateQuotes()
+		}
+	}
+
+	//extension DataController {
+	func updateQuotes(interval: TimeInterval = 60) {
+		print("Update Quotes")
+		guard interval > 0 else {
+			print("interval must be a positive number")
+			return
+		}
+
+		let fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
+		let fetchRequest: NSFetchRequest<Asset> = Asset.fetchRequest()
+
+		if let result = try? viewContext.fetch(fetchRequest), result.count > 0 {
+			for asset in result {
+				Client.getQuotes(id: Int(asset.id), convert: fiatId!) { quotesData, error in
+					guard let quotesData = quotesData else {
+						print("updateQuotes getQuotes error")
+						return
+					}
+					let quotes = quotesData.quote[String(fiatId!)]!
+
+					asset.setValue(quotes.percent_change_1h, forKey: "pchange1h")
+					asset.setValue(quotes.percent_change_7d, forKey: "pchange7d")
+					asset.setValue(quotes.percent_change_24h, forKey: "pchange24h")
+					asset.setValue(quotes.percent_change_30d, forKey: "pchange30d")
+					asset.setValue(quotes.price, forKey: "price")
+					asset.setValue(asset.total * quotes.price, forKey: "val")
+
+					if self.viewContext.hasChanges {
+						do {
+							try self.viewContext.save()
+						} catch {
+							print(error.localizedDescription)
+						}
+					}
+				}
+			}
+		}
+
+		DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
+			self.updateQuotes(interval: interval)
 		}
 	}
 }
-
-//extension DataController {
-//	func updateQuotes(interval: TimeInterval = 60) {
-//		print("Update Quotes")
-//		guard interval > 0 else {
-//			print("interval must be a positive number")
-//			return
-//		}
-//
-//		let fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
-//		let fetchRequest: NSFetchRequest<Asset> = Asset.fetchRequest()
-//
-//		if let result = try? viewContext.fetch(fetchRequest), result.count > 0 {
-//			for asset in result {
-//				Client.getQuotes(id: Int(asset.id), convert: fiatId!) { quotesData, error in
-//					guard let quotesData = quotesData else {
-//						print("updateQuotes getQuotes error")
-//						return
-//					}
-//					let quotes = quotesData.quote[String(fiatId!)]!
-//
-//					asset.setValue(quotes.percent_change_1h, forKey: "pchange1h")
-//					asset.setValue(quotes.percent_change_7d, forKey: "pchange7d")
-//					asset.setValue(quotes.percent_change_24h, forKey: "pchange24h")
-//					asset.setValue(quotes.percent_change_30d, forKey: "pchange30d")
-//					asset.setValue(quotes.price, forKey: "price")
-//					asset.setValue(asset.total * quotes.price, forKey: "val")
-//
-//					if self.viewContext.hasChanges {
-//						do {
-//							try self.viewContext.save()
-//						} catch {
-//							print(error.localizedDescription)
-//						}
-//					}
-//				}
-//			}
-//		}
-//
-//		DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
-//			self.updateQuotes(interval: interval)
-//		}
-//	}
-//}
 

@@ -55,10 +55,11 @@ class AssetsViewController: UIViewController {
 		timeFrame = UserDefaults.standard.object(forKey: "timeFrame") as? String
 
 		setupFetchedResultsController()
-		updateQuotes()
+		updateTotal()
 		self.totalCryptoLabel.text = UserDefaults.standard.object(forKey: "symbolFiatCurrency") as? String
 
 		self.navigationController?.isNavigationBarHidden = true
+		assetsTableView.reloadData()
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
@@ -105,12 +106,8 @@ class AssetsViewController: UIViewController {
 	}
 
 	fileprivate func setupListings() {
-		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
-		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
-		timeFrame = UserDefaults.standard.object(forKey: "timeFrame") as? String
-
-		Client.requestListings(convert: fiatId!) { listings, error in
-			guard let listings = listings else{
+		Client.requestListings(convert: UserDefaults.standard.object(forKey: "idFiatCurrency") as! Int) { listings, error in
+			guard let listings = listings else {
 				print("setupListings error")
 				return
 			}
@@ -122,46 +119,58 @@ class AssetsViewController: UIViewController {
 		let assetToDelete = fetchedResultsController.object(at: indexPath)
 		dataController.viewContext.delete(assetToDelete)
 		try? dataController.viewContext.save()
-		updateQuotes()
+		updateTotal()
 	}
 
-	func updateQuotes() {
-		var newTotal: Double = 0
+	func updateTotal() {
+		var total: Double = 0
 		let fetchRequest: NSFetchRequest<Asset> = Asset.fetchRequest()
 
 		if let result = try? dataController.viewContext.fetch(fetchRequest), result.count > 0 {
 			for asset in result {
-				Client.getQuotes(id: Int(asset.id), convert: fiatId!) { quotesData, error in
-					guard let quotesData = quotesData else {
-						print("NewAssetVC getQuotes error")
-						return
-					}
-					let quotes = quotesData.quote[String(self.fiatId!)]!
-
-					asset.setValue(quotes.percent_change_1h, forKey: "pchange1h")
-					asset.setValue(quotes.percent_change_7d, forKey: "pchange7d")
-					asset.setValue(quotes.percent_change_24h, forKey: "pchange24h")
-					asset.setValue(quotes.percent_change_30d, forKey: "pchange30d")
-					asset.setValue(quotes.price, forKey: "price")
-					asset.setValue(asset.total * quotes.price, forKey: "val")
-
-					if self.dataController.viewContext.hasChanges {
-//						print("saving asset")
-						do {
-							try self.dataController.viewContext.save()
-//							print("asset saved")
-
-							newTotal = newTotal + (quotes.price * asset.total)
-							self.totalFiatLabel.text = (self.fiatSign ?? "$") + self.formattedValue(newTotal, decimals: 2)
-
-						} catch {
-							print(error.localizedDescription)
-						}
-					}
-				}
+				total = total + asset.val
 			}
 		}
+		totalFiatLabel.text = (self.fiatSign ?? "$") + self.formattedValue(total, decimals: 2)
 	}
+
+//	func updateQuotes() {
+//		var newTotal: Double = 0
+//		let fetchRequest: NSFetchRequest<Asset> = Asset.fetchRequest()
+//
+//		if let result = try? dataController.viewContext.fetch(fetchRequest), result.count > 0 {
+//			for asset in result {
+//				Client.getQuotes(id: Int(asset.id), convert: fiatId!) { quotesData, error in
+//					guard let quotesData = quotesData else {
+//						print("NewAssetVC getQuotes error")
+//						return
+//					}
+//					let quotes = quotesData.quote[String(self.fiatId!)]!
+//
+//					asset.setValue(quotes.percent_change_1h, forKey: "pchange1h")
+//					asset.setValue(quotes.percent_change_7d, forKey: "pchange7d")
+//					asset.setValue(quotes.percent_change_24h, forKey: "pchange24h")
+//					asset.setValue(quotes.percent_change_30d, forKey: "pchange30d")
+//					asset.setValue(quotes.price, forKey: "price")
+//					asset.setValue(asset.total * quotes.price, forKey: "val")
+//
+//					if self.dataController.viewContext.hasChanges {
+////						print("saving asset")
+//						do {
+//							try self.dataController.viewContext.save()
+////							print("asset saved")
+//
+//							newTotal = newTotal + (quotes.price * asset.total)
+//							self.totalFiatLabel.text = (self.fiatSign ?? "$") + self.formattedValue(newTotal, decimals: 2)
+//
+//						} catch {
+//							print(error.localizedDescription)
+//						}
+//					}
+//				}
+//			}
+//		}
+//	}
 
 }
 
@@ -291,6 +300,7 @@ extension AssetsViewController {
 	func handleSaveNotification(notification: Notification) {
 		DispatchQueue.main.async {
 			self.reloadAssets()
+			self.updateTotal()
 		}
 	}
 }
