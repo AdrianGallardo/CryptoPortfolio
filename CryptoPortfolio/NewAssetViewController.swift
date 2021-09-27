@@ -50,6 +50,8 @@ class NewAssetViewController: UIViewController {
 		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
 		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
 
+		self.fiatSymbolLabel.text = fiatSign
+
 		Client.getQuotes(id: token.id, convert: fiatId!) { quotesData, error in
 			guard let quotesData = quotesData else {
 				print("NewAssetVC getQuotes error")
@@ -58,10 +60,10 @@ class NewAssetViewController: UIViewController {
 			let quotes = quotesData.quote[String(self.fiatId!)]!
 
 			self.price = quotes.price
-			self.pChange1h = quotes.percent_change_1h
-			self.pChange24h = quotes.percent_change_24h
-			self.pChange7d = quotes.percent_change_7d
-			self.pChange30d = quotes.percent_change_30d
+			self.pChange1h = quotes.pChange1h
+			self.pChange24h = quotes.pChange24h
+			self.pChange7d = quotes.pChange7d
+			self.pChange30d = quotes.pChange30d
 
 			self.cryptoTextField.text = "1"
 			self.fiatTextField.text = String(format: "%.2f", self.price!)

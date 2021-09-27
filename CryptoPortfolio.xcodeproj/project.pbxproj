@@ -28,7 +28,6 @@
 		75E5B62526321F180024EEB8 /* CryptoPortfolioUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E5B62426321F180024EEB8 /* CryptoPortfolioUITests.swift */; };
 		75E991B2269CFFED009F0289 /* MetadataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E991B1269CFFED009F0289 /* MetadataResponse.swift */; };
 		75E991B4269E4D0A009F0289 /* NewAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E991B3269E4D09009F0289 /* NewAssetViewController.swift */; };
-		75FD2FB426E0966F00735023 /* FiatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FD2FB326E0966F00735023 /* FiatViewController.swift */; };
 		75FD2FB626E566DB00735023 /* CurrencySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FD2FB526E566DB00735023 /* CurrencySettingsViewController.swift */; };
 		75FD2FBA26E5677200735023 /* PercentChangeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FD2FB926E5677200735023 /* PercentChangeSettingsViewController.swift */; };
 		75FD2FBC26E5870600735023 /* FiatMapResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FD2FBB26E5870600735023 /* FiatMapResponse.swift */; };
@@ -79,7 +78,6 @@
 		75E5B62626321F180024EEB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75E991B1269CFFED009F0289 /* MetadataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataResponse.swift; sourceTree = "<group>"; };
 		75E991B3269E4D09009F0289 /* NewAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAssetViewController.swift; sourceTree = "<group>"; };
-		75FD2FB326E0966F00735023 /* FiatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiatViewController.swift; sourceTree = "<group>"; };
 		75FD2FB526E566DB00735023 /* CurrencySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencySettingsViewController.swift; sourceTree = "<group>"; };
 		75FD2FB926E5677200735023 /* PercentChangeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentChangeSettingsViewController.swift; sourceTree = "<group>"; };
 		75FD2FBB26E5870600735023 /* FiatMapResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiatMapResponse.swift; sourceTree = "<group>"; };
@@ -186,7 +184,6 @@
 				7577720A26D49A3000F50F36 /* InfoViewController.swift */,
 				7577720C26D4AD4A00F50F36 /* DetailViewController.swift */,
 				751D004926E08EEB00073B3E /* SettingsViewController.swift */,
-				75FD2FB326E0966F00735023 /* FiatViewController.swift */,
 				75FD2FB526E566DB00735023 /* CurrencySettingsViewController.swift */,
 				75FD2FB926E5677200735023 /* PercentChangeSettingsViewController.swift */,
 			);
@@ -348,7 +345,6 @@
 				759E13602655AF2A00A206C7 /* CryptoPortfolio.xcdatamodeld in Sources */,
 				75E991B2269CFFED009F0289 /* MetadataResponse.swift in Sources */,
 				75E991B4269E4D0A009F0289 /* NewAssetViewController.swift in Sources */,
-				75FD2FB426E0966F00735023 /* FiatViewController.swift in Sources */,
 				75FD2FBA26E5677200735023 /* PercentChangeSettingsViewController.swift in Sources */,
 				751D004A26E08EEB00073B3E /* SettingsViewController.swift in Sources */,
 				7530890426CAEFB5001C3784 /* Extensions.swift in Sources */,

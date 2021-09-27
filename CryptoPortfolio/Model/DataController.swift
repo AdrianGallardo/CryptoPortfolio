@@ -29,8 +29,7 @@ class DataController {
 			self.updateQuotes()
 		}
 	}
-
-	//extension DataController {
+	
 	func updateQuotes(interval: TimeInterval = 60) {
 		print("Update Quotes")
 		guard interval > 0 else {
@@ -50,10 +49,10 @@ class DataController {
 					}
 					let quotes = quotesData.quote[String(fiatId!)]!
 
-					asset.setValue(quotes.percent_change_1h, forKey: "pchange1h")
-					asset.setValue(quotes.percent_change_7d, forKey: "pchange7d")
-					asset.setValue(quotes.percent_change_24h, forKey: "pchange24h")
-					asset.setValue(quotes.percent_change_30d, forKey: "pchange30d")
+					asset.setValue(quotes.pChange1h, forKey: "pchange1h")
+					asset.setValue(quotes.pChange7d, forKey: "pchange7d")
+					asset.setValue(quotes.pChange24h, forKey: "pchange24h")
+					asset.setValue(quotes.pChange30d, forKey: "pchange30d")
 					asset.setValue(quotes.price, forKey: "price")
 					asset.setValue(asset.total * quotes.price, forKey: "val")
 

@@ -360,7 +360,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hs1-SD-mns">
-                                                            <rect key="frame" x="88" y="43" width="60" height="21"/>
+                                                            <rect key="frame" x="92" y="43" width="60" height="21"/>
                                                             <color key="tintColor" red="0.13725490196078433" green="0.14509803921568626" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="60" id="HqC-da-1Jd"/>
@@ -415,7 +415,7 @@
                                                     <color key="backgroundColor" red="0.36862745099999999" green="0.37647058820000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstItem="hs1-SD-mns" firstAttribute="leading" secondItem="7jH-8A-Mkd" secondAttribute="trailing" constant="8" id="3NZ-dZ-KqB"/>
+                                                        <constraint firstItem="hs1-SD-mns" firstAttribute="leading" secondItem="7jH-8A-Mkd" secondAttribute="trailing" constant="12" id="3NZ-dZ-KqB"/>
                                                         <constraint firstItem="Ant-Tq-g7o" firstAttribute="centerY" secondItem="u7o-y3-Vi2" secondAttribute="centerY" id="3Uy-xt-BDY"/>
                                                         <constraint firstAttribute="trailing" secondItem="Ant-Tq-g7o" secondAttribute="trailing" constant="8" id="8Ez-3c-SPd"/>
                                                         <constraint firstItem="hs1-SD-mns" firstAttribute="centerY" secondItem="u7o-y3-Vi2" secondAttribute="centerY" id="K4b-A3-U7r"/>

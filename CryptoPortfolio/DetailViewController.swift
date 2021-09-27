@@ -47,11 +47,11 @@ class DetailViewController: UIViewController {
 			let quotes = quotesData.quote[String(self.fiatId!)]!
 
 			self.nameLabel.text = "\(quotesData.name) - (\(quotesData.symbol))"
-			self.rankLabel.text = "Rank #\(String(quotesData.cmc_rank))"
+			self.rankLabel.text = "Rank #\(String(quotesData.cmcRank))"
 
 			self.priceLabel.text = (self.fiatSign ?? "$ ") + self.formattedValue(quotes.price, decimals: 4)
 
-			self.percentLabel.text = self.formattedValue(quotes.percent_change_24h, decimals: 2) + "%"
+			self.percentLabel.text = self.formattedValue(quotes.pChange24h, decimals: 2) + "%"
 			if self.percentLabel.text!.starts(with: "-") {
 				self.percentLabel.textColor = UIColor(red: 1.00, green: 0.25, blue: 0.42, alpha: 1.00)
 			} else if self.percentLabel.text! == "0" {
@@ -60,21 +60,21 @@ class DetailViewController: UIViewController {
 				self.percentLabel.textColor = UIColor(red: 0.22, green: 0.94, blue: 0.49, alpha: 1.00)
 			}
 
-			self.marketCapLabel.text = (self.fiatSign ?? "$ ") + self.formattedValue(quotes.market_cap, decimals: 2)
+			self.marketCapLabel.text = (self.fiatSign ?? "$ ") + self.formattedValue(quotes.marketCap, decimals: 2)
 
-			if let circulatingSupply = quotesData.circulating_supply {
+			if let circulatingSupply = quotesData.circulatingSupply {
 				self.circulatingSupplyLabel.text = self.formattedValue(Double(circulatingSupply), decimals: 2)
 			} else {
 				self.circulatingSupplyLabel.text = "-"
 			}
 
-			if let totalSupply = quotesData.total_supply {
+			if let totalSupply = quotesData.totalSupply {
 				self.totalSupplyLabel.text = self.formattedValue(Double(totalSupply), decimals: 2)
 			} else {
 				self.totalSupplyLabel.text = "-"
 			}
 
-			if let maxSupply = quotesData.max_supply {
+			if let maxSupply = quotesData.maxSupply {
 				self.maxSupplyLabel.text = self.formattedValue(Double(maxSupply), decimals: 2)
 			} else {
 				self.maxSupplyLabel.text = "-"

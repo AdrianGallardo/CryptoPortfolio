@@ -74,10 +74,8 @@ extension InfoViewController: UITableViewDataSource, UITableViewDelegate {
 		var token: CoinData
 
 		if !searchToken.isEmpty {
-//			print("search token \(indexPath.row)")
 			token = searchToken[indexPath.row]
 		} else {
-//			print("token \(indexPath.row)")
 			token = listings[indexPath.row]
 		}
 

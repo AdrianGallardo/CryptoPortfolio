@@ -42,6 +42,8 @@ class EditAssetViewController: UIViewController {
 		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
 		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
 
+		self.fiatSymbolLabel.text = fiatSign
+
 		self.cryptoTextField.text = String(format: "%.4f", asset.total)
 		self.fiatTextField.text = String(format: "%.4f", asset.val)
 		self.totalCryptoLabel.text = formattedValue(asset.total, decimals: 4) + " " + asset.symbol!
@@ -60,6 +62,20 @@ class EditAssetViewController: UIViewController {
 
 	// MARK: - Actions
 	@IBAction func add(_ sender: Any) {
+		guard Double(cryptoTextField.text!) != nil else{
+			let alert = UIAlertController(title: "Edit Asset", message: "\nEnter the Total Crypto amount\n", preferredStyle: .alert)
+			alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+			self.present(alert, animated: true)
+			return
+		}
+
+		guard Double(cryptoTextField.text!)! > 0 else{
+			let alert = UIAlertController(title: "Edit Asset", message: "\nThe Total Crypto amount can't be 0\n", preferredStyle: .alert)
+			alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+			self.present(alert, animated: true)
+			return
+		}
+
 		let alert = UIAlertController(title: "Edit Asset", message: "\nAdd \(cryptoTextField.text ?? "0") " + self.asset.symbol! + " Tokens to your assets?\n", preferredStyle: .alert)
 
 		alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
@@ -96,8 +112,8 @@ class EditAssetViewController: UIViewController {
 		fetchRequest.predicate = NSPredicate(format: "id == %@", String(asset.id))
 
 		if let result = try? dataController.viewContext.fetch(fetchRequest), result.count > 0 {
-			let total = Double(cryptoTextField.text!)!
-			result[0].setValue(total, forKey: "total")
+			result[0].setValue(Double(cryptoTextField.text!)!, forKey: "total")
+			result[0].setValue(Double(fiatTextField.text!)!, forKey: "val")
 		}
 
 		if self.dataController.viewContext.hasChanges {

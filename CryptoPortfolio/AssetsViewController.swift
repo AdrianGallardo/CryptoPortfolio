@@ -31,10 +31,8 @@ class AssetsViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		//Do any additional setup after loading the view
 		assetsTableView.rowHeight = 107;
 		assetsOverviewView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.axial)
-		addSaveNotificationObserver()
 
 		if (UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int) == nil {
 			UserDefaults.standard.set(usd.id, forKey: "idFiatCurrency")
@@ -55,15 +53,17 @@ class AssetsViewController: UIViewController {
 		timeFrame = UserDefaults.standard.object(forKey: "timeFrame") as? String
 
 		setupFetchedResultsController()
-		updateTotal()
+		addSaveNotificationObserver()
 		self.totalCryptoLabel.text = UserDefaults.standard.object(forKey: "symbolFiatCurrency") as? String
 
 		self.navigationController?.isNavigationBarHidden = true
+		updateTotal()
 		assetsTableView.reloadData()
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
+		removeSaveNotificationObserver()
 		fetchedResultsController = nil
 	}
 
@@ -133,45 +133,6 @@ class AssetsViewController: UIViewController {
 		}
 		totalFiatLabel.text = (self.fiatSign ?? "$") + self.formattedValue(total, decimals: 2)
 	}
-
-//	func updateQuotes() {
-//		var newTotal: Double = 0
-//		let fetchRequest: NSFetchRequest<Asset> = Asset.fetchRequest()
-//
-//		if let result = try? dataController.viewContext.fetch(fetchRequest), result.count > 0 {
-//			for asset in result {
-//				Client.getQuotes(id: Int(asset.id), convert: fiatId!) { quotesData, error in
-//					guard let quotesData = quotesData else {
-//						print("NewAssetVC getQuotes error")
-//						return
-//					}
-//					let quotes = quotesData.quote[String(self.fiatId!)]!
-//
-//					asset.setValue(quotes.percent_change_1h, forKey: "pchange1h")
-//					asset.setValue(quotes.percent_change_7d, forKey: "pchange7d")
-//					asset.setValue(quotes.percent_change_24h, forKey: "pchange24h")
-//					asset.setValue(quotes.percent_change_30d, forKey: "pchange30d")
-//					asset.setValue(quotes.price, forKey: "price")
-//					asset.setValue(asset.total * quotes.price, forKey: "val")
-//
-//					if self.dataController.viewContext.hasChanges {
-////						print("saving asset")
-//						do {
-//							try self.dataController.viewContext.save()
-////							print("asset saved")
-//
-//							newTotal = newTotal + (quotes.price * asset.total)
-//							self.totalFiatLabel.text = (self.fiatSign ?? "$") + self.formattedValue(newTotal, decimals: 2)
-//
-//						} catch {
-//							print(error.localizedDescription)
-//						}
-//					}
-//				}
-//			}
-//		}
-//	}
-
 }
 
 // MARK: - UITableView Delegate
@@ -187,7 +148,6 @@ extension AssetsViewController: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let asset = fetchedResultsController.object(at: indexPath)
 
-		// Configure cell
 		let cell = tableView.dequeueReusableCell(withIdentifier: "assetViewCell") as! AssetViewCell
 		cell.setAsset(asset: asset, sign: fiatSign!, timeFrame: timeFrame!)
 
@@ -258,6 +218,8 @@ extension AssetsViewController: NSFetchedResultsControllerDelegate {
 			assetsTableView.reloadRows(at: [indexPath!], with: .fade)
 		case .move:
 			assetsTableView.moveRow(at: indexPath!, to: newIndexPath!)
+		@unknown default:
+			fatalError("Invalid change type in controller(_:didChange:atIndexPath:for:)")
 		}
 	}
 
@@ -268,6 +230,8 @@ extension AssetsViewController: NSFetchedResultsControllerDelegate {
 		case .delete: assetsTableView.deleteSections(indexSet, with: .fade)
 		case .update, .move:
 			fatalError("Invalid change type in controller(_:didChange:atSectionIndex:for:). Only .insert or .delete should be possible.")
+		@unknown default:
+			fatalError("Invalid change type in controller(_:didChange:atSectionIndex:for:)")
 		}
 	}
 
