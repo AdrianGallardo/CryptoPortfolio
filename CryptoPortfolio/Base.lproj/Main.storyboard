@@ -676,18 +676,35 @@
                                     <outlet property="delegate" destination="Am4-ky-2LM" id="T0z-Zu-IsK"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pHd-EL-eyW">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="FAJ-5m-DhX">
+                                        <rect key="frame" x="189" y="369" width="37" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="uOQ-Jq-EWA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="3YD-vd-2Gz" firstAttribute="trailing" secondItem="uOQ-Jq-EWA" secondAttribute="trailing" id="2l0-dy-LOx"/>
+                            <constraint firstItem="pHd-EL-eyW" firstAttribute="leading" secondItem="uOQ-Jq-EWA" secondAttribute="leading" id="DxY-2b-rSP"/>
+                            <constraint firstItem="pHd-EL-eyW" firstAttribute="top" secondItem="uOQ-Jq-EWA" secondAttribute="top" id="RA4-Se-Pt9"/>
                             <constraint firstItem="3YD-vd-2Gz" firstAttribute="top" secondItem="uOQ-Jq-EWA" secondAttribute="top" id="aCo-rE-A83"/>
+                            <constraint firstItem="uOQ-Jq-EWA" firstAttribute="trailing" secondItem="pHd-EL-eyW" secondAttribute="trailing" id="egI-lu-u0S"/>
+                            <constraint firstItem="pHd-EL-eyW" firstAttribute="centerX" secondItem="uOQ-Jq-EWA" secondAttribute="centerX" id="paN-Di-2ab"/>
+                            <constraint firstItem="uOQ-Jq-EWA" firstAttribute="bottom" secondItem="pHd-EL-eyW" secondAttribute="bottom" id="qb1-SR-Ns4"/>
                             <constraint firstItem="3YD-vd-2Gz" firstAttribute="leading" secondItem="uOQ-Jq-EWA" secondAttribute="leading" id="srd-1x-AWA"/>
+                            <constraint firstItem="pHd-EL-eyW" firstAttribute="centerY" secondItem="uOQ-Jq-EWA" secondAttribute="centerY" id="uH2-RI-tfK"/>
                             <constraint firstItem="3YD-vd-2Gz" firstAttribute="bottom" secondItem="uOQ-Jq-EWA" secondAttribute="bottom" id="wlC-jp-cuZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Nvv-cf-AHN"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="FAJ-5m-DhX" id="ncT-g0-gh6"/>
+                        <outlet property="activityIndicatorView" destination="pHd-EL-eyW" id="yHK-so-1d1"/>
                         <outlet property="tableView" destination="3YD-vd-2Gz" id="K8w-jR-dTq"/>
                     </connections>
                 </viewController>

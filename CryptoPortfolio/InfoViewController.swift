@@ -19,6 +19,7 @@ class InfoViewController: UIViewController {
 
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
+		print(" InfoViewController: viewDidLoad")
 		super.viewDidLoad()
 
 		tableView.rowHeight = 81
@@ -29,11 +30,13 @@ class InfoViewController: UIViewController {
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
+		print(" InfoViewController: viewWillAppear")
 		self.navigationController?.isNavigationBarHidden = true
 	}
 
 	// MARK: - Auxiliar Functions
 	fileprivate func setupListings() {
+		print(" InfoViewController: setupListings")
 		Client.requestListings(convert: fiatId!) { listings, error in
 			guard let listings = listings else{
 				print("setupListings error")
