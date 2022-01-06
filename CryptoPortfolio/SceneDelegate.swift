@@ -30,6 +30,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		assetsViewController.dataController = dataController
 		settingsViewController.dataController = dataController
 
+		
+
 		guard let _ = (scene as? UIWindowScene) else { return }
 	}
 

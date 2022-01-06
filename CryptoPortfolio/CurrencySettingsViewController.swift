@@ -10,8 +10,6 @@ import UIKit
 
 class CurrencySettingsViewController: UIViewController {
 	@IBOutlet weak var tableView: UITableView!
-	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-	@IBOutlet weak var activityIndicatorView: UIView!
 
 	var fiatCurrencies: [FiatData] = []
 	var lastSelection: IndexPath!
@@ -22,36 +20,22 @@ class CurrencySettingsViewController: UIViewController {
 		print(" CurrencySettingsViewcontroller: viewDidLoad")
 		super.viewDidLoad()
 		idFiatCurrencyUserDefault = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
-		setupFiatCurrencies()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		print(" CurrencySettingsViewcontroller: viewWillAppear")
 	}
 
-	// MARK: - Auxiliar Functions
-	fileprivate func setupFiatCurrencies() {
-		self.configActivityView(animating: true)
-		Client.requestFiatMap() { fiatCurrencies, error in
-			guard let fiatCurrencies = fiatCurrencies else{
-				print("setupFiatCurrencies error")
-				return
-			}
-			self.fiatCurrencies = fiatCurrencies
-			self.tableView.reloadData()
-			self.configActivityView(animating: false)
-		}
-	}
-
-	fileprivate func configActivityView(animating: Bool) {
-		if animating {
-			self.activityIndicator.startAnimating()
-		} else {
-			self.activityIndicator.stopAnimating()
-		}
-		self.activityIndicator.isHidden = !animating
-		self.activityIndicatorView.isHidden = !animating
-	}
+//	// MARK: - Auxiliar Functions
+//	fileprivate func configActivityView(animating: Bool) {
+//		if animating {
+//			self.activityIndicator.startAnimating()
+//		} else {
+//			self.activityIndicator.stopAnimating()
+//		}
+//		self.activityIndicator.isHidden = !animating
+//		self.activityIndicatorView.isHidden = !animating
+//	}
 }
 
 // MARK: - UITableViewDelegate

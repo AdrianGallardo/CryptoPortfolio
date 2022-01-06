@@ -10,6 +10,7 @@ import CoreData
 
 class DataController {
 	let persistentContainer: NSPersistentContainer
+	var fiatCurrencies: [FiatData] = []
 
 	var viewContext: NSManagedObjectContext {
 		return persistentContainer.viewContext
@@ -26,6 +27,8 @@ class DataController {
 				fatalError(error!.localizedDescription)
 			}
 			completion?()
+
+			self.setupFiatCurrencies()
 			self.updateQuotes()
 		}
 	}
@@ -69,6 +72,16 @@ class DataController {
 
 		DispatchQueue.main.asyncAfter(deadline: .now() + interval) {
 			self.updateQuotes(interval: interval)
+		}
+	}
+
+	func setupFiatCurrencies() {
+		Client.requestFiatMap() { fiatCurrencies, error in
+			guard let fiatCurrencies = fiatCurrencies else{
+				print("setupFiatCurrencies error")
+				return
+			}
+			self.fiatCurrencies = fiatCurrencies
 		}
 	}
 }

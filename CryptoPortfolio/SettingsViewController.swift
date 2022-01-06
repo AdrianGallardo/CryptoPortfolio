@@ -16,6 +16,11 @@ class SettingsViewController: UITableViewController {
 	var dataController: DataController!
 
 	// MARK: - Lifecycle
+	override func viewDidLoad() {
+		print("SettingsViewController: viewDidLoad()")
+		super.viewDidLoad()
+	}
+
 	override func viewWillAppear(_ animated: Bool) {
 		if let fiatCurrency = UserDefaults.standard.object(forKey: "symbolFiatCurrency") as? String {
 			self.fiatCurrencyLabel.text = fiatCurrency
@@ -54,6 +59,13 @@ class SettingsViewController: UITableViewController {
 					}
 				}
 			}
+		}
+	}
+
+	// MARK: - Auxiliar Functions
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if let currencySettingsVC = segue.destination as? CurrencySettingsViewController {
+			currencySettingsVC.fiatCurrencies = self.dataController.fiatCurrencies
 		}
 	}
 
