@@ -21,6 +21,8 @@ class DetailViewController: UIViewController {
 	@IBOutlet weak var totalSupplyLabel: UILabel!
 	@IBOutlet weak var maxSupplyLabel: UILabel!
 	@IBOutlet weak var infoLabel: UILabel!
+	@IBOutlet weak var activityIndicatorView: UIView!
+	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
 	let colorsMidnight = [UIColor(red: 0.25, green: 0.26, blue: 0.27, alpha: 1.00).cgColor,
 												UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00).cgColor]
@@ -38,6 +40,8 @@ class DetailViewController: UIViewController {
 
 		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
 		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
+
+		configActivityView(animating: true)
 
 		Client.getQuotes(id: token.id, convert: fiatId!) { quotesData, error in
 			guard let quotesData = quotesData else {
@@ -102,6 +106,7 @@ class DetailViewController: UIViewController {
 					}
 					self.logoImageView.image = UIImage(data: data)
 				}
+				self.configActivityView(animating: false)
 			}
 		}
 	}
@@ -126,5 +131,16 @@ class DetailViewController: UIViewController {
 			formatter.positivePrefix = "+"
 		}
 		return formatter.string(from: NSNumber(value: value))!
+	}
+
+	fileprivate func configActivityView(animating: Bool) {
+		print("animating " + String(animating))
+		if animating {
+			self.activityIndicator.startAnimating()
+		} else {
+			self.activityIndicator.stopAnimating()
+		}
+		self.activityIndicator.isHidden = !animating
+		self.activityIndicatorView.isHidden = !animating
 	}
 }

@@ -18,7 +18,7 @@ class NewAssetViewController: UIViewController {
 	@IBOutlet weak var fiatSymbolLabel: UILabel!
 	@IBOutlet weak var addButton: UIButton!
 	@IBOutlet weak var totalOverViewView: UIView!
-
+	
 	var token: CoinData!
 	var dataController: DataController!
 

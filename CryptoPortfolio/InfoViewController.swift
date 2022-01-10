@@ -11,6 +11,8 @@ import UIKit
 class InfoViewController: UIViewController {
 	@IBOutlet weak var searchBar: UISearchBar!
 	@IBOutlet weak var tableView: UITableView!
+	@IBOutlet weak var activityIndicatorView: UIView!
+	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
 	var listings: [CoinData] = []
 	var searchToken: [CoinData] = []
@@ -19,13 +21,14 @@ class InfoViewController: UIViewController {
 
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
-		print(" InfoViewController: viewDidLoad")
+		print("InfoViewController: viewDidLoad")
 		super.viewDidLoad()
 
 		tableView.rowHeight = 81
 		searchBar.searchTextField.leftView?.tintColor = UIColor(red: 199, green: 197, blue: 197, alpha: 1.0)
 		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
 
+		configActivityView(animating: true)
 		setupListings()
 	}
 
@@ -36,7 +39,7 @@ class InfoViewController: UIViewController {
 
 	// MARK: - Auxiliar Functions
 	fileprivate func setupListings() {
-		print(" InfoViewController: setupListings")
+		print("InfoViewController: setupListings")
 		Client.requestListings(convert: fiatId!) { listings, error in
 			guard let listings = listings else{
 				print("setupListings error")
@@ -44,7 +47,19 @@ class InfoViewController: UIViewController {
 			}
 			self.listings = listings
 			self.tableView.reloadData()
+			self.configActivityView(animating: false)
 		}
+	}
+
+	fileprivate func configActivityView(animating: Bool) {
+		print("animating " + String(animating))
+		if animating {
+			self.activityIndicator.startAnimating()
+		} else {
+			self.activityIndicator.stopAnimating()
+		}
+		self.activityIndicator.isHidden = !animating
+		self.activityIndicatorView.isHidden = !animating
 	}
 }
 
