@@ -52,12 +52,13 @@ class InfoViewController: UIViewController {
 	}
 
 	fileprivate func configActivityView(animating: Bool) {
-//		print("animating " + String(animating))
+		print("animating " + String(animating))
 		if animating {
 			self.activityIndicator.startAnimating()
 		} else {
 			self.activityIndicator.stopAnimating()
 		}
+		self.tableView.isHidden = animating
 		self.activityIndicator.isHidden = !animating
 		self.activityIndicatorView.isHidden = !animating
 	}
