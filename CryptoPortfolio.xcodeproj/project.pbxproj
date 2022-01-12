@@ -127,6 +127,22 @@
 			path = Responses;
 			sourceTree = "<group>";
 		};
+		7571A844278E8E9800C2551C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				758C3DA6268A974100617761 /* AddAssetsViewController.swift */,
+				75E5B60626321F110024EEB8 /* AssetsViewController.swift */,
+				75E991B3269E4D09009F0289 /* NewAssetViewController.swift */,
+				75CEE17C26CE2A3300B05F56 /* EditAssetViewController.swift */,
+				7577720A26D49A3000F50F36 /* InfoViewController.swift */,
+				7577720C26D4AD4A00F50F36 /* DetailViewController.swift */,
+				751D004926E08EEB00073B3E /* SettingsViewController.swift */,
+				75FD2FB526E566DB00735023 /* CurrencySettingsViewController.swift */,
+				75FD2FB926E5677200735023 /* PercentChangeSettingsViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		759E135A2655AE2300A206C7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,7 +184,7 @@
 		75E5B60126321F110024EEB8 /* CryptoPortfolio */ = {
 			isa = PBXGroup;
 			children = (
-				75E5B60626321F110024EEB8 /* AssetsViewController.swift */,
+				7571A844278E8E9800C2551C /* ViewControllers */,
 				759E135A2655AE2300A206C7 /* Model */,
 				75DEF1DE264428730065B9CE /* Networking */,
 				75E5B60226321F110024EEB8 /* AppDelegate.swift */,
@@ -178,14 +194,6 @@
 				75E5B60B26321F170024EEB8 /* Assets.xcassets */,
 				75E5B60D26321F170024EEB8 /* LaunchScreen.storyboard */,
 				75E5B61026321F170024EEB8 /* Info.plist */,
-				758C3DA6268A974100617761 /* AddAssetsViewController.swift */,
-				75E991B3269E4D09009F0289 /* NewAssetViewController.swift */,
-				75CEE17C26CE2A3300B05F56 /* EditAssetViewController.swift */,
-				7577720A26D49A3000F50F36 /* InfoViewController.swift */,
-				7577720C26D4AD4A00F50F36 /* DetailViewController.swift */,
-				751D004926E08EEB00073B3E /* SettingsViewController.swift */,
-				75FD2FB526E566DB00735023 /* CurrencySettingsViewController.swift */,
-				75FD2FB926E5677200735023 /* PercentChangeSettingsViewController.swift */,
 			);
 			path = CryptoPortfolio;
 			sourceTree = "<group>";

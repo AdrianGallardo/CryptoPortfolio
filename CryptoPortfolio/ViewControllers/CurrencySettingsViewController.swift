@@ -17,25 +17,14 @@ class CurrencySettingsViewController: UIViewController {
 
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
-		print(" CurrencySettingsViewcontroller: viewDidLoad")
+//		print(" CurrencySettingsViewcontroller: viewDidLoad")
 		super.viewDidLoad()
 		idFiatCurrencyUserDefault = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
-		print(" CurrencySettingsViewcontroller: viewWillAppear")
+//		print(" CurrencySettingsViewcontroller: viewWillAppear")
 	}
-
-//	// MARK: - Auxiliar Functions
-//	fileprivate func configActivityView(animating: Bool) {
-//		if animating {
-//			self.activityIndicator.startAnimating()
-//		} else {
-//			self.activityIndicator.stopAnimating()
-//		}
-//		self.activityIndicator.isHidden = !animating
-//		self.activityIndicatorView.isHidden = !animating
-//	}
 }
 
 // MARK: - UITableViewDelegate

@@ -117,10 +117,10 @@ class EditAssetViewController: UIViewController {
 		}
 
 		if self.dataController.viewContext.hasChanges {
-			print("saving asset")
+//			print("saving asset")
 			do {
 				try self.dataController.viewContext.save()
-				print("asset saved")
+//				print("asset saved")
 			} catch {
 				print(error.localizedDescription)
 			}
