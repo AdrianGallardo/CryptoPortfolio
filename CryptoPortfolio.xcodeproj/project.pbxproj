@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		751D004A26E08EEB00073B3E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751D004926E08EEB00073B3E /* SettingsViewController.swift */; };
-		7530890426CAEFB5001C3784 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7530890326CAEFB5001C3784 /* Extensions.swift */; };
 		753A257B26C32C980012E1E7 /* QuotesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A257A26C32C980012E1E7 /* QuotesResponse.swift */; };
+		755635CA2797E56000CDEB3B /* AxialGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755635C92797E56000CDEB3B /* AxialGradientView.swift */; };
+		755635CC2797E5AA00CDEB3B /* RadialGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755635CB2797E5AA00CDEB3B /* RadialGradientView.swift */; };
 		755C8CAB265339C70038E2F5 /* ListingsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C8CAA265339C70038E2F5 /* ListingsResponse.swift */; };
 		7577720B26D49A3000F50F36 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577720A26D49A3000F50F36 /* InfoViewController.swift */; };
 		7577720D26D4AD4A00F50F36 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577720C26D4AD4A00F50F36 /* DetailViewController.swift */; };
@@ -52,8 +53,9 @@
 
 /* Begin PBXFileReference section */
 		751D004926E08EEB00073B3E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		7530890326CAEFB5001C3784 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		753A257A26C32C980012E1E7 /* QuotesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesResponse.swift; sourceTree = "<group>"; };
+		755635C92797E56000CDEB3B /* AxialGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxialGradientView.swift; sourceTree = "<group>"; };
+		755635CB2797E5AA00CDEB3B /* RadialGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientView.swift; sourceTree = "<group>"; };
 		755C8CAA265339C70038E2F5 /* ListingsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsResponse.swift; sourceTree = "<group>"; };
 		7571A845278E9BE500C2551C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7577720A26D49A3000F50F36 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
@@ -192,10 +194,11 @@
 				75E5B60226321F110024EEB8 /* AppDelegate.swift */,
 				75E5B60426321F110024EEB8 /* SceneDelegate.swift */,
 				75E5B60826321F110024EEB8 /* Main.storyboard */,
-				7530890326CAEFB5001C3784 /* Extensions.swift */,
 				75E5B60B26321F170024EEB8 /* Assets.xcassets */,
 				75E5B60D26321F170024EEB8 /* LaunchScreen.storyboard */,
 				75E5B61026321F170024EEB8 /* Info.plist */,
+				755635C92797E56000CDEB3B /* AxialGradientView.swift */,
+				755635CB2797E5AA00CDEB3B /* RadialGradientView.swift */,
 			);
 			path = CryptoPortfolio;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				75E5B60726321F110024EEB8 /* AssetsViewController.swift in Sources */,
+				755635CC2797E5AA00CDEB3B /* RadialGradientView.swift in Sources */,
 				758C3DA7268A974100617761 /* AddAssetsViewController.swift in Sources */,
 				75E5B60326321F110024EEB8 /* AppDelegate.swift in Sources */,
 				75DEF1E0264428940065B9CE /* Client.swift in Sources */,
@@ -357,12 +361,12 @@
 				75E991B4269E4D0A009F0289 /* NewAssetViewController.swift in Sources */,
 				75FD2FBA26E5677200735023 /* PercentChangeSettingsViewController.swift in Sources */,
 				751D004A26E08EEB00073B3E /* SettingsViewController.swift in Sources */,
-				7530890426CAEFB5001C3784 /* Extensions.swift in Sources */,
 				758C3DA9268C23E500617761 /* DataController.swift in Sources */,
 				75CEE17D26CE2A3300B05F56 /* EditAssetViewController.swift in Sources */,
 				75FD2FBC26E5870600735023 /* FiatMapResponse.swift in Sources */,
 				7577720B26D49A3000F50F36 /* InfoViewController.swift in Sources */,
 				755C8CAB265339C70038E2F5 /* ListingsResponse.swift in Sources */,
+				755635CA2797E56000CDEB3B /* AxialGradientView.swift in Sources */,
 				7577720D26D4AD4A00F50F36 /* DetailViewController.swift in Sources */,
 				75FD2FB626E566DB00735023 /* CurrencySettingsViewController.swift in Sources */,
 				75E5B60526321F110024EEB8 /* SceneDelegate.swift in Sources */,

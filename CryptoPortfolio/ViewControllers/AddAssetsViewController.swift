@@ -88,13 +88,6 @@ class TokenViewCell: UITableViewCell {
 	@IBOutlet weak var titleLabel: UILabel!
 //	@IBOutlet weak var logoImageView: UIImageView!
 
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		let colors = [UIColor(red: 0.25, green: 0.26, blue: 0.27, alpha: 1.00).cgColor,
-									UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00).cgColor]
-		self.contentView.addGradientBackground(colors: colors, type: CAGradientLayerType.radial)
-	}
-
 	func setToken(token: CoinData) {
 // Enables Logo display in the table rows. Consumes API credits.
 //		Client.getMetadata(id: token.id) { metadata, error in

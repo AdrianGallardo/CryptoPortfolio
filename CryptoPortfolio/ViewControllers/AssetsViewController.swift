@@ -20,7 +20,7 @@ class AssetsViewController: UIViewController {
 
 	let colorsMidnight = [UIColor(red: 0.25, green: 0.26, blue: 0.27, alpha: 1.00).cgColor,
 												UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00).cgColor]
-	let usd = FiatData(id: 2781, name: "United States Dollar", sign: "$", symbol: "USD")
+//	let usd = FiatData(id: 2781, name: "United States Dollar", sign: "$", symbol: "USD")
 
 	@IBOutlet weak var totalFiatLabel: UILabel!
 	@IBOutlet weak var totalCryptoLabel: UILabel!
@@ -32,18 +32,6 @@ class AssetsViewController: UIViewController {
 		super.viewDidLoad()
 
 		assetsTableView.rowHeight = 107;
-		assetsOverviewView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.axial)
-
-		if (UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int) == nil {
-			UserDefaults.standard.set(usd.id, forKey: "idFiatCurrency")
-			UserDefaults.standard.set(usd.sign, forKey: "signFiatCurrency")
-			UserDefaults.standard.set(usd.symbol, forKey: "symbolFiatCurrency")
-		}
-
-		if (UserDefaults.standard.object(forKey: "timeFrame") as? String) == nil {
-			UserDefaults.standard.set("24h", forKey: "timeFrame")
-		}
-
 		setupListings()
 	}
 
@@ -277,14 +265,6 @@ class AssetViewCell: UITableViewCell {
 	@IBOutlet weak var totalLabel: UILabel!
 	@IBOutlet weak var percentchangeLabel: UILabel!
 	@IBOutlet weak var timeFrameLabel: UILabel!
-
-	let colorsMidnight = [UIColor(red: 0.25, green: 0.26, blue: 0.27, alpha: 1.00).cgColor,
-												UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00).cgColor]
-
-	override func awakeFromNib() {
-		super.awakeFromNib()
-		self.contentView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.radial)
-	}
 
 	func setAsset(asset: Asset, sign: String, timeFrame: String) {
 		guard let logoData = asset.logo else {

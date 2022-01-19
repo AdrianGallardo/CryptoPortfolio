@@ -34,8 +34,6 @@ class DetailViewController: UIViewController {
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		headerView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.axial)
 		infoLabel.sizeToFit()
 
 		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int

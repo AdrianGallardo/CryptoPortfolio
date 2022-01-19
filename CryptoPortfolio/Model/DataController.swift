@@ -10,6 +10,7 @@ import CoreData
 
 class DataController {
 	let persistentContainer: NSPersistentContainer
+	let usd = FiatData(id: 2781, name: "United States Dollar", sign: "$", symbol: "USD")
 	var fiatCurrencies: [FiatData] = []
 
 	var viewContext: NSManagedObjectContext {
@@ -38,6 +39,16 @@ class DataController {
 		guard interval > 0 else {
 			print("interval must be a positive number")
 			return
+		}
+
+		if (UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int) == nil {
+			UserDefaults.standard.set(usd.id, forKey: "idFiatCurrency")
+			UserDefaults.standard.set(usd.sign, forKey: "signFiatCurrency")
+			UserDefaults.standard.set(usd.symbol, forKey: "symbolFiatCurrency")
+		}
+
+		if (UserDefaults.standard.object(forKey: "timeFrame") as? String) == nil {
+			UserDefaults.standard.set("24h", forKey: "timeFrame")
 		}
 
 		let fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int

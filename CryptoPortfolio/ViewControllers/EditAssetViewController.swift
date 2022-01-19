@@ -36,9 +36,7 @@ class EditAssetViewController: UIViewController {
 
 		fiatTextField.layer.cornerRadius = 10.0
 		fiatTextField.clipsToBounds = true
-
-		totalOverViewView.addGradientBackground(colors: colorsMidnight, type: CAGradientLayerType.axial)
-
+		
 		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
 		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
 
