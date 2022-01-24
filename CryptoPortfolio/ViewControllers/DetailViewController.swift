@@ -36,6 +36,9 @@ class DetailViewController: UIViewController {
 		super.viewDidLoad()
 		infoLabel.sizeToFit()
 
+		navigationController?.navigationBar.barTintColor = UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00)
+		navigationController?.navigationBar.tintColor = UIColor.white
+
 		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
 		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
 
@@ -111,6 +114,10 @@ class DetailViewController: UIViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		self.navigationController?.isNavigationBarHidden = false
+	}
+
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		return .lightContent
 	}
 
 	// MARK: - Actions

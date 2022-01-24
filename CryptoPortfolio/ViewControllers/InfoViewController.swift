@@ -37,6 +37,10 @@ class InfoViewController: UIViewController {
 		self.navigationController?.isNavigationBarHidden = true
 	}
 
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		return .lightContent
+	}
+
 	// MARK: - Auxiliar Functions
 	fileprivate func setupListings() {
 //		print("InfoViewController: setupListings")
@@ -52,7 +56,6 @@ class InfoViewController: UIViewController {
 	}
 
 	fileprivate func configActivityView(animating: Bool) {
-		print("animating " + String(animating))
 		if animating {
 			self.activityIndicator.startAnimating()
 		} else {

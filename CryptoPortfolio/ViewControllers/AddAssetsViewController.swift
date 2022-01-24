@@ -22,6 +22,9 @@ class AddAssetsViewController: UIViewController {
 
 		tableView.rowHeight = 81
 		searchBar.searchTextField.leftView?.tintColor = UIColor(red: 199, green: 197, blue: 197, alpha: 1.0)
+
+		navigationController?.navigationBar.barTintColor = UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00)
+		navigationController?.navigationBar.tintColor = UIColor.white
 	}
 
 	override func viewWillAppear(_ animated: Bool) {

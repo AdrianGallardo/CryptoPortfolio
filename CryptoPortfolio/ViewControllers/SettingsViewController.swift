@@ -28,6 +28,11 @@ class SettingsViewController: UITableViewController {
 		if let timeFrame = UserDefaults.standard.object(forKey: "timeFrame") as? String {
 			self.timeFrameLabel.text = timeFrame
 		}
+		self.navigationController?.isNavigationBarHidden = true
+	}
+
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		return .lightContent
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -62,11 +67,20 @@ class SettingsViewController: UITableViewController {
 		}
 	}
 
+	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+		(view as! UITableViewHeaderFooterView).contentView.backgroundColor = UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00)
+		(view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.white
+	}
+
+	override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		cell.contentView.superview?.backgroundColor = UIColor(red: 0.19, green: 0.20, blue: 0.21, alpha: 1.00)
+		cell.tintColor = UIColor.white
+	}
+
 	// MARK: - Auxiliar Functions
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if let currencySettingsVC = segue.destination as? CurrencySettingsViewController {
 			currencySettingsVC.fiatCurrencies = self.dataController.fiatCurrencies
 		}
 	}
-
 }

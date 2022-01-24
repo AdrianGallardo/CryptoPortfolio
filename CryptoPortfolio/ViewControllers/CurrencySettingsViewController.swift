@@ -17,13 +17,18 @@ class CurrencySettingsViewController: UIViewController {
 
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
-//		print(" CurrencySettingsViewcontroller: viewDidLoad")
 		super.viewDidLoad()
 		idFiatCurrencyUserDefault = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
+		navigationController?.navigationBar.barTintColor = UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00)
+		navigationController?.navigationBar.tintColor = UIColor.white
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
-//		print(" CurrencySettingsViewcontroller: viewWillAppear")
+		self.navigationController?.isNavigationBarHidden = false
+	}
+
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		return .lightContent
 	}
 }
 
@@ -62,6 +67,16 @@ extension CurrencySettingsViewController: UITableViewDataSource, UITableViewDele
 		UserDefaults.standard.set(self.fiatCurrencies[indexPath.row].id, forKey: "idFiatCurrency")
 		UserDefaults.standard.set(self.fiatCurrencies[indexPath.row].sign, forKey: "signFiatCurrency")
 		UserDefaults.standard.set(self.fiatCurrencies[indexPath.row].symbol, forKey: "symbolFiatCurrency")
+	}
+
+	func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+		(view as! UITableViewHeaderFooterView).contentView.backgroundColor = UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00)
+		(view as! UITableViewHeaderFooterView).textLabel?.textColor = UIColor.white
+	}
+
+	func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+		cell.contentView.superview?.backgroundColor = UIColor(red: 0.19, green: 0.20, blue: 0.21, alpha: 1.00)
+		cell.tintColor = UIColor.white
 	}
 }
 

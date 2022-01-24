@@ -11,6 +11,7 @@
 		753A257B26C32C980012E1E7 /* QuotesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A257A26C32C980012E1E7 /* QuotesResponse.swift */; };
 		755635CA2797E56000CDEB3B /* AxialGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755635C92797E56000CDEB3B /* AxialGradientView.swift */; };
 		755635CC2797E5AA00CDEB3B /* RadialGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755635CB2797E5AA00CDEB3B /* RadialGradientView.swift */; };
+		755635CE279F3D2D00CDEB3B /* PercentChangeViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755635CD279F3D2C00CDEB3B /* PercentChangeViewcontroller.swift */; };
 		755C8CAB265339C70038E2F5 /* ListingsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755C8CAA265339C70038E2F5 /* ListingsResponse.swift */; };
 		7577720B26D49A3000F50F36 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577720A26D49A3000F50F36 /* InfoViewController.swift */; };
 		7577720D26D4AD4A00F50F36 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7577720C26D4AD4A00F50F36 /* DetailViewController.swift */; };
@@ -56,6 +57,7 @@
 		753A257A26C32C980012E1E7 /* QuotesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuotesResponse.swift; sourceTree = "<group>"; };
 		755635C92797E56000CDEB3B /* AxialGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxialGradientView.swift; sourceTree = "<group>"; };
 		755635CB2797E5AA00CDEB3B /* RadialGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialGradientView.swift; sourceTree = "<group>"; };
+		755635CD279F3D2C00CDEB3B /* PercentChangeViewcontroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentChangeViewcontroller.swift; sourceTree = "<group>"; };
 		755C8CAA265339C70038E2F5 /* ListingsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingsResponse.swift; sourceTree = "<group>"; };
 		7571A845278E9BE500C2551C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7577720A26D49A3000F50F36 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				751D004926E08EEB00073B3E /* SettingsViewController.swift */,
 				75FD2FB526E566DB00735023 /* CurrencySettingsViewController.swift */,
 				75FD2FB926E5677200735023 /* PercentChangeSettingsViewController.swift */,
+				755635CD279F3D2C00CDEB3B /* PercentChangeViewcontroller.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				755635CA2797E56000CDEB3B /* AxialGradientView.swift in Sources */,
 				7577720D26D4AD4A00F50F36 /* DetailViewController.swift in Sources */,
 				75FD2FB626E566DB00735023 /* CurrencySettingsViewController.swift in Sources */,
+				755635CE279F3D2D00CDEB3B /* PercentChangeViewcontroller.swift in Sources */,
 				75E5B60526321F110024EEB8 /* SceneDelegate.swift in Sources */,
 				753A257B26C32C980012E1E7 /* QuotesResponse.swift in Sources */,
 			);

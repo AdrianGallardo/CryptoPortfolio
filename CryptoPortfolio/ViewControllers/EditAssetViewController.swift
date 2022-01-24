@@ -31,6 +31,9 @@ class EditAssetViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		navigationController?.navigationBar.barTintColor = UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00)
+		navigationController?.navigationBar.tintColor = UIColor.white
+
 		cryptoTextField.layer.cornerRadius = 10.0
 		cryptoTextField.clipsToBounds = true
 

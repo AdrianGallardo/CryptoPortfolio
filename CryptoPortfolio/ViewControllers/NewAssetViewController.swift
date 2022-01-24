@@ -39,6 +39,9 @@ class NewAssetViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		navigationController?.navigationBar.barTintColor = UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00)
+		navigationController?.navigationBar.tintColor = UIColor.white
+
 		cryptoTextField.layer.cornerRadius = 10.0
 		cryptoTextField.clipsToBounds = true
 
@@ -93,6 +96,10 @@ class NewAssetViewController: UIViewController {
 
 		cryptoTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 		fiatTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+	}
+
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		return .lightContent
 	}
 
 	// MARK: - Actions

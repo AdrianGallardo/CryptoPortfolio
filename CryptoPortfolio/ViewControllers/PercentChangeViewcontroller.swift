@@ -1,5 +1,5 @@
 //
-//  PercentChangeSettingsViewController.swift
+//  CurrencyFiatSettings.swift
 //  CryptoPortfolio
 //
 //  Created by Adrian Gallardo on 05/09/21.
@@ -8,8 +8,12 @@
 import Foundation
 import UIKit
 
-class PercentChangeSettingsViewController: UIViewController {
+class PercentChangeViewController: UIViewController {
 	@IBOutlet weak var tableView: UITableView!
+
+//	var fiatCurrencies: [FiatData] = []
+//	var lastSelection: IndexPath!
+//	var idFiatCurrencyUserDefault: Int?
 
 	var lastSelection: IndexPath!
 	var timeFrameUserDefault: String?
@@ -17,6 +21,11 @@ class PercentChangeSettingsViewController: UIViewController {
 
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
+//		super.viewDidLoad()
+//		idFiatCurrencyUserDefault = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
+//		navigationController?.navigationBar.barTintColor = UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00)
+//		navigationController?.navigationBar.tintColor = UIColor.white
+
 		super.viewDidLoad()
 		timeFrameUserDefault = UserDefaults.standard.object(forKey: "timeFrame") as? String
 		navigationController?.navigationBar.barTintColor = UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00)
@@ -33,20 +42,34 @@ class PercentChangeSettingsViewController: UIViewController {
 }
 
 // MARK: - UITableViewDelegate
-extension PercentChangeSettingsViewController: UITableViewDataSource, UITableViewDelegate {
+extension PercentChangeViewController: UITableViewDataSource, UITableViewDelegate {
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//		print("fiatCurrencies.count: \(fiatCurrencies.count)")
+//		return fiatCurrencies.count
 		return timeFrames.count
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//		let fiatCurrency = fiatCurrencies[indexPath.row]
+//
+//		// Configure cell
+//		let cell = tableView.dequeueReusableCell(withIdentifier: "timeViewCell") as! TimeViewCell
+//		cell.setFiatCurrency(fiatCurrency: fiatCurrency, accesory: (fiatCurrency.id == idFiatCurrencyUserDefault))
+//
+//		if fiatCurrency.id == idFiatCurrencyUserDefault {
+//			lastSelection = indexPath
+//		}
+//
+//		return cell
+
 		let timeFrame = timeFrames[indexPath.row]
 
 		// Configure cell
-		let cell = tableView.dequeueReusableCell(withIdentifier: "timeFrameViewCell") as! TimeFrameViewCell
+		let cell = tableView.dequeueReusableCell(withIdentifier: "timeViewCell") as! TimeViewCell
 		cell.setTimeFrame(timeFrame: timeFrame, accesory: (timeFrame == timeFrameUserDefault))
 
 		if timeFrame == timeFrameUserDefault {
@@ -57,6 +80,17 @@ extension PercentChangeSettingsViewController: UITableViewDataSource, UITableVie
 	}
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//		if self.lastSelection != nil {
+//			self.tableView.cellForRow(at: self.lastSelection)?.accessoryType = .none
+//		}
+//		self.tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+//		self.lastSelection = indexPath
+//		self.tableView.deselectRow(at: indexPath, animated: true)
+//
+//		UserDefaults.standard.set(self.fiatCurrencies[indexPath.row].id, forKey: "idFiatCurrency")
+//		UserDefaults.standard.set(self.fiatCurrencies[indexPath.row].sign, forKey: "signFiatCurrency")
+//		UserDefaults.standard.set(self.fiatCurrencies[indexPath.row].symbol, forKey: "symbolFiatCurrency")
+
 		if self.lastSelection != nil {
 			self.tableView.cellForRow(at: self.lastSelection)?.accessoryType = .none
 		}
@@ -78,8 +112,8 @@ extension PercentChangeSettingsViewController: UITableViewDataSource, UITableVie
 	}
 }
 
-// MARK: - TimeFrameViewCell
-class TimeFrameViewCell: UITableViewCell {
+// MARK: - FiatViewCell
+class TimeViewCell: UITableViewCell {
 	func setTimeFrame(timeFrame: String, accesory: Bool) {
 		textLabel?.text = timeFrame
 		if accesory {
@@ -89,3 +123,4 @@ class TimeFrameViewCell: UITableViewCell {
 		}
 	}
 }
+

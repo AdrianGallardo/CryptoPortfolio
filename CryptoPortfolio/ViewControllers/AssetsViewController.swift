@@ -49,6 +49,10 @@ class AssetsViewController: UIViewController {
 		assetsTableView.reloadData()
 	}
 
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		return .lightContent
+	}
+
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
 		removeSaveNotificationObserver()
