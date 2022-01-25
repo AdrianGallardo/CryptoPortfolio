@@ -58,7 +58,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="107"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nz1-Zj-1nN" customClass="AxialGradientView" customModule="CryptoPortfolio" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nz1-Zj-1nN" customClass="RadialGradientView" customModule="CryptoPortfolio" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="107"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[BTC] - Bitcoin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVz-F2-wcc">
@@ -301,6 +301,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yOf-u7-Ie8">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="p6r-ma-Lov">
+                                        <rect key="frame" x="188.5" y="344" width="37" height="37"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="p6r-ma-Lov" firstAttribute="centerY" secondItem="yOf-u7-Ie8" secondAttribute="centerY" id="4fX-IK-Sqs"/>
+                                    <constraint firstItem="p6r-ma-Lov" firstAttribute="centerX" secondItem="yOf-u7-Ie8" secondAttribute="centerX" id="mdd-a5-jnY"/>
+                                </constraints>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6sb-mB-f7J">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <subviews>
@@ -496,15 +509,21 @@
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="58l-bn-ZF8" firstAttribute="trailing" secondItem="6sb-mB-f7J" secondAttribute="trailing" id="9LW-MV-BCk"/>
+                            <constraint firstItem="yOf-u7-Ie8" firstAttribute="centerX" secondItem="58l-bn-ZF8" secondAttribute="centerX" id="EcN-Rb-pep"/>
                             <constraint firstItem="58l-bn-ZF8" firstAttribute="bottom" secondItem="6sb-mB-f7J" secondAttribute="bottom" id="SNm-99-XdS"/>
                             <constraint firstItem="6sb-mB-f7J" firstAttribute="top" secondItem="58l-bn-ZF8" secondAttribute="top" id="eLy-MP-vlu"/>
+                            <constraint firstItem="yOf-u7-Ie8" firstAttribute="height" secondItem="58l-bn-ZF8" secondAttribute="height" id="ksF-40-NG8"/>
                             <constraint firstItem="6sb-mB-f7J" firstAttribute="leading" secondItem="58l-bn-ZF8" secondAttribute="leading" id="rfh-qI-5OG"/>
+                            <constraint firstItem="yOf-u7-Ie8" firstAttribute="width" secondItem="58l-bn-ZF8" secondAttribute="width" id="xOp-lA-jae"/>
+                            <constraint firstItem="yOf-u7-Ie8" firstAttribute="centerY" secondItem="58l-bn-ZF8" secondAttribute="centerY" id="ze3-7Z-BHz"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="My Wallet" image="chart.pie" catalog="system" id="6w6-a5-nuc"/>
                     <navigationItem key="navigationItem" id="Sbf-bw-9S6"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="p6r-ma-Lov" id="tQ7-AA-v7K"/>
+                        <outlet property="activityIndicatorView" destination="yOf-u7-Ie8" id="ESj-sE-Z0y"/>
                         <outlet property="assetsOverviewView" destination="jUl-sT-6Td" id="RXI-GN-SNH"/>
                         <outlet property="assetsTableView" destination="RSs-ui-fKH" id="53a-q7-LuP"/>
                         <outlet property="totalCryptoLabel" destination="7ZH-bn-JNv" id="oAb-qR-a3u"/>
@@ -1341,6 +1360,9 @@
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

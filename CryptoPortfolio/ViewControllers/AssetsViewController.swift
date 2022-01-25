@@ -26,6 +26,8 @@ class AssetsViewController: UIViewController {
 	@IBOutlet weak var totalCryptoLabel: UILabel!
 	@IBOutlet weak var assetsOverviewView: UIView!
 	@IBOutlet weak var assetsTableView: UITableView!
+	@IBOutlet weak var activityIndicatorView: UIView!
+	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
 //	MARK: - Lifecycle
 	override func viewDidLoad() {
@@ -98,12 +100,14 @@ class AssetsViewController: UIViewController {
 	}
 
 	fileprivate func setupListings() {
+		configActivityView(animating: true)
 		Client.requestListings(convert: UserDefaults.standard.object(forKey: "idFiatCurrency") as! Int) { listings, error in
 			guard let listings = listings else {
 				print("setupListings error")
 				return
 			}
 			self.listings = listings
+			self.configActivityView(animating: false)
 		}
 	}
 
@@ -124,6 +128,16 @@ class AssetsViewController: UIViewController {
 			}
 		}
 		totalFiatLabel.text = (self.fiatSign ?? "$") + self.formattedValue(total, decimals: 2)
+	}
+
+	fileprivate func configActivityView(animating: Bool) {
+		if animating {
+			self.activityIndicator.startAnimating()
+		} else {
+			self.activityIndicator.stopAnimating()
+		}
+		self.activityIndicator.isHidden = !animating
+		self.activityIndicatorView.isHidden = !animating
 	}
 }
 

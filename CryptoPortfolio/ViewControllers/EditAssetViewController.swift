@@ -31,6 +31,9 @@ class EditAssetViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		fiatTextField.delegate = self
+		cryptoTextField.delegate = self
+
 		navigationController?.navigationBar.barTintColor = UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00)
 		navigationController?.navigationBar.tintColor = UIColor.white
 
@@ -93,19 +96,23 @@ class EditAssetViewController: UIViewController {
 			return
 		}
 
-		switch textField {
-		case cryptoTextField:
-			fiatTextField.text = String(format: "%.2f", Double(val)! * asset.price)
-			break
-		case fiatTextField:
-			cryptoTextField.text = String(format: "%.4f", Double(val)! / asset.price)
-			break
-		default:
-			break
-		}
+		if let valDouble = Double(val) {
+			switch textField {
+			case cryptoTextField:
+				fiatTextField.text = String(format: "%.2f", valDouble * asset.price)
+				break
+			case fiatTextField:
+				cryptoTextField.text = String(format: "%.4f", valDouble / asset.price)
+				break
+			default:
+				break
+			}
 
-		totalCryptoLabel.text = cryptoTextField.text! + " " + asset.symbol!
-		totalFiatLabel.text = (self.fiatSign ?? "$") + fiatTextField.text!
+			totalCryptoLabel.text = cryptoTextField.text! + " " + asset.symbol!
+			totalFiatLabel.text = (self.fiatSign ?? "$") + fiatTextField.text!
+		} else {
+			textField.text = String(val.dropLast())
+		}
 	}
 
 	func save() {
@@ -138,5 +145,14 @@ class EditAssetViewController: UIViewController {
 			formatter.positivePrefix = "+"
 		}
 		return formatter.string(from: NSNumber(value: value))!
+	}
+}
+
+// MARK: - UITextFieldDelegate
+extension EditAssetViewController: UITextFieldDelegate {
+	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+		let allowedCharacters = CharacterSet.decimalDigits
+		let characterSet = CharacterSet(charactersIn: string)
+		return allowedCharacters.isSuperset(of: characterSet) || characterSet.contains(".")
 	}
 }

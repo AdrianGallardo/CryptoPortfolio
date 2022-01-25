@@ -39,6 +39,9 @@ class NewAssetViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		cryptoTextField.delegate = self
+		fiatTextField.delegate = self
+
 		navigationController?.navigationBar.barTintColor = UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00)
 		navigationController?.navigationBar.tintColor = UIColor.white
 
@@ -126,19 +129,23 @@ class NewAssetViewController: UIViewController {
 			return
 		}
 
-		switch textField {
-		case cryptoTextField:
-			fiatTextField.text = String(format: "%.4f", Double(val)! * self.price!)
-			break
-		case fiatTextField:
-			cryptoTextField.text = String(format: "%.4f", Double(val)! / self.price!)
-			break
-		default:
-			break
-		}
+		if let valDouble = Double(val) {
+			switch textField {
+			case cryptoTextField:
+				fiatTextField.text = String(format: "%.4f", valDouble * self.price!)
+				break
+			case fiatTextField:
+				cryptoTextField.text = String(format: "%.4f", valDouble / self.price!)
+				break
+			default:
+				break
+			}
 
-		totalCryptoLabel.text = cryptoTextField.text! + " " + token.symbol
-		totalFiatLabel.text = (fiatSign ?? "$") + fiatTextField.text!
+			totalCryptoLabel.text = cryptoTextField.text! + " " + token.symbol
+			totalFiatLabel.text = (fiatSign ?? "$") + fiatTextField.text!
+		} else {
+			textField.text = String(val.dropLast())
+		}
 	}
 
 	func save() {
@@ -191,5 +198,14 @@ class NewAssetViewController: UIViewController {
 			formatter.positivePrefix = "+"
 		}
 		return formatter.string(from: NSNumber(value: value))!
+	}
+}
+
+// MARK: - UITextFieldDelegate
+extension NewAssetViewController: UITextFieldDelegate {
+	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+		let allowedCharacters = CharacterSet.decimalDigits
+		let characterSet = CharacterSet(charactersIn: string)
+		return allowedCharacters.isSuperset(of: characterSet) || characterSet.contains(".")
 	}
 }
