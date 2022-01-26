@@ -135,6 +135,8 @@
 		7571A844278E8E9800C2551C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				755635CB2797E5AA00CDEB3B /* RadialGradientView.swift */,
+				755635C92797E56000CDEB3B /* AxialGradientView.swift */,
 				758C3DA6268A974100617761 /* AddAssetsViewController.swift */,
 				75E5B60626321F110024EEB8 /* AssetsViewController.swift */,
 				75E991B3269E4D09009F0289 /* NewAssetViewController.swift */,
@@ -200,8 +202,6 @@
 				75E5B60B26321F170024EEB8 /* Assets.xcassets */,
 				75E5B60D26321F170024EEB8 /* LaunchScreen.storyboard */,
 				75E5B61026321F170024EEB8 /* Info.plist */,
-				755635C92797E56000CDEB3B /* AxialGradientView.swift */,
-				755635CB2797E5AA00CDEB3B /* RadialGradientView.swift */,
 			);
 			path = CryptoPortfolio;
 			sourceTree = "<group>";
