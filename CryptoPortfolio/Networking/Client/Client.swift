@@ -8,7 +8,7 @@
 import Foundation
 
 class Client {
-	static let apiKey = "cce5ce72-fbb1-4dc6-899b-c8a0df1ae085"
+	static let apiKey = "0f049b45-e892-4284-aa68-b68edcecba5a"
 
 	// MARK: - Auxiliar functions
 	class func downloadLogo(url: URL, completion: @escaping (Data?, Error?) -> Void) {
@@ -121,7 +121,7 @@ extension Client{
 
 		static let base = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/"
 		static let baseFiat = "https://pro-api.coinmarketcap.com/v1/fiat/"
-		static let apiKey = "cce5ce72-fbb1-4dc6-899b-c8a0df1ae085"
+		static let apiKey = "0f049b45-e892-4284-aa68-b68edcecba5a"
 		static let limit = 5000
 
 		case getIdMap
