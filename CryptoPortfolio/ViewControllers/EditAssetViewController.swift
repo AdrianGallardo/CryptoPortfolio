@@ -92,14 +92,14 @@ class EditAssetViewController: UIViewController {
 
 	// MARK: - Auxiliar Functions
 	@objc func textFieldDidChange(_ textField: UITextField) {
-		guard let val = textField.text, !val.isEmpty else {
+		guard var val = textField.text, !val.isEmpty else {
 			return
 		}
 
 		if let valDouble = Double(val) {
 			switch textField {
 			case cryptoTextField:
-				fiatTextField.text = String(format: "%.2f", valDouble * asset.price)
+				fiatTextField.text = String(format: "%.4f", valDouble * asset.price)
 				break
 			case fiatTextField:
 				cryptoTextField.text = String(format: "%.4f", valDouble / asset.price)
@@ -109,9 +109,12 @@ class EditAssetViewController: UIViewController {
 			}
 
 			totalCryptoLabel.text = cryptoTextField.text! + " " + asset.symbol!
-			totalFiatLabel.text = (self.fiatSign ?? "$") + fiatTextField.text!
+			totalFiatLabel.text = (fiatSign ?? "$") + fiatTextField.text!
 		} else {
-			textField.text = String(val.dropLast())
+			if val.filter({ $0 == "."}).count > 1 {
+				val.remove(at: val.lastIndex(of: ".")!)
+				textField.text = val
+			}
 		}
 	}
 

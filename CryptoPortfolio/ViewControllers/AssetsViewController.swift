@@ -193,12 +193,24 @@ extension AssetsViewController: UITableViewDataSource, UITableViewDelegate {
 
 			deleteAlert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
 
+			if let popoverController = deleteAlert.popoverPresentationController {
+				popoverController.sourceView = self.view
+				popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+				popoverController.permittedArrowDirections = []
+			}
+
 			self.present(deleteAlert, animated: true)
 		}))
 
 		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
-		self.present(alert, animated: true)
+		if let popoverController = alert.popoverPresentationController {
+			popoverController.sourceView = self.view
+			popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+			popoverController.permittedArrowDirections = []
+		}
+
+		self.present(alert, animated: true, completion: nil)
 	}
 
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
