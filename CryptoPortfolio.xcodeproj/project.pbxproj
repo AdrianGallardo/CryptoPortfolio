@@ -20,6 +20,7 @@
 		759E13602655AF2A00A206C7 /* CryptoPortfolio.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 759E135E2655AF2A00A206C7 /* CryptoPortfolio.xcdatamodeld */; };
 		75CEE17D26CE2A3300B05F56 /* EditAssetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CEE17C26CE2A3300B05F56 /* EditAssetViewController.swift */; };
 		75DEF1E0264428940065B9CE /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DEF1DF264428940065B9CE /* Client.swift */; };
+		75E19442280A6EA000F27646 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E19441280A6EA000F27646 /* NetworkMonitor.swift */; };
 		75E5B60326321F110024EEB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E5B60226321F110024EEB8 /* AppDelegate.swift */; };
 		75E5B60526321F110024EEB8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E5B60426321F110024EEB8 /* SceneDelegate.swift */; };
 		75E5B60726321F110024EEB8 /* AssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E5B60626321F110024EEB8 /* AssetsViewController.swift */; };
@@ -67,6 +68,7 @@
 		759E135F2655AF2A00A206C7 /* CryptoPortfolio.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CryptoPortfolio.xcdatamodel; sourceTree = "<group>"; };
 		75CEE17C26CE2A3300B05F56 /* EditAssetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAssetViewController.swift; sourceTree = "<group>"; };
 		75DEF1DF264428940065B9CE /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		75E19441280A6EA000F27646 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		75E5B5FF26321F110024EEB8 /* CryptoPortfolio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoPortfolio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75E5B60226321F110024EEB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75E5B60426321F110024EEB8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				75DEF1DF264428940065B9CE /* Client.swift */,
+				75E19441280A6EA000F27646 /* NetworkMonitor.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				75FD2FBA26E5677200735023 /* PercentChangeSettingsViewController.swift in Sources */,
 				751D004A26E08EEB00073B3E /* SettingsViewController.swift in Sources */,
 				758C3DA9268C23E500617761 /* DataController.swift in Sources */,
+				75E19442280A6EA000F27646 /* NetworkMonitor.swift in Sources */,
 				75CEE17D26CE2A3300B05F56 /* EditAssetViewController.swift in Sources */,
 				75FD2FBC26E5870600735023 /* FiatMapResponse.swift in Sources */,
 				7577720B26D49A3000F50F36 /* InfoViewController.swift in Sources */,
