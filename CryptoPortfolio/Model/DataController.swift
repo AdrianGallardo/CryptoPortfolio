@@ -22,7 +22,6 @@ class DataController {
 	}
 
 	func load(completion: (() -> Void)? = nil) {
-//		print("Load")
 		persistentContainer.loadPersistentStores { (storeDescription, error) in
 			guard error == nil else {
 				fatalError(error!.localizedDescription)
@@ -35,7 +34,7 @@ class DataController {
 	}
 	
 	func updateQuotes(interval: TimeInterval = 60) {
-		print("Update Quotes")
+		print("Data Controller Update Quotes")
 		guard interval > 0 else {
 			print("interval must be a positive number")
 			return

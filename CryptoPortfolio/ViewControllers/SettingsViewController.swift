@@ -17,7 +17,6 @@ class SettingsViewController: UITableViewController {
 
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
-//		print("SettingsViewController: viewDidLoad()")
 		super.viewDidLoad()
 	}
 

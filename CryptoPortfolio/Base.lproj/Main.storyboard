@@ -1288,7 +1288,7 @@
                                                         <rect key="frame" x="0.0" y="486" width="414" height="410"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7lP-vt-53q">
-                                                                <rect key="frame" x="16" y="0.0" width="382" height="394"/>
+                                                                <rect key="frame" x="16" y="16" width="382" height="378"/>
                                                                 <attributedString key="attributedText">
                                                                     <fragment content="Description">
                                                                         <attributes>
@@ -1304,7 +1304,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="7lP-vt-53q" secondAttribute="trailing" constant="16" id="PrR-y1-yGN"/>
                                                             <constraint firstAttribute="bottom" secondItem="7lP-vt-53q" secondAttribute="bottom" constant="16" id="Qq6-MX-j5P"/>
-                                                            <constraint firstItem="7lP-vt-53q" firstAttribute="top" secondItem="UB0-Nl-ulC" secondAttribute="top" id="Y35-uU-BO0"/>
+                                                            <constraint firstItem="7lP-vt-53q" firstAttribute="top" secondItem="UB0-Nl-ulC" secondAttribute="top" constant="16" id="Y35-uU-BO0"/>
                                                             <constraint firstItem="7lP-vt-53q" firstAttribute="leading" secondItem="UB0-Nl-ulC" secondAttribute="leading" constant="16" id="s7A-7a-Vmi"/>
                                                         </constraints>
                                                     </view>

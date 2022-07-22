@@ -139,7 +139,6 @@ class DetailViewController: UIViewController {
 	}
 
 	fileprivate func configActivityView(animating: Bool) {
-//		print("animating " + String(animating))
 		if animating {
 			self.activityIndicator.startAnimating()
 		} else {

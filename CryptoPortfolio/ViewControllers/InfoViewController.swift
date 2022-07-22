@@ -21,7 +21,6 @@ class InfoViewController: UIViewController {
 
 	// MARK: - Lifecycle
 	override func viewDidLoad() {
-//		print("InfoViewController: viewDidLoad")
 		super.viewDidLoad()
 
 		tableView.rowHeight = 81
@@ -33,7 +32,6 @@ class InfoViewController: UIViewController {
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
-//		print(" InfoViewController: viewWillAppear")
 		self.navigationController?.isNavigationBarHidden = true
 	}
 
@@ -43,7 +41,6 @@ class InfoViewController: UIViewController {
 
 	// MARK: - Auxiliar Functions
 	fileprivate func setupListings() {
-//		print("InfoViewController: setupListings")
 		Client.requestListings(convert: fiatId!) { listings, error in
 			guard let listings = listings else{
 				print("setupListings error")
@@ -83,10 +80,8 @@ extension InfoViewController: UITableViewDataSource, UITableViewDelegate {
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if !searchToken.isEmpty {
-//			print("search number of rows: \(searchToken.count)")
 			return searchToken.count
 		} else {
-//			print("number of rows: \(listings.count)")
 			return listings.count
 		}
 	}

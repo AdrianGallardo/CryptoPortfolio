@@ -35,7 +35,7 @@ class AssetsViewController: UIViewController {
 		print("viewDidLoad")
 
 		assetsTableView.rowHeight = 107;
-//		NotificationCenter.default.addObserver(self, selector: #selector(showOfflineDeviceUI(notification:)), name: NSNotification.Name.connectivityStatus, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(showOfflineDeviceUI(notification:)), name: NSNotification.Name.connectivityStatus, object: nil)
 		if NetworkMonitor.shared.isConnected {
 			print("Connected")
 		} else {
@@ -54,6 +54,7 @@ class AssetsViewController: UIViewController {
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
+		print("viewWillAppear")
 		if NetworkMonitor.shared.isConnected {
 			print("Connected")
 		} else {
