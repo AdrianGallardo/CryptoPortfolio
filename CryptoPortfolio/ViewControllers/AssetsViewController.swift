@@ -32,25 +32,12 @@ class AssetsViewController: UIViewController {
 //	MARK: - Lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		print("viewDidLoad")
 
 		assetsTableView.rowHeight = 107;
-		NotificationCenter.default.addObserver(self, selector: #selector(showOfflineDeviceUI(notification:)), name: NSNotification.Name.connectivityStatus, object: nil)
-		/*if NetworkMonitor.shared.isConnected {
-			print("AssetsViewController viewDidLoad - Connected")
-		} else {
-			print("AssetsViewController viewDidLoad - Disconnected1")
-		}*/
 		setupListings()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
-		print("viewWillAppear")
-		/*if NetworkMonitor.shared.isConnected {
-			print("AssetsViewController viewWillAppear - Connected")
-		} else {
-			print("AssetsViewController viewWillAppear - Disconnected")
-		}*/
 		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
 		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
 		timeFrame = UserDefaults.standard.object(forKey: "timeFrame") as? String
@@ -110,15 +97,6 @@ class AssetsViewController: UIViewController {
 			addVC.listings = self.listings
 			addVC.dataController = self.dataController
 		}
-	}
-
-	@objc func showOfflineDeviceUI(notification: Notification) {
-		print("showNotification")
-		/*if NetworkMonitor.shared.isConnected {
-			print("AssetsViewController showOfflineDeviceUI - Connected")
-		} else {
-			print("AssetsViewController showOfflineDeviceUI - Not connected")
-		}*/
 	}
 
 	fileprivate func setupListings() {
