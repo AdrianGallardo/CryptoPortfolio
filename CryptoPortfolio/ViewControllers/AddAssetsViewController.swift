@@ -11,10 +11,13 @@ import UIKit
 class AddAssetsViewController: UIViewController {
 	@IBOutlet weak var searchBar: UISearchBar!
 	@IBOutlet weak var tableView: UITableView!
+	@IBOutlet weak var activityIndicatorView: UIView!
+	@IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
 	var listings: [CoinData] = []
 	var searchToken: [CoinData] = []
 	var dataController: DataController!
+	var fiatId: Int?
 
 // MARK: - Lifecycle
 	override func viewDidLoad() {
@@ -22,13 +25,38 @@ class AddAssetsViewController: UIViewController {
 
 		tableView.rowHeight = 81
 		searchBar.searchTextField.leftView?.tintColor = UIColor(red: 199, green: 197, blue: 197, alpha: 1.0)
+		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
 
-		navigationController?.navigationBar.barTintColor = UIColor(red: 0.14, green: 0.15, blue: 0.15, alpha: 1.00)
-		navigationController?.navigationBar.tintColor = UIColor.white
+		configActivityView(animating: true)
+		setupListings()
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		self.navigationController?.isNavigationBarHidden = false
+	}
+
+	// MARK: - Auxiliar Functions
+	fileprivate func setupListings() {
+		Client.requestListings(convert: fiatId!) { listings, error in
+			guard let listings = listings else{
+				print("setupListings error")
+				return
+			}
+			self.listings = listings
+			self.tableView.reloadData()
+			self.configActivityView(animating: false)
+		}
+	}
+
+	fileprivate func configActivityView(animating: Bool) {
+		if animating {
+			self.activityIndicator.startAnimating()
+		} else {
+			self.activityIndicator.stopAnimating()
+		}
+		self.tableView.isHidden = animating
+		self.activityIndicator.isHidden = !animating
+		self.activityIndicatorView.isHidden = !animating
 	}
 }
 

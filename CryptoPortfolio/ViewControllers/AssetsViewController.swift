@@ -138,30 +138,8 @@ class AssetsViewController: UIViewController {
 		self.activityIndicator.isHidden = !animating
 		self.activityIndicatorView.isHidden = !animating
 	}
-}
 
-// MARK: - UITableView Delegate
-extension AssetsViewController: UITableViewDataSource, UITableViewDelegate {
-	func numberOfSections(in tableView: UITableView) -> Int {
-		return fetchedResultsController.sections?.count ?? 1
-	}
-
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return fetchedResultsController.sections?[0].numberOfObjects ?? 0
-	}
-
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let asset = fetchedResultsController.object(at: indexPath)
-
-		let cell = tableView.dequeueReusableCell(withIdentifier: "assetViewCell") as! AssetViewCell
-		cell.setAsset(asset: asset, sign: fiatSign!, timeFrame: timeFrame!)
-
-		return cell
-	}
-
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let asset = fetchedResultsController.object(at: indexPath)
-
+	fileprivate func alertAsset(asset: Asset, indexPath: IndexPath){
 		let alert = UIAlertController(title: (asset.name ?? "Asset"), message: self.formattedValue(asset.total, decimals: 4) + " " + asset.symbol!, preferredStyle: .actionSheet)
 
 		alert.addAction(UIAlertAction(title: "Edit", style: .default, handler: { action in
@@ -210,6 +188,31 @@ extension AssetsViewController: UITableViewDataSource, UITableViewDelegate {
 		}
 
 		self.present(alert, animated: true, completion: nil)
+	}
+}
+
+// MARK: - UITableView Delegate
+extension AssetsViewController: UITableViewDataSource, UITableViewDelegate {
+	func numberOfSections(in tableView: UITableView) -> Int {
+		return fetchedResultsController.sections?.count ?? 1
+	}
+
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return fetchedResultsController.sections?[0].numberOfObjects ?? 0
+	}
+
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let asset = fetchedResultsController.object(at: indexPath)
+
+		let cell = tableView.dequeueReusableCell(withIdentifier: "assetViewCell") as! AssetViewCell
+		cell.setAsset(asset: asset, sign: fiatSign!, timeFrame: timeFrame!)
+
+		return cell
+	}
+
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let asset = fetchedResultsController.object(at: indexPath)
+		alertAsset(asset: asset, indexPath: indexPath)
 	}
 
 	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
