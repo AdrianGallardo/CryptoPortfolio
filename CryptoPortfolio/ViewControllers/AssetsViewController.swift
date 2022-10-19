@@ -36,30 +36,21 @@ class AssetsViewController: UIViewController {
 
 		assetsTableView.rowHeight = 107;
 		NotificationCenter.default.addObserver(self, selector: #selector(showOfflineDeviceUI(notification:)), name: NSNotification.Name.connectivityStatus, object: nil)
-		if NetworkMonitor.shared.isConnected {
-			print("Connected")
+		/*if NetworkMonitor.shared.isConnected {
+			print("AssetsViewController viewDidLoad - Connected")
 		} else {
-			print("Disconnected")
-		}
+			print("AssetsViewController viewDidLoad - Disconnected1")
+		}*/
 		setupListings()
-	}
-
-	@objc func showOfflineDeviceUI(notification: Notification) {
-		print("showNotification")
-		if NetworkMonitor.shared.isConnected {
-			print("Connected")
-		} else {
-			print("Not connected")
-		}
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
 		print("viewWillAppear")
-		if NetworkMonitor.shared.isConnected {
-			print("Connected")
+		/*if NetworkMonitor.shared.isConnected {
+			print("AssetsViewController viewWillAppear - Connected")
 		} else {
-			print("Disconnected")
-		}
+			print("AssetsViewController viewWillAppear - Disconnected")
+		}*/
 		fiatId = UserDefaults.standard.object(forKey: "idFiatCurrency") as? Int
 		fiatSign = UserDefaults.standard.object(forKey: "signFiatCurrency") as? String
 		timeFrame = UserDefaults.standard.object(forKey: "timeFrame") as? String
@@ -121,11 +112,19 @@ class AssetsViewController: UIViewController {
 		}
 	}
 
+	@objc func showOfflineDeviceUI(notification: Notification) {
+		print("showNotification")
+		/*if NetworkMonitor.shared.isConnected {
+			print("AssetsViewController showOfflineDeviceUI - Connected")
+		} else {
+			print("AssetsViewController showOfflineDeviceUI - Not connected")
+		}*/
+	}
+
 	fileprivate func setupListings() {
 		configActivityView(animating: true)
 		Client.requestListings(convert: UserDefaults.standard.object(forKey: "idFiatCurrency") as! Int) { listings, error in
 			guard let listings = listings else {
-				print("setupListings error")
 				return
 			}
 			self.listings = listings

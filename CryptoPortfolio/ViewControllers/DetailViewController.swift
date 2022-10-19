@@ -46,7 +46,6 @@ class DetailViewController: UIViewController {
 
 		Client.getQuotes(id: token.id, convert: fiatId!) { quotesData, error in
 			guard let quotesData = quotesData else {
-				print("DetailVC getQuotes error")
 				return
 			}
 			let quotes = quotesData.quote[String(self.fiatId!)]!
@@ -87,11 +86,9 @@ class DetailViewController: UIViewController {
 
 			Client.getMetadata(id: self.token.id) { metadata, error in
 				guard let metadata = metadata else {
-					print("DetailVC metadata error")
 					return
 				}
 				guard let urlLogo = URL(string: metadata.logo) else {
-					print("DetailVC urlLogo error")
 					return
 				}
 
@@ -102,7 +99,6 @@ class DetailViewController: UIViewController {
 
 				Client.downloadLogo(url: urlLogo) { data, error in
 					guard let data = data else {
-						print("DetailVC dataLogo error")
 						return
 					}
 					self.logoImageView.image = UIImage(data: data)

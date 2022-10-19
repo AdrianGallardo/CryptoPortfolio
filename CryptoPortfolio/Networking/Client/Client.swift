@@ -76,6 +76,7 @@ class Client {
 			if let response = response {
 				completion(response.data[String(id)], nil)
 			} else {
+				
 				completion(nil, error)
 			}
 		}
@@ -90,7 +91,10 @@ class Client {
 
 		var request = URLRequest(url: url)
 		request.setValue(Endpoints.apiKey, forHTTPHeaderField: "X-CMC_PRO_API_KEY")
-		let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+		let configuration = URLSessionConfiguration.default
+		configuration.timeoutIntervalForRequest = 15
+		let session = URLSession(configuration: configuration)
+		let task = session.dataTask(with: request) { (data, response, error) in
 			guard let data = data else {
 				DispatchQueue.main.async {
 					completion(nil, error)

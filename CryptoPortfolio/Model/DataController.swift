@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 import CoreData
 
 class DataController {
@@ -34,7 +35,7 @@ class DataController {
 	}
 	
 	func updateQuotes(interval: TimeInterval = 60) {
-		print("Data Controller Update Quotes")
+		print("Data Controller - Updating Quotes")
 		guard interval > 0 else {
 			print("interval must be a positive number")
 			return
@@ -57,7 +58,10 @@ class DataController {
 			for asset in result {
 				Client.getQuotes(id: Int(asset.id), convert: fiatId!) { quotesData, error in
 					guard let quotesData = quotesData else {
-						print("updateQuotes getQuotes error")
+						let alertController = UIAlertController(title: "Attention", message: "\nPlease review your internet connection", preferredStyle: .alert)
+						alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+						UIApplication.shared.windows[0].rootViewController?.present(alertController, animated: true, completion: nil)
+						print("updateQuotes - " + String(reflecting: error?.localizedDescription))
 						return
 					}
 					let quotes = quotesData.quote[String(fiatId!)]!

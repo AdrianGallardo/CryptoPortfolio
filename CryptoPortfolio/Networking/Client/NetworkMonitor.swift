@@ -24,12 +24,12 @@ final class NetworkMonitor {
 
 	public func startMonitoring() {
 		print("startMonitoring")
+		monitor.start(queue: queue)
 		monitor.pathUpdateHandler = { [weak self] path in
 			self?.isConnected = path.status != .unsatisfied
 			self?.isExpensive = path.isExpensive
 			self?.connectionType = NWInterface.InterfaceType.allCases.filter { path.usesInterfaceType($0) }.first
 		}
-		monitor.start(queue: queue)
 	}
 
 	public func stopMonitoring() {
